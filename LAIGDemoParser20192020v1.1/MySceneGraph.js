@@ -227,7 +227,137 @@ class MySceneGraph {
      * @param {view block element} viewsNode
      */
     parseView(viewsNode) {
-        this.onXMLMinorError("To do: Parse views and create cameras.");
+
+        var children = viewsNode.children;
+
+        this.views = [];
+        var numViews = 0;
+        
+        var grandChildren = [];
+
+        for (var i = 0; i < children.length; i++) {
+
+            var viewProperties = [];
+            
+            if (children[i].nodeName != "perspective" && children[i].nodeName != "ortho") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+            
+            // Get id of the current view.
+            var viewId = this.reader.getString(children[i], 'id');
+            if (viewId == null)
+                return "no ID defined for view";
+
+            // Checks for repeated IDs.
+            if (this.views[viewId] != null)
+                return "ID must be unique for each view (conflict: ID = " + viewId + ")";
+
+            viewProperties.push(children[i].nodeName);
+            viewProperties.push(viewId);
+            
+            //Near property
+            var near = this.reader.getFloat(children[i], "near"); 
+            if (!(near != null && !isNaN(near)))
+                return "unable to parse near property of view for ID = " + viewId;
+            else viewProperties.push(near);
+
+            //Far property
+            var far = this.reader.getFloat(children[i], "far"); 
+            if (!(far != null && !isNaN(far)))
+                return "unable to parse far property of view for ID = " + viewId;
+            else viewProperties.push(far);
+
+            grandChildren = children[i].children;
+            // Specifications for the current view.
+
+            var nodeNames = [];
+            for (var j = 0; j < grandChildren.length; j++) {
+                nodeNames.push(grandChildren[j].nodeName);
+            }
+            
+            var fromPos = [];
+            var fromIndex = nodeNames.indexOf("from");            
+            if (fromIndex != -1) {
+                var aux = this.parseCoordinates3D(grandChildren[fromIndex], "from position of view for ID " + viewId);
+                if (!Array.isArray(aux))
+                    return aux;
+
+                fromPos = aux;
+            }
+            else
+                return "from position of view undefined for ID = " + viewId;
+
+            var toPos = [];
+            var toIndex = nodeNames.indexOf("to");            
+            if (toIndex != -1) {
+                var aux = this.parseCoordinates3D(grandChildren[toIndex], "to position of view for ID " + viewId);
+                if (!Array.isArray(aux))
+                    return aux;
+
+                toPos = aux;
+            }
+            else
+                return "to position of view undefined for ID = " + viewId;
+
+            viewProperties.push(...[fromPos, toPos]);
+            
+            if (children[i].nodeName == "perspective") {
+                //Angle property
+                var angle = this.reader.getFloat(children[i], "angle"); 
+                if (!(angle != null && !isNaN(angle)))
+                    return "unable to parse angle property of view for ID = " + viewId; 
+                else viewProperties.push(angle);
+            }           
+            else if (children[i].nodeName == "ortho") {
+
+                var upDirection = [];
+                var upIndex = nodeNames.indexOf("up");            
+                if (upIndex != -1) {
+                    var aux = this.parseCoordinates3D(grandChildren[upIndex], "up direction of view for ID " + viewId);
+                    if (!Array.isArray(aux))
+                        return aux;
+
+                    upDirection = aux;
+                }
+                else
+                    upDirection = [0,1,0];
+
+                viewProperties.push(upDirection);
+
+                //Left property
+                var left = this.reader.getFloat(children[i], "left")
+                if (!(left != null && !isNaN(left)))
+                    return "unable to parse left property of view for ID = " + viewId; 
+                else viewProperties.push(left);
+                
+                //Right property
+                var right = this.reader.getFloat(children[i], "right")
+                if (!(right != null && !isNaN(right)))
+                    return "unable to parse right property of view for ID = " + viewId; 
+                else viewProperties.push(right);
+                
+                //Top property
+                var top = this.reader.getFloat(children[i], "top")
+                if (!(top != null && !isNaN(top)))
+                    return "unable to parse top property of view for ID = " + viewId; 
+                else viewProperties.push(top);
+                
+                //Bottom property
+                var bottom = this.reader.getFloat(children[i], "bottom")
+                if (!(bottom != null && !isNaN(bottom)))
+                    return "unable to parse bottom property of view for ID = " + viewId; 
+                else viewProperties.push(bottom);
+            }
+
+            this.views[viewId] = viewProperties;
+            numViews++;
+        }
+
+        if (numViews == 0)
+            return "at least one view must be defined";
+        
+        this.log("Parsed views");
 
         return null;
     }
@@ -391,9 +521,50 @@ class MySceneGraph {
      * @param {textures block element} texturesNode
      */
     parseTextures(texturesNode) {
+        var children = texturesNode.children;
 
-        //For each texture in textures block, check ID and file URL
-        this.onXMLMinorError("To do: Parse textures.");
+        this.textures = [];
+        var numTextures = 0;
+
+        for (var i = 0; i < children.length; i++) {
+
+            var currentTexture = [];
+
+            if (children[i].nodeName != "texture") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+            
+            // Get id of the current texture.
+            var textureId = this.reader.getString(children[i], 'id');
+            if (textureId == null)
+                return "no ID defined for texture";
+            
+            currentTexture.push(textureId);
+
+            // Checks for repeated IDs.
+            if (this.textures[textureId] != null)
+                return "ID must be unique for each texture (conflict: ID = " + textureId + ")";
+
+            var fileName = this.reader.getString(children[i], 'file');
+            if (fileName == null)
+                return "no file defined for texture with id " + textureId;
+            
+            if (!fileName.startsWith("scenes/images"))
+                return "File must be placed in folder \'scenes/images\'";
+            if ( !(fileName.endsWith(".jpg") || fileName.endsWith(".png")) ) 
+                return "File must have the extension \'.jpg\' or \'.png\'";
+            
+            currentTexture.push(fileName);
+            
+            this.textures[textureId] = currentTexture;
+            numTextures++;
+        }
+
+        if (numTextures == 0)
+            return "at least one texture must be defined";
+        
+        this.log("Parsed textures")
         return null;
     }
 
@@ -424,7 +595,7 @@ class MySceneGraph {
 
             // Checks for repeated IDs.
             if (this.materials[materialID] != null)
-                return "ID must be unique for each light (conflict: ID = " + materialID + ")";
+                return "ID must be unique for each material (conflict: ID = " + materialID + ")";
 
             //Continue here
             this.onXMLMinorError("To do: Parse materials.");

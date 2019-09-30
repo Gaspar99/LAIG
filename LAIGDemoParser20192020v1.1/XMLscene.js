@@ -23,8 +23,6 @@ class XMLscene extends CGFscene {
 
         this.sceneInited = false;
 
-        this.initCameras();
-
         this.enableTextures(true);
 
         this.gl.clearDepth(100.0);
@@ -40,7 +38,33 @@ class XMLscene extends CGFscene {
      * Initializes the scene cameras.
      */
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.cameras = [];
+        this.camerasIDs = [];
+
+        var newCamera;
+
+        //Reads the views from the scene graph.
+        for (var key in this.graph.views) {
+
+            if (this.graph.views.hasOwnProperty(key)) {
+                var view = this.graph.views[key];
+
+                this.camerasIDs.push(view[1]);
+
+                if (view[0] == "perspective") 
+                    newCamera = new CGFcamera(view[6] * DEGREE_TO_RAD, view[2], view[3], view[4], view[5]);
+                else if (view[0] == "ortho") 
+                    newCamera = new CGFcameraOrtho(view[7], view[8], view[10], view[9], view[2], view[3], view[4], view[5], view[6]);
+                
+                this.cameras.push(newCamera);
+            }
+        }
+
+        this.selectedView = this.camerasIDs[0];
+        this.interface.gui.add(this, 'selectedView', this.camerasIDs).name('Selected View').onChange(this.updateActiveCamera.bind(this));
+
+        this.camera = this.cameras[0];
+        this.interface.setActiveCamera(this.camera);
     }
     /**
      * Initializes the scene lights with the values read from the XML file.
@@ -81,6 +105,25 @@ class XMLscene extends CGFscene {
         }
     }
 
+    /**
+     * Loads the textures defines in the XML file.
+     */
+    loadTextures() {
+        this.textures = [];
+
+        var i = 0;
+
+        for (var key in this.graph.textures) { 
+
+            if (this.graph.textures.hasOwnProperty(key)) {
+                var texture = this.graph.textures[key];
+
+                textures[i].push(texture[0]);
+                textures[i].push(new CGFtexture(this, texture[1]));
+            }
+        }
+    }
+
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);
@@ -91,6 +134,9 @@ class XMLscene extends CGFscene {
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
     onGraphLoaded() {
+
+        this.initCameras();
+
         this.axis = new CGFaxis(this, this.graph.referenceLength);
 
         this.gl.clearColor(this.graph.background[0], this.graph.background[1], this.graph.background[2], this.graph.background[3]);
@@ -100,6 +146,11 @@ class XMLscene extends CGFscene {
         this.initLights();
 
         this.sceneInited = true;
+    }
+
+    updateActiveCamera() {
+        this.camera = this.cameras[this.camerasIDs.indexOf(this.selectedView)];
+        this.interface.setActiveCamera(this.camera);
     }
 
     /**
@@ -112,12 +163,14 @@ class XMLscene extends CGFscene {
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
-        // Initialize Model-View matrix as identity (no transformation
-        this.updateProjectionMatrix();
-        this.loadIdentity();
+        // Initialize Model-View matrix as identity (no transformation)
+        if(this.sceneInited) {
+            this.updateProjectionMatrix();
+            this.loadIdentity();
 
-        // Apply transformations corresponding to the camera position relative to the origin
-        this.applyViewMatrix();
+            // Apply transformations corresponding to the camera position relative to the origin
+            this.applyViewMatrix();
+        }
 
         this.pushMatrix();
         this.axis.display();

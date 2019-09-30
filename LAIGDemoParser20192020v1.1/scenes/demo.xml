@@ -3,9 +3,14 @@
 
     <views default="defaultCamera">
         <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-            <from x="30" y="15" z="30" />
+            <from x="5" y="5" z="5" />
             <to x="0" y="-2" z="0" />
         </perspective>
+
+        <ortho id="orthoCamera" near="0.1" far="500" left="200" right="200" top="200" bottom="200">
+            <from x="10" y="6" z="7" />
+            <to x="0" y="0" z="0" />
+        </ortho>
     </views>
 
     <ambient>
