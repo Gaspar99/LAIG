@@ -118,8 +118,8 @@ class XMLscene extends CGFscene {
             if (this.graph.textures.hasOwnProperty(key)) {
                 var texture = this.graph.textures[key];
 
-                textures[i].push(texture[0]);
-                textures[i].push(new CGFtexture(this, texture[1]));
+                this.textures[i].push(texture[0]); //Texture ID
+                this.textures[i].push(new CGFtexture(this, texture[1]));
             }
         }
     }
@@ -135,15 +135,17 @@ class XMLscene extends CGFscene {
      */
     onGraphLoaded() {
 
-        this.initCameras();
-
         this.axis = new CGFaxis(this, this.graph.referenceLength);
 
         this.gl.clearColor(this.graph.background[0], this.graph.background[1], this.graph.background[2], this.graph.background[3]);
 
         this.setGlobalAmbientLight(this.graph.ambient[0], this.graph.ambient[1], this.graph.ambient[2], this.graph.ambient[3]);
 
+        this.initCameras();
+
         this.initLights();
+
+        this.loadTextures();
 
         this.sceneInited = true;
     }
