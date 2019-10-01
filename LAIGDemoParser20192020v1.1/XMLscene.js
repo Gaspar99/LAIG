@@ -41,8 +41,6 @@ class XMLscene extends CGFscene {
         this.cameras = [];
         this.camerasIDs = [];
 
-        var newCamera;
-
         //Reads the views from the scene graph.
         for (var key in this.graph.views) {
 
@@ -50,6 +48,8 @@ class XMLscene extends CGFscene {
                 var view = this.graph.views[key];
 
                 this.camerasIDs.push(view[1]);
+
+                var newCamera;
 
                 if (view[0] == "perspective") 
                     newCamera = new CGFcamera(view[6] * DEGREE_TO_RAD, view[2], view[3], view[4], view[5]);
@@ -109,19 +109,45 @@ class XMLscene extends CGFscene {
      * Loads the textures defines in the XML file.
      */
     loadTextures() {
+    
+        this.texturesIDs = [];
         this.textures = [];
-
-        var i = 0;
 
         for (var key in this.graph.textures) { 
 
             if (this.graph.textures.hasOwnProperty(key)) {
                 var texture = this.graph.textures[key];
 
-                this.textures[i].push(texture[0]); //Texture ID
-                this.textures[i].push(new CGFtexture(this, texture[1]));
+                this.texturesIDs.push(texture[0]); 
+                this.textures.push(new CGFtexture(this, texture[1]));
             }
         }
+    }
+
+    loadMaterials() {
+
+        this.materialsIDs = [];
+        this.materials = [];
+
+        for (var key in this.graph.materials) { 
+
+            if (this.graph.materials.hasOwnProperty(key)) {
+                var material = this.graph.materials[key];
+
+                this.materialsIDs.push(material[0]);
+
+                var newMaterial = new CGFappearance(this);
+
+                newMaterial.setShininess(material[1]);
+                newMaterial.setEmission(material[2][0], material[2][1], material[2][2], material[2][3]);
+                newMaterial.setAmbient(material[3][0], material[3][1], material[3][2], material[2][3]);
+                newMaterial.setDiffuse(material[4][0], material[4][1], material[4][2], material[4][3]);
+                newMaterial.setSpecular(material[5][0], material[4][1], material[4][2], material[4][3]);
+
+                this.materials.push(newMaterial);
+            }
+        }
+
     }
 
     setDefaultAppearance() {
@@ -146,6 +172,8 @@ class XMLscene extends CGFscene {
         this.initLights();
 
         this.loadTextures();
+
+        this.loadMaterials();
 
         this.sceneInited = true;
     }
