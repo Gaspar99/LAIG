@@ -105,51 +105,6 @@ class XMLscene extends CGFscene {
         }
     }
 
-    /**
-     * Loads the textures defines in the XML file.
-     */
-    loadTextures() {
-    
-        this.texturesIDs = [];
-        this.textures = [];
-
-        for (var key in this.graph.textures) { 
-
-            if (this.graph.textures.hasOwnProperty(key)) {
-                var texture = this.graph.textures[key];
-
-                this.texturesIDs.push(texture[0]); 
-                this.textures.push(new CGFtexture(this, texture[1]));
-            }
-        }
-    }
-
-    loadMaterials() {
-
-        this.materialsIDs = [];
-        this.materials = [];
-
-        for (var key in this.graph.materials) { 
-
-            if (this.graph.materials.hasOwnProperty(key)) {
-                var material = this.graph.materials[key];
-
-                this.materialsIDs.push(material[0]);
-
-                var newMaterial = new CGFappearance(this);
-
-                newMaterial.setShininess(material[1]);
-                newMaterial.setEmission(material[2][0], material[2][1], material[2][2], material[2][3]);
-                newMaterial.setAmbient(material[3][0], material[3][1], material[3][2], material[2][3]);
-                newMaterial.setDiffuse(material[4][0], material[4][1], material[4][2], material[4][3]);
-                newMaterial.setSpecular(material[5][0], material[4][1], material[4][2], material[4][3]);
-
-                this.materials.push(newMaterial);
-            }
-        }
-
-    }
-
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);
@@ -170,10 +125,6 @@ class XMLscene extends CGFscene {
         this.initCameras();
 
         this.initLights();
-
-        this.loadTextures();
-
-        this.loadMaterials();
 
         this.sceneInited = true;
     }
