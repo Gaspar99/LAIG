@@ -3,13 +3,14 @@
 
     <views default="defaultCamera">
         <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-            <from x="5" y="5" z="5" />
+            <from x="30" y="15" z="30" />
             <to x="0" y="-2" z="0" />
         </perspective>
 
-        <ortho id="orthoCamera" near="0.1" far="500" left="200" right="200" top="200" bottom="200">
-            <from x="10" y="6" z="7" />
+        <ortho id="orthoCamera"  near="0.2" far="400" left="50" right="50" top="20" bottom="20" >
+            <from x="10" y="10" z="10" />
             <to x="0" y="0" z="0" />
+            <up x="0" y="2" z="0" /> 
         </ortho>
     </views>
 
@@ -25,6 +26,15 @@
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
         </omni>
+
+        <spot id="spotLight" enabled="1" angle="45" exponent="10">
+            <location x="10" y="10" z="10" w="10" />
+            <target x="0" y="0" z="0" />
+            <ambient r="0" g="0" b="0" a="0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="0.5" g="0.5" b="0.5" a="0.5" />
+            <attenuation constant="1.0" linear="0.0" quadratic="0.0" />
+        </spot>
     </lights>
 
     <textures>
