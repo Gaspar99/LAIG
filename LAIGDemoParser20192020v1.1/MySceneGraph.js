@@ -923,7 +923,7 @@ class MySceneGraph {
 
                     // Slices
                     var slices = this.reader.getInteger(grandChildren[0], 'slices');
-                    if (!(height != null && !isNaN(height)))
+                    if (!(slices != null && !isNaN(slices)))
                         return "unable to parse slices value of the primitive for ID = " + primitiveId;
 
                     // Loops
@@ -1094,13 +1094,17 @@ class MySceneGraph {
             if (textureID == null)
                 return "Error reading texture ID."
 
-            var length_s = this.reader.getFloat(grandChildren[textureIndex], 'length_s');
-            if (!(length_s != null && !isNaN(length_s)))
+            var length_s = this.reader.getFloat(grandChildren[textureIndex], 'length_s', false);
+            if (!(length_s != null && !isNaN(length_s))){
+                this.onXMLMinorError("Undefined length_s, defaulting to 1");
                 length_s = 1.0;
+            }
 
-            var length_t = this.reader.getFloat(grandChildren[textureIndex], 'length_t');
-            if (!(length_t != null && !isNaN(length_t)))
+            var length_t = this.reader.getFloat(grandChildren[textureIndex], 'length_t', false);
+            if (!(length_t != null && !isNaN(length_t))){
+                this.onXMLMinorError("Undefined length_t, defaulting to 1");
                 length_t = 1.0;
+            }
 
             texture.push(...[textureID, length_s, length_t]);
             currentComponent.push(texture);
@@ -1262,7 +1266,7 @@ class MySceneGraph {
         this.processNode(this.components[this.idRoot])
 
         //To test the parsing/creation of the primitives, call the display function directly
-        this.primitives['demoSphere'].display();
+        this.primitives['demoTorus'].display();
     }
 
     processNode(componentNode) {
