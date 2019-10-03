@@ -3,8 +3,8 @@
 
     <views default="defaultCamera">
         <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-            <from x="30" y="15" z="30" />
-            <to x="0" y="-2" z="0" />
+            <from x="15" y="15" z="15" />
+            <to x="0" y="0" z="0" />
         </perspective>
 
         <ortho id="orthoCamera"  near="0.2" far="400" left="50" right="50" top="20" bottom="20" >
@@ -59,8 +59,8 @@
     </transformations>
 
     <primitives>
-        <primitive id="demoRectangle">
-            <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />
+        <primitive id="demoSphere">
+            <sphere radius="3" slices="100" stacks="100" />
         </primitive>
     </primitives>
 
@@ -75,7 +75,7 @@
             </materials>
             <texture id="demoTexture"/>
             <children>
-                <primitiveref id="demoRectangle" />
+                <primitiveref id="demoSphere" />
             </children>
         </component>
     </components>
