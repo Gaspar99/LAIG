@@ -822,32 +822,32 @@ class MySceneGraph {
 
                     // x2
                     var x2 = this.reader.getFloat(grandChildren[0], 'x2');
-                    if (!(x2 != null && !isNaN(x2) && x2 > x1))
+                    if (!(x2 != null && !isNaN(x2)))
                         return "unable to parse x2 of the primitive coordinates for ID = " + primitiveId;
 
                     // y2
                     var y2 = this.reader.getFloat(grandChildren[0], 'y2');
-                    if (!(y2 != null && !isNaN(y2) && y2 > y1))
+                    if (!(y2 != null && !isNaN(y2)))
                         return "unable to parse y2 of the primitive coordinates for ID = " + primitiveId;
 
                     // z2
                     var z2 = this.reader.getFloat(grandChildren[0], 'z2');
-                    if (!(z2 != null && !isNaN(z2) && z2 > z1))
+                    if (!(z2 != null && !isNaN(z2)))
                         return "unable to parse z2 of the primitive coordinates for ID = " + primitiveId;
 
                     // x3
                     var x3 = this.reader.getFloat(grandChildren[0], 'x3');
-                    if (!(x3 != null && !isNaN(x3) && x3 > x2))
+                    if (!(x3 != null && !isNaN(x3)))
                         return "unable to parse x3 of the primitive coordinates for ID = " + primitiveId;
 
                     // y3
                     var y3 = this.reader.getFloat(grandChildren[0], 'y3');
-                    if (!(y3 != null && !isNaN(y3) && y3 > y2))
+                    if (!(y3 != null && !isNaN(y3)))
                         return "unable to parse y3 of the primitive coordinates for ID = " + primitiveId;
 
                     // z3
                     var z3 = this.reader.getFloat(grandChildren[0], 'z3');
-                    if (!(z3 != null && !isNaN(z3) && z3 > z2))
+                    if (!(z3 != null && !isNaN(z3)))
                         return "unable to parse z3 of the primitive coordinates for ID = " + primitiveId;
 
                     var triangle = new MyTriangle(this.scene, primitiveId, x1, x2, x3, y1, y2, y3, z1, z2, z3);
@@ -923,7 +923,7 @@ class MySceneGraph {
 
                     // Slices
                     var slices = this.reader.getInteger(grandChildren[0], 'slices');
-                    if (!(height != null && !isNaN(height)))
+                    if (!(slices != null && !isNaN(slices)))
                         return "unable to parse slices value of the primitive for ID = " + primitiveId;
 
                     // Loops
@@ -1090,13 +1090,17 @@ class MySceneGraph {
             if (textureID == null)
                 return "Error reading texture ID."
 
-            var length_s = this.reader.getFloat(grandChildren[textureIndex], 'length_s');
-            if (!(length_s != null && !isNaN(length_s)))
+            var length_s = this.reader.getFloat(grandChildren[textureIndex], 'length_s', false);
+            if (!(length_s != null && !isNaN(length_s))){
+                this.onXMLMinorError("Undefined length_s, defaulting to 1");
                 length_s = 1.0;
+            }
 
-            var length_t = this.reader.getFloat(grandChildren[textureIndex], 'length_t');
-            if (!(length_t != null && !isNaN(length_t)))
+            var length_t = this.reader.getFloat(grandChildren[textureIndex], 'length_t', false);
+            if (!(length_t != null && !isNaN(length_t))){
+                this.onXMLMinorError("Undefined length_t, defaulting to 1");
                 length_t = 1.0;
+            }
 
             texture.push(...[textureID, length_s, length_t]);
 
