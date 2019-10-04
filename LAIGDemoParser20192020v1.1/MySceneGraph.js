@@ -1279,7 +1279,7 @@ class MySceneGraph {
 
         var componentChildren = component.componentChildren;
         for (var i = 0; i < componentChildren.length; i++) {
-            processNode(componentChildren[i], transfMatrix);
+            this.processNode(componentChildren[i], transfMatrix);
         } 
 
     }

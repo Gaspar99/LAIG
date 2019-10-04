@@ -59,23 +59,62 @@
     </transformations>
 
     <primitives>
-        <primitive id="demoRectangle">
+        <primitive id="rectangle">
             <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />
+        </primitive>
+        <primitive id="triangle">
+            <triangle   x1="-0.5" y1="-1" z1="1" 
+                        x2="0.5" y2="1" z2="1"
+                        x3="0.5" y3="1" z3="1"/>
+        </primitive>
+        <primitive id="cylinder">
+            <cylinder base="1" top="1" height="4" slices="3" stacks="5" />
+        </primitive>
+        <primitive id="sphere">
+            <sphere radius="1" slices="5" stacks="4" />
+        </primitive>
+        <primitive id="torus">
+            <torus inner="1" outer="5" slices="10" loops="10" />
         </primitive>
     </primitives>
 
     <components>
         <component id="demoRoot">
             <transformation>
-                <translate x="0" y="0" z="1" />
-                <scale x="2" y="1" z="1" />
             </transformation>
             <materials>
                 <material id="demoMaterial" />
             </materials>
             <texture id="demoTexture"/>
             <children>
-                <primitiveref id="demoRectangle" />
+                <componentref id="leftNode" />
+                <componentref id="rightNode" />
+            </children>
+        </component>
+
+        <component id="rightNode">
+            <transformation>
+                <translate x="5" y="5" z="5" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="demoTexture"/>
+            <children>
+                <primitiveref id="torus" />
+            </children>
+        </component>
+
+        <component id="leftNode">
+            <transformation>
+                <transformationred id="demoTransform" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="demoTexture"/>
+            <children>
+                <primitiveref id="sphere" />
             </children>
         </component>
     </components>
