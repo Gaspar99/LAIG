@@ -60,7 +60,7 @@
 
     <primitives>
         <primitive id="rectangle">
-            <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />
+            <rectangle x1="-5" y1="-10" x2="5" y2="10" />
         </primitive>
         <primitive id="triangle">
             <triangle   x1="-1" y1="0" z1="0" 
@@ -68,7 +68,7 @@
                         x3="0" y3="2" z3="0"/>
         </primitive>
         <primitive id="cylinder">
-            <cylinder base="2" top="2" height="4" slices="3" stacks="5" />
+            <cylinder base="1" top="0.6" height="15" slices="15" stacks="15" />
         </primitive>
         <primitive id="sphere">
             <sphere radius="1" slices="5" stacks="4" />
@@ -87,23 +87,161 @@
             </materials>
             <texture id="texture"/>
             <children>
-                <componentref id="torusPrinter" />
-                <componentref id="spherePrinter" />
-                <componentref id="rectanglePrinter" />
-                <componentref id="trianglePrinter" />
+                <componentref id="leg1" />
+                <componentref id="leg2" />
+                <componentref id="leg3" />
+                <componentref id="leg4" />
+                <componentref id="tabletopBase" />
+                <componentref id="tabletopTop" />
+                <componentref id="tabletopSide1" />
+                <componentref id="tabletopSide2" />
+                <componentref id="tabletopSide3" />
+                <componentref id="tabletopSide4" />
             </children>
         </component>
 
-        <component id="torusPrinter">
+        <component id="leg1">
             <transformation>
-                <translate x="5" y="10" z="5" />
+                <translate x="15" y="0" z="30" />
+                <rotate axis="x" angle="-90" />
             </transformation>
             <materials>
                 <material id="material" />
             </materials>
             <texture id="texture"/>
             <children>
-                <primitiveref id="torus" />
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="leg2">
+            <transformation>
+                <translate x="-15" y="0" z="30" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="leg3">
+            <transformation>
+                <translate x="15" y="0" z="-30" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="leg4">
+            <transformation>
+                <translate x="-15" y="0" z="-30" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="tabletopBase">
+            <transformation>
+                <translate x="0" y="15" z="0" />
+                <rotate axis="x" angle="90" />
+                <scale x="4" y="3.5" z="1" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+
+        <component id="tabletopTop">
+            <transformation>
+                <translate x="0" y="17" z="0" />
+                <rotate axis="x" angle="-90" />
+                <scale x="4" y="3.5" z="1" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+
+        <component id="tabletopSide1">
+            <transformation>
+                <translate x="20" y="16" z="0" />
+                <rotate axis="y" angle="90" />
+                <scale x="7" y="0.1" z="1" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+
+        <component id="tabletopSide2">
+            <transformation>
+                <translate x="-20" y="16" z="0" />
+                <rotate axis="y" angle="-90" />
+                <scale x="7" y="0.1" z="1" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+
+        <component id="tabletopSide3">
+            <transformation>
+                <translate x="0" y="16" z="35" />
+                <scale x="4" y="0.1" z="1" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+
+        <component id="tabletopSide4">
+            <transformation>
+                <translate x="0" y="16" z="-35" />
+                <rotate axis="y" angle="180" />
+                <scale x="4" y="0.1" z="1" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <primitiveref id="rectangle" />
             </children>
         </component>
 
@@ -118,20 +256,6 @@
             <texture id="texture"/>
             <children>
                 <primitiveref id="sphere" />
-            </children>
-        </component>
-
-        <component id="rectanglePrinter">
-            <transformation>
-                <scale x="50" y="1" z="50" />
-                <rotate axis="x" angle="-90" />
-            </transformation>
-            <materials>
-                <material id="material" />
-            </materials>
-            <texture id="texture"/>
-            <children>
-                <primitiveref id="rectangle" />
             </children>
         </component>
 
