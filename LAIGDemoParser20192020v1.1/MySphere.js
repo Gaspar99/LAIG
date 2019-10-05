@@ -25,9 +25,9 @@ class MySphere extends CGFobject {
         let phi = longNumber * 2 * Math.PI / this.slices;
         let sinPhi = Math.sin(phi);
         let cosPhi = Math.cos(phi);
-        let x = sinPhi * sinTheta;
-        let y = cosTheta;
-        let z = cosPhi * sinTheta;
+        let x = cosPhi * sinTheta;
+        let y = sinPhi * sinTheta;
+        let z = cosTheta;
         let u = 1 - (longNumber / this.slices);
         let v = 1 - (latNumber / this.stacks);
         this.vertices.push(this.radius * x);
