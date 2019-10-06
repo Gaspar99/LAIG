@@ -88,8 +88,25 @@
             <texture id="texture"/>
             <children>
                 <componentref id="ground" />
+                <componentref id="tableSet" />
+            </children>
+        </component>
+
+        <component id="tableSet">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
                 <componentref id="table" />
-                <componentref id="chair" />
+                <componentref id="chair1" />
+                <componentref id="chair2" />
+                <componentref id="chair3" />
+                <componentref id="chair4" />
+                <componentref id="chair5" />
+                <componentref id="chair6" />
             </children>
         </component>
 
@@ -107,9 +124,90 @@
             </children>
         </component>
 
+        <component id="chair1">
+            <transformation>
+                <translate x="5" y="0" z="10" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="chair" />
+            </children>
+        </component>
+
+        <component id="chair2">
+            <transformation>
+                <translate x="-5" y="0" z="10" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="chair" />
+            </children>
+        </component>
+
+        <component id="chair3">
+            <transformation>
+                <translate x="5" y="0" z="-10" />
+                <rotate axis="y" angle="180" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="chair" />
+            </children>
+        </component>
+
+        <component id="chair4">
+            <transformation>
+                <translate x="-5" y="0" z="-10" />
+                <rotate axis="y" angle="180" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="chair" />
+            </children>
+        </component>
+
+        <component id="chair5">
+            <transformation>
+                <translate x="-15" y="0" z="0" />
+                <rotate axis="y" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="chair" />
+            </children>
+        </component>
+
+        <component id="chair6">
+            <transformation>
+                <translate x="15" y="0" z="0" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="chair" />
+            </children>
+        </component>
+
         <component id="chair">
             <transformation>
-                <translate x="0" y="0" z="10" />
                 <scale x="1" y="1.2" z="1" />
             </transformation>
             <materials>
@@ -129,8 +227,8 @@
         <component id="chairBack">
             <transformation>
                 <translate x="0" y="7" z="2.5" />
+                <scale x="5" y="8" z="1" />
                 <rotate axis="x" angle="-90"/>
-                <scale x="5" y="1.2" z="5" />
             </transformation>
             <materials>
                 <material id="material" />
