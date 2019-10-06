@@ -63,9 +63,9 @@
             <rectangle x1="-0.5" y1="-0.5" x2="0.5" y2="0.5" />
         </primitive>
         <primitive id="triangle">
-            <triangle   x1="-1" y1="0" z1="0" 
-                        x2="1" y2="0" z2="0"
-                        x3="0" y3="2" z3="0"/>
+            <triangle   x1="-0.5" y1="0" z1="0" 
+                        x2="0.5" y2="0" z2="0"
+                        x3="0" y3="1" z3="0"/>
         </primitive>
         <primitive id="tableLeg">
             <cylinder base="1" top="0.6" height="8" slices="15" stacks="15" />
@@ -87,7 +87,7 @@
             </materials>
             <texture id="texture"/>
             <children>
-                <componentref id="ground" />
+                <componentref id="house" />
                 <componentref id="tableSet" />
             </children>
         </component>
@@ -485,6 +485,140 @@
         <component id="cubeSide4">
             <transformation>
                 <translate x="0" y="0.5" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <primitiveref id="unitSquare" />
+            </children>
+        </component>
+
+        <component id="house">
+            <transformation>
+                <translate x="-50" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="roof" />
+                <componentref id="houseWalls" />
+                <componentref id="chimney" />
+            </children>
+        </component>
+
+        <component id="chimney">
+            <transformation>
+                <translate x="12" y="40" z="12" />
+                <scale x="7" y="12" z="7" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="houseWalls">
+            <transformation>
+                <scale x="40" y="40" z="40" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="roof">
+            <transformation>
+                <translate x="0" y="40" z="0" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="roofSide1" />
+                <componentref id="roofSide2" />
+                <componentref id="roofSide3" />
+                <componentref id="roofSide4" />
+                <componentref id="roofBase" />
+            </children>
+        </component>
+
+        <component id="roofSide1">
+            <transformation>
+                <translate x="0" y="0" z="20" />
+                <scale x="40" y="10" z="1" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <primitiveref id="triangle" />
+            </children>
+        </component>
+
+        <component id="roofSide2">
+            <transformation>
+                <translate x="0" y="0" z="-20" />
+                <rotate axis="y" angle="180" />
+                <scale x="40" y="10" z="1" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <primitiveref id="triangle" />
+            </children>
+        </component>
+
+        <component id="roofSide3">
+            <transformation>
+                <translate x="10" y="5" z="0" />
+                <rotate axis="z" angle="-26.565" />
+                <rotate axis="x" angle="-90" />
+                <scale x="22.3607" y="40" z="1" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <primitiveref id="unitSquare" />
+            </children>
+        </component>
+
+        <component id="roofSide4">
+            <transformation>
+                <translate x="-10" y="5" z="0" />
+                <rotate axis="z" angle="26.565" />
+                <rotate axis="x" angle="-90" />
+                <scale x="22.3607" y="40" z="1" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <primitiveref id="unitSquare" />
+            </children>
+        </component>
+
+        <component id="roofBase">
+            <transformation>
+                <rotate axis="x" angle="90" />
+                <scale x="40" y="40" z="1" />
             </transformation>
             <materials>
                 <material id="material" />
