@@ -3,8 +3,8 @@
 
     <views default="defaultCamera">
         <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-            <from x="70" y="70" z="70" />
-            <to x="0" y="-2" z="0" />
+            <from x="100" y="60" z="100" />
+            <to x="-30" y="0" z="-50" />
         </perspective>
 
         <ortho id="orthoCamera"  near="0.2" far="400" left="50" right="50" top="20" bottom="20" >
@@ -70,11 +70,20 @@
         <primitive id="tableLeg">
             <cylinder base="1" top="0.6" height="8" slices="15" stacks="15" />
         </primitive>
+        <primitive id="treeTrunk">
+            <cylinder base="4" top="2" height="30" slices="15" stacks="15" />
+        </primitive>
+        <primitive id="basicCylinder">
+            <cylinder base="0.5" top="0.5" height="1" slices="15" stacks="15" />
+        </primitive>
+        <primitive id="treeBush">
+            <sphere radius="18" slices="5" stacks="5" />
+        </primitive>
         <primitive id="sphere">
-            <sphere radius="1" slices="5" stacks="4" />
+            <sphere radius="1" slices="10" stacks="10" />
         </primitive>
         <primitive id="torus">
-            <torus inner="1" outer="5" slices="10" loops="10" />
+            <torus inner="1" outer="5" slices="20" loops="20" />
         </primitive>
     </primitives>
 
@@ -87,8 +96,12 @@
             </materials>
             <texture id="texture"/>
             <children>
+                <componentref id="ground" />
                 <componentref id="house" />
+                <componentref id="tree" />
                 <componentref id="tableSet" />
+                <componentref id="football" />
+                <componentref id="sun" />
             </children>
         </component>
 
@@ -112,7 +125,7 @@
 
         <component id="ground">
             <transformation>
-                <scale x="30" y="30" z="30" />
+                <scale x="500" y="1" z="500" />
                 <rotate axis="x" angle="-90" />
             </transformation>
             <materials>
@@ -629,10 +642,10 @@
             </children>
         </component>
 
-        <component id="spherePrinter">
+        <component id="football">
             <transformation>
-                <translate x="-15" y="15" z="-15" />
                 <scale x="3" y="3" z="3" />
+                <translate x="8" y="1" z="12" />
             </transformation>
             <materials>
                 <material id="material" />
@@ -640,6 +653,103 @@
             <texture id="texture"/>
             <children>
                 <primitiveref id="sphere" />
+            </children>
+        </component>
+
+        <component id="sun">
+            <transformation>
+                <translate x="0" y="60" z="-80" />
+                <scale x="5" y="5" z="5" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <primitiveref id="sphere" />
+            </children>
+        </component>
+
+        <component id="tree">
+            <transformation>
+                <translate x="0" y="0" z="-30" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="treeTop" />
+                <componentref id="treeBase" />
+                <componentref id="swing" />
+            </children>
+        </component>
+
+        <component id="treeTop">
+            <transformation>
+                <translate x="0" y="40" z="0" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <primitiveref id="treeBush" />
+            </children>
+        </component>
+
+        <component id="treeBase">
+            <transformation>
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <primitiveref id="treeTrunk" />
+            </children>
+        </component>
+
+        <component id="swing">
+            <transformation>
+                <translate x="12" y="4" z="0" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="rope" />
+                <componentref id="tire" />
+            </children>
+        </component>
+
+        <component id="rope">
+            <transformation>
+                <translate x="0" y="12" z="0" />
+                <scale x="1" y="18" z="1" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <primitiveref id="basicCylinder" />
+            </children>
+        </component>
+
+        <component id="tire">
+            <transformation>
+                <translate x="0" y="6" z="0" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <primitiveref id="torus" />
             </children>
         </component>
     </components>
