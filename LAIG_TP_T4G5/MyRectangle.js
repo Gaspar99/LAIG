@@ -48,6 +48,7 @@ class MyRectangle extends CGFobject {
         t
         */
 
+		this.texCoords = [];
 		this.updateTexCoords(1, 1);
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
@@ -59,7 +60,14 @@ class MyRectangle extends CGFobject {
 	 * @param {Array} coords - Array of texture coordinates
 	 */
 	updateTexCoords(length_s, length_t) {
-		
+		this.texCoords[0] = 0;
+		this.texCoords[1] = length_t;
+		this.texCoords[2] = length_s;
+		this.texCoords[3] = length_t;
+		this.texCoords[4] = 0;
+		this.texCoords[5] = 0;
+		this.texCoords[6] = length_s;
+		this.texCoords[7] = 0;
 
 		this.updateTexCoordsGLBuffers();
 	}
