@@ -54,9 +54,15 @@
     </textures>
 
     <materials>
-        <material id="material" shininess="10">
-            <emission r="0.5" g="0.0" b="0.0" a="1.0" />
+        <material id="material" shininess="5">
+            <emission r="0.3" g="0.5" b="0.5" a="1.0" />
             <ambient r="0.2" g="0.3" b="0.4" a="1.0" />
+            <diffuse r="0.3" g="0.3" b="0.3" a="1.0" />
+            <specular r="0.3" g="0.4" b="0.3" a="1.0" />
+        </material>
+        <material id="material2" shininess="10">
+            <emission r="0.9" g="0.9" b="0.9" a="1.0" />
+            <ambient r="0.9" g="0.9" b="0.9" a="1.0" />
             <diffuse r="0.3" g="0.3" b="0.3" a="1.0" />
             <specular r="0.3" g="0.4" b="0.3" a="1.0" />
         </material>
@@ -615,6 +621,7 @@
             </transformation>
             <materials>
                 <material id="material" />
+                <material id="material2" />
             </materials>
             <texture id="bank"/>
             <children>  
@@ -1105,7 +1112,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="trunk"/>
+            <texture id="trunk" length_s="0.1" length_t="0.1"/>
             <children>
                 <primitiveref id="treeTrunk" />
             </children>

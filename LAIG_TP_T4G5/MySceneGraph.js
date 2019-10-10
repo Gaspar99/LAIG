@@ -1256,6 +1256,20 @@ class MySceneGraph {
         console.log("   " + message);
     }
 
+    updateActiveMaterials() {
+        
+        for (var key in this.components) {
+            if (this.components.hasOwnProperty(key)) {
+                var component = this.components[key];
+
+                if (this.components[key].materials[this.components[key].activeMaterial + 1] != null)
+                    this.components[key].activeMaterial++;
+                else 
+                    this.components[key].activeMaterial = 0;
+            }
+        }
+    }
+
     /**
      * Displays the scene, processing each node, starting in the root node.
      */
@@ -1278,6 +1292,7 @@ class MySceneGraph {
         transfMatrix = mat4.multiply(transfMatrix, parentTransfMatrix, component.transfMatrix);
 
         var materialID = component.materials[component.activeMaterial];
+        if(component.activeMaterial != 0) console.log("active material: " + component.activeMaterial);
 
         if (materialID = "inherit")
             materialID = parentMaterialID;

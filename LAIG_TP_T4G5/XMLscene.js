@@ -137,6 +137,13 @@ class XMLscene extends CGFscene {
         this.interface.setActiveCamera(this.camera);
     }
 
+    update(t) {
+
+        if (this.gui.isKeyPressed("KeyM")) {
+            this.graph.updateActiveMaterials();
+        }
+    }
+
     /**
      * Displays the scene.
      */
