@@ -94,6 +94,12 @@
         <primitive id="torus">
             <torus inner="1" outer="5" slices="20" loops="20" />
         </primitive>
+        <primitive id="torus2">
+            <torus inner="2.5" outer="5" slices="20" loops="20" />
+        </primitive>
+        <primitive id="torus3">
+            <torus inner="3" outer="5" slices="20" loops="20" />
+        </primitive>
     </primitives>
 
     <components>
@@ -111,6 +117,378 @@
                 <componentref id="tableSet" />
                 <componentref id="football" />
                 <componentref id="sun" />
+                <componentref id="poolSet" />
+            </children>
+        </component>
+
+        <component id="poolSet">
+            <transformation>
+                <translate x="-20" y="-3.9" z="-55" />
+                <rotate axis="y" angle="90"/>
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="pool_stairs"/>
+                <componentref id="pool_board"/>
+                <componentref id="pool"/>
+                <componentref id="pool_acessory1"/>
+                <componentref id="pool_acessory2"/>
+                <componentref id="pool_acessory3"/>
+            </children>
+        </component>
+
+        <component id="pool">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="pool_side1"/>
+                <componentref id="pool_side2"/>
+                <componentref id="pool_side3"/>
+                <componentref id="pool_side4"/>
+                <componentref id="pool_floor"/>
+                <componentref id="pool_water"/>
+            </children>
+        </component>
+
+        <component id="pool_stairs">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="pool_stair1"/>
+                <componentref id="pool_stair2"/>
+                <componentref id="pool_stair3"/>
+                <componentref id="pool_stair4"/>
+                <componentref id="pool_stair5"/>
+                <componentref id="pool_stair6"/>
+                <componentref id="pool_stair7"/>
+                <componentref id="pool_stair8"/>
+            </children>
+        </component>
+
+        <component id="pool_board">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="pool_board1"/>
+                <componentref id="pool_board2"/>
+                <componentref id="pool_board3"/>
+            </children>
+        </component>
+
+        <component id="pool_side1">
+            <transformation>
+                <translate x="-5" y="0" z="0" />
+                <scale x="5" y="10" z="60" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="pool_side2">
+            <transformation>
+                <translate x="12.5" y="0" z="32.5" />
+                <rotate axis="y" angle="90"/>
+                <scale x="5" y="10" z="40" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="pool_side3">
+            <transformation>
+                <translate x="30" y="0" z="0" />
+                <scale x="5" y="10" z="60" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="pool_side4">
+            <transformation>
+                <translate x="12.5" y="0" z="-32.5" />
+                <rotate axis="y" angle="90"/>
+                <scale x="5" y="10" z="40" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="pool_floor">
+            <transformation>
+                <translate x="12.5" y="0.1" z="-2.5" />
+                <rotate axis="y" angle="90"/>
+                <scale x="65" y="3" z="30" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="pool_water">
+            <transformation>
+                <translate x="12.5" y="3" z="-2.5" />
+                <rotate axis="y" angle="90"/>
+                <scale x="65" y="3" z="30" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="pool_board1">
+            <transformation>
+                <translate x="12.5" y="12" z="-26.5" />
+                <rotate axis="y" angle="90"/>
+                <scale x="15" y="1" z="6" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="pool_board2">
+            <transformation>
+                <translate x="16" y="8" z="-31.5" />
+                <rotate axis="y" angle="90"/>
+                <scale x="1" y="7" z="1" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="pool_board3">
+            <transformation>
+                <translate x="9" y="8" z="-31.5" />
+                <rotate axis="y" angle="90"/>
+                <scale x="1" y="7" z="1" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="pool_acessory1">
+            <transformation>
+                <translate x="20" y="6" z="10" />
+                <rotate axis="x" angle="90"/>
+                <scale x="0.7" y="0.7" z="0.7" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <primitiveref id="torus2" />
+            </children>
+        </component>
+
+        <component id="pool_acessory2">
+            <transformation>
+                <translate x="1.5" y="8.6" z="-15" />
+                <rotate axis="y" angle="90"/>
+                <rotate axis="x" angle="-45"/>
+                <scale x="0.7" y="0.7" z="0.7" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <primitiveref id="torus3" />
+            </children>
+        </component>
+
+        <component id="pool_acessory3">
+            <transformation>
+                <translate x="13" y="7" z="-5" />
+                <scale x="3" y="3" z="3" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <primitiveref id="sphere" />
+            </children>
+        </component>
+
+        <component id="pool_stair1">
+            <transformation>
+                <translate x="-2" y="4" z="20" />
+                <rotate axis="y" angle="90"/>
+                <scale x="1" y="10" z="1" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="pool_stair2">
+            <transformation>
+                <translate x="-2" y="4" z="25" />
+                <rotate axis="y" angle="90"/>
+                <scale x="1" y="10" z="1" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="pool_stair3">
+            <transformation>
+                <translate x="-5" y="4" z="25" />
+                <rotate axis="y" angle="90"/>
+                <scale x="1" y="10" z="1" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="pool_stair4">
+            <transformation>
+                <translate x="-5" y="4" z="20" />
+                <rotate axis="y" angle="90"/>
+                <scale x="1" y="10" z="1" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="pool_stair5">
+            <transformation>
+                <translate x="-2" y="13.5" z="20" />
+                <rotate axis="z" angle="90"/>
+                <rotate axis="y" angle="90"/>
+                <scale x="1" y="3" z="1" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+         <component id="pool_stair6">
+            <transformation>
+                <translate x="-2" y="13.5" z="25" />
+                <rotate axis="z" angle="90"/>
+                <rotate axis="y" angle="90"/>
+                <scale x="1" y="3" z="1" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="pool_stair7">
+            <transformation>
+                <translate x="-2" y="9" z="20" />
+                <rotate axis="z" angle="90"/>
+                <rotate axis="x" angle="90"/>
+                <scale x="0.4" y="5" z="1" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+         <component id="pool_stair8">
+            <transformation>
+                <translate x="-2" y="7" z="20" />
+                <rotate axis="z" angle="90"/>
+                <rotate axis="x" angle="90"/>
+                <scale x="0.4" y="5" z="1" />
+            </transformation>
+            <materials>
+                <material id="material" />
+            </materials>
+            <texture id="texture"/>
+            <children>
+                <componentref id="unitCube" />
             </children>
         </component>
 
