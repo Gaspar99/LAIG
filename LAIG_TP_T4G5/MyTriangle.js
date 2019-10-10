@@ -62,8 +62,21 @@ class MyTriangle extends CGFobject {
 	 * Updates the list of texture coordinates of the rectangle
 	 * @param {Array} coords - Array of texture coordinates
 	 */
-	updateTexCoords(coords) {
-		this.texCoords = [...coords];
+	updateTexCoords(length_s, length_t) {
+		var a = sqrt(pow(this.x2-this.x1, 2) + pow(this.y2-this.y1,2) + pow(this.z2-this.z1,2));
+		var b = sqrt(pow(this.x3-this.x2, 2) + pow(this.y3-this.y2,2) + pow(this.z3-this.z2,2));
+		var c = sqrt(pow(this.x1-this.x3, 2) + pow(this.y1-this.y3,2) + pow(this.z1-this.z3,2));
+
+		var cos_ang = (pow(a,2)-pow(b,2)+pow(c,2)) / (2*a*c);
+		var sin_ang = sqrt(1-pow(cos_ang,2));
+
+		this.texCoords[0] = 0;
+		this.texCoords[1] = 0;
+		this.texCoords[2] = a/length_s;
+		this.texCoords[3] = 0;
+		this.texCoords[4] = (c*cos_ang)/length_s;
+		this.texCoords[5] = (c*sin_ang)/length_t;
+
 		this.updateTexCoordsGLBuffers();
 	}
 }
