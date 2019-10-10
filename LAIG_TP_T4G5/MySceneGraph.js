@@ -230,6 +230,12 @@ class MySceneGraph {
 
         var children = viewsNode.children;
 
+        var defaultViewID = this.reader.getString(viewsNode, "default");
+        if (defaultViewID == null) 
+            return "no default view defined";
+
+        this.defaultViewID = defaultViewID;
+
         this.views = [];
         var numViews = 0;
         
@@ -1277,6 +1283,7 @@ class MySceneGraph {
             materialID = parentMaterialID;
 
         var material = this.materials[materialID];
+        material.setTextureWrap('REPEAT', 'REPEAT');
 
         var texture = [];
         var length_s = 1, length_t = 1;
@@ -1300,8 +1307,10 @@ class MySceneGraph {
         this.scene.pushMatrix();
         this.scene.multMatrix(transfMatrix);
         material.apply();
+        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
 
         for (var i = 0; i < primitiveChildren.length; i++) {
+            this.primitives[primitiveChildren[i]].updateTexCoords(length_s, length_t);
             this.primitives[primitiveChildren[i]].display();
         }
 

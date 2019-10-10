@@ -60,10 +60,10 @@ class XMLscene extends CGFscene {
             }
         }
 
-        this.selectedView = this.camerasIDs[0];
+        this.selectedView = this.graph.defaultViewID;
         this.interface.gui.add(this, 'selectedView', this.camerasIDs).name('Selected View').onChange(this.updateActiveCamera.bind(this));
 
-        this.camera = this.cameras[0];
+        this.camera = this.cameras[this.camerasIDs.indexOf(this.graph.defaultViewID)];
         this.interface.setActiveCamera(this.camera);
     }
     /**
@@ -125,8 +125,6 @@ class XMLscene extends CGFscene {
         this.initCameras();
 
         this.initLights();
-
-        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
 
         this.sceneInited = true;
     }
