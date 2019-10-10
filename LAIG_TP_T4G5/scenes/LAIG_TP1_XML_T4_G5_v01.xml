@@ -48,6 +48,9 @@
         <texture id="dark-wood" file="scenes/images/dark_wood.jpg" />
         <texture id="vidral" file="scenes/images/vidral.jpg" />
         <texture id="brick" file="scenes/images/brick.jpg" />
+        <texture id="poolSide" file="scenes/images/poolSide.jpg" />
+        <texture id="rubber" file="scenes/images/rubber.jpg" />
+        <texture id="rope" file="scenes/images/rope.jpg" />
     </textures>
 
     <materials>
@@ -129,7 +132,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="none"/>
             <children>
                 <componentref id="pool_stairs"/>
                 <componentref id="pool_board"/>
@@ -146,7 +149,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="none"/>
             <children>
                 <componentref id="pool_side1"/>
                 <componentref id="pool_side2"/>
@@ -198,7 +201,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="poolSide"/>
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -213,7 +216,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="poolSide"/>
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -227,7 +230,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="poolSide"/>
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -242,7 +245,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="poolSide" length_s="0.1" length_t="0.1"/>
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -747,7 +750,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="vidral" length_s="5" length_t="1" />
+            <texture id="vidral" length_s="10" length_t="10" />
             <children>
                 <primitiveref id="tableLeg" />
             </children>
@@ -1074,7 +1077,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="wood"/>
+            <texture id="none"/>
             <children>
                 <componentref id="treeTop" />
                 <componentref id="treeBase" />
@@ -1089,7 +1092,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="inherit"/>
+            <texture id="leaves"/>
             <children>
                 <primitiveref id="treeBush" />
             </children>
@@ -1102,7 +1105,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="inherit"/>
+            <texture id="trunk"/>
             <children>
                 <primitiveref id="treeTrunk" />
             </children>
@@ -1131,7 +1134,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="wood"/>
+            <texture id="rope"/>
             <children>
                 <primitiveref id="basicCylinder" />
             </children>
@@ -1144,7 +1147,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="wood"/>
+            <texture id="rubber"/>
             <children>
                 <primitiveref id="torus" />
             </children>

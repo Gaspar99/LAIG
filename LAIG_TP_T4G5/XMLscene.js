@@ -93,15 +93,18 @@ class XMLscene extends CGFscene {
                 }
 
                 this.lights[i].setVisible(true);
-                if (light[0])
+                if (light[0]) 
                     this.lights[i].enable();
-                else
+                else 
                     this.lights[i].disable();
 
                 this.lights[i].update();
 
+                this.interface.gui.add(this.lights[i], 'enabled').name(key);
+
                 i++;
             }
+
         }
     }
 
@@ -157,8 +160,7 @@ class XMLscene extends CGFscene {
         this.axis.display();
 
         for (var i = 0; i < this.lights.length; i++) {
-            this.lights[i].setVisible(true);
-            this.lights[i].enable();
+            this.lights[i].update();
         }
 
         if (this.sceneInited) {
