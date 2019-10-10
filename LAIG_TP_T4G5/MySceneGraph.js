@@ -1077,7 +1077,7 @@ class MySceneGraph {
                 if (material == null)
                     return "Unable to find material with ID " + materialID;
 
-                componentMaterials.push(material);
+                componentMaterials.push(materialID);
             }
 
             // Texture
@@ -1255,31 +1255,61 @@ class MySceneGraph {
      */
     displayScene() {   
 
-        // Parent Tranformation Matrix
-        var rootTransfMatrix = [];
-        mat4.identity(rootTransfMatrix);
+        var rootComponent = this.components[this.idRoot];
+        var materialID = rootComponent.materials[rootComponent.activeMaterial];
+        var textureID = rootComponent.texture[0];
+        var length_s = rootComponent.texture[1];
+        var length_t = rootComponent.texture[2];
 
-        this.processNode(this.idRoot, rootTransfMatrix);
+        this.processNode(this.idRoot, rootComponent.transfMatrix, materialID, textureID, length_s, length_t);
     }
 
-    processNode(componentID, parentTransfMatrix) {
+    processNode(componentID, parentTransfMatrix, parentMaterialID, parentTextureID, parentLength_s, parentLength_t) {
 
         var component = this.components[componentID];
         
         var transfMatrix = [];
         transfMatrix = mat4.multiply(transfMatrix, parentTransfMatrix, component.transfMatrix);
 
+        var materialID = component.materials[component.activeMaterial];
+
+        if (materialID = "inherit")
+            materialID = parentMaterialID;
+
+        var material = this.materials[materialID];
+
+        var texture = [];
+        var length_s = 1, length_t = 1;
+
+        var textureID = component.texture[0];
+        if (textureID == "inherit") {
+            textureID = parentTextureID;
+            length_s = parentLength_s;
+            length_t = parentLength_t;
+        } else if (textureID != "none") {
+            texture = this.textures[textureID];
+            length_s = component.texture[1];
+            length_t = component.texture[2]; 
+        }
+
+        texture = this.textures[textureID];
+        if(textureID != "none") material.setTexture(texture);
+
+        var primitiveChildren = component.primitiveChildren;
+
         this.scene.pushMatrix();
         this.scene.multMatrix(transfMatrix);
-        var primitiveChildren = component.primitiveChildren;
+        material.apply();
+
         for (var i = 0; i < primitiveChildren.length; i++) {
             this.primitives[primitiveChildren[i]].display();
         }
+
         this.scene.popMatrix();
 
         var componentChildren = component.componentChildren;
         for (var i = 0; i < componentChildren.length; i++) {
-            this.processNode(componentChildren[i], transfMatrix);
+            this.processNode(componentChildren[i], transfMatrix, materialID, textureID, length_s, length_t);
         } 
 
     }

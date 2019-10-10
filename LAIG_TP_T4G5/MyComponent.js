@@ -15,6 +15,7 @@ class MyComponent {
         this.texture = texture;
         this.componentChildren = componentChildren;
         this.primitiveChildren = primitiveChildren;
+        this.activeMaterial = 0;
 
     }
 }

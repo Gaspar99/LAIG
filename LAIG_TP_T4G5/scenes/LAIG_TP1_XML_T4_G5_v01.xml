@@ -7,7 +7,7 @@
             <to x="-30" y="0" z="-50" />
         </perspective>
 
-        <ortho id="orthoCamera"  near="0.2" far="400" left="50" right="50" top="20" bottom="20" >
+        <ortho id="orthoCamera"  near="0.2" far="400" left="-50" right="50" top="20" bottom="20" >
             <from x="10" y="10" z="10" />
             <to x="0" y="0" z="0" />
             <up x="0" y="2" z="0" /> 
@@ -38,7 +38,10 @@
     </lights>
 
     <textures>
-        <texture id="texture" file="scenes/images/vidral.jpg" />
+        <texture id="grass" file="scenes/images/grass.jpg" />
+        <texture id="wood" file="scenes/images/wood.jpg" />
+        <texture id="roof" file="scenes/images/roof.jpg" />
+        
     </textures>
 
     <materials>
@@ -94,7 +97,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="grass"/>
             <children>
                 <componentref id="ground" />
                 <componentref id="house" />
@@ -111,7 +114,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="wood"/>
             <children>
                 <componentref id="table" />
                 <componentref id="chair1" />
@@ -131,7 +134,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="grass"/>
             <children>
                 <primitiveref id="unitSquare" />
             </children>
@@ -144,7 +147,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="none"/>
             <children>
                 <componentref id="chair" />
             </children>
@@ -157,7 +160,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="none"/>
             <children>
                 <componentref id="chair" />
             </children>
@@ -171,7 +174,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="none"/>
             <children>
                 <componentref id="chair" />
             </children>
@@ -185,7 +188,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="none"/>
             <children>
                 <componentref id="chair" />
             </children>
@@ -199,7 +202,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="none"/>
             <children>
                 <componentref id="chair" />
             </children>
@@ -213,7 +216,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="none"/>
             <children>
                 <componentref id="chair" />
             </children>
@@ -226,7 +229,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="wood"/>
             <children>  
                 <componentref id="chairBase" />
                 <componentref id="chairBack" />
@@ -246,7 +249,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -260,7 +263,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -274,7 +277,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -288,7 +291,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -302,7 +305,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -316,7 +319,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -329,7 +332,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="wood"/>
             <children>
                 <componentref id="tableBase" />
                 <componentref id="tableLeg1" />
@@ -347,7 +350,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -361,7 +364,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="tableLeg" />
             </children>
@@ -375,7 +378,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="tableLeg" />
             </children>
@@ -389,7 +392,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="tableLeg" />
             </children>
@@ -403,7 +406,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="tableLeg" />
             </children>
@@ -415,7 +418,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <componentref id="cubeBase" />
                 <componentref id="cubeTop" />
@@ -433,7 +436,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="unitSquare" />
             </children>
@@ -447,7 +450,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="unitSquare" />
             </children>
@@ -461,7 +464,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="unitSquare" />
             </children>
@@ -475,7 +478,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="unitSquare" />
             </children>
@@ -489,7 +492,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="unitSquare" />
             </children>
@@ -502,7 +505,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="unitSquare" />
             </children>
@@ -515,7 +518,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="none"/>
             <children>
                 <componentref id="roof" />
                 <componentref id="houseWalls" />
@@ -531,7 +534,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="brick"/>
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -544,7 +547,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="wood"/>
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -557,7 +560,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="roof"/>
             <children>
                 <componentref id="roofSide1" />
                 <componentref id="roofSide2" />
@@ -575,7 +578,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="triangle" />
             </children>
@@ -590,7 +593,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="triangle" />
             </children>
@@ -606,7 +609,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="unitSquare" />
             </children>
@@ -622,7 +625,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="unitSquare" />
             </children>
@@ -636,7 +639,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="unitSquare" />
             </children>
@@ -650,7 +653,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="wood"/>
             <children>
                 <primitiveref id="sphere" />
             </children>
@@ -664,7 +667,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="wood"/>
             <children>
                 <primitiveref id="sphere" />
             </children>
@@ -677,7 +680,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="wood"/>
             <children>
                 <componentref id="treeTop" />
                 <componentref id="treeBase" />
@@ -692,7 +695,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="treeBush" />
             </children>
@@ -705,7 +708,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="treeTrunk" />
             </children>
@@ -718,7 +721,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="none"/>
             <children>
                 <componentref id="rope" />
                 <componentref id="tire" />
@@ -734,7 +737,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="wood"/>
             <children>
                 <primitiveref id="basicCylinder" />
             </children>
@@ -747,7 +750,7 @@
             <materials>
                 <material id="material" />
             </materials>
-            <texture id="texture"/>
+            <texture id="wood"/>
             <children>
                 <primitiveref id="torus" />
             </children>
