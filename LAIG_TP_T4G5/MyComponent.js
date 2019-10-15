@@ -16,6 +16,13 @@ class MyComponent {
         this.componentChildren = componentChildren;
         this.primitiveChildren = primitiveChildren;
         this.activeMaterial = 0;
+    }
 
+    updateActiveMaterial() {
+        console.log("Called update active material.");
+        this.activeMaterial++;
+
+        if (this.activeMaterial == this.materials.length) 
+            this.activeMaterial = 0;
     }
 }

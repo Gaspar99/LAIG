@@ -1077,11 +1077,7 @@ class MySceneGraph {
 
                 var materialID = this.reader.getString(grandgrandChildren[j], "id");
                 if (materialID == null)
-                    return "Error reading material ID."
-
-                var material = this.materials[materialID];
-                if (material == null)
-                    return "Unable to find material with ID " + materialID;
+                    return "Error reading material ID";
 
                 componentMaterials.push(materialID);
             }
@@ -1095,17 +1091,33 @@ class MySceneGraph {
             var textureID = this.reader.getString(grandChildren[textureIndex], "id");
             if (textureID == null)
                 return "Error reading texture ID."
-
+            
+            var definedLenght_s = true, definedLenght_t = true;
             var length_s = this.reader.getFloat(grandChildren[textureIndex], 'length_s', false);
-            if (!(length_s != null && !isNaN(length_s))){
-                this.onXMLMinorError("Undefined length_s, defaulting to 1");
-                length_s = 1.0;
-            }
+            if (!(length_s != null && !isNaN(length_s)))
+                definedLenght_s = false;
 
             var length_t = this.reader.getFloat(grandChildren[textureIndex], 'length_t', false);
-            if (!(length_t != null && !isNaN(length_t))){
-                this.onXMLMinorError("Undefined length_t, defaulting to 1");
-                length_t = 1.0;
+            if (!(length_t != null && !isNaN(length_t)))
+                definedLenght_t = false;
+            
+            if (textureID == "none" || textureID == "inherit") {
+                if (definedLenght_s) 
+                    this.onXMLMinorError("Length_s should not be defined when textureID is 'none' or 'inherit'. Ignoring value.");
+
+                if (definedLenght_t) 
+                    this.onXMLMinorError("Length_t should not be defined when textureID is 'none' or 'inherit'. Ignoring value.");
+            }
+            else {
+                if (!definedLenght_s) {
+                    this.onXMLMinorError("Undefined length_s, defaulting to 1");
+                    length_s = 1.0
+                }
+
+                if (!definedLenght_t) {
+                    this.onXMLMinorError("Undefined length_t, defaulting to 1");
+                    length_t = 1.0
+                }  
             }
 
             texture.push(...[textureID, length_s, length_t]);
@@ -1260,12 +1272,7 @@ class MySceneGraph {
         
         for (var key in this.components) {
             if (this.components.hasOwnProperty(key)) {
-                var component = this.components[key];
-
-                if (this.components[key].materials[this.components[key].activeMaterial + 1] != null)
-                    this.components[key].activeMaterial++;
-                else 
-                    this.components[key].activeMaterial = 0;
+                this.components[key].updateActiveMaterial();
             }
         }
     }
@@ -1292,7 +1299,6 @@ class MySceneGraph {
         transfMatrix = mat4.multiply(transfMatrix, parentTransfMatrix, component.transfMatrix);
 
         var materialID = component.materials[component.activeMaterial];
-        if(component.activeMaterial != 0) console.log("active material: " + component.activeMaterial);
 
         if (materialID = "inherit")
             materialID = parentMaterialID;
@@ -1309,26 +1315,24 @@ class MySceneGraph {
             length_s = parentLength_s;
             length_t = parentLength_t;
         } else if (textureID != "none") {
-            texture = this.textures[textureID];
             length_s = component.texture[1];
             length_t = component.texture[2]; 
         }
 
-        texture = this.textures[textureID];
-        if(textureID != "none") material.setTexture(texture);
+        if (textureID != "none") {
+            texture = this.textures[textureID];
+            material.setTexture(texture);
+        }
 
-        var primitiveChildren = component.primitiveChildren;
+        material.apply();
 
         this.scene.pushMatrix();
         this.scene.multMatrix(transfMatrix);
-        material.apply();
-        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-
+        var primitiveChildren = component.primitiveChildren;
         for (var i = 0; i < primitiveChildren.length; i++) {
             this.primitives[primitiveChildren[i]].updateTexCoords(length_s, length_t);
             this.primitives[primitiveChildren[i]].display();
         }
-
         this.scene.popMatrix();
 
         var componentChildren = component.componentChildren;
