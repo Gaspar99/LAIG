@@ -198,11 +198,11 @@
             <children>
                 <componentref id="ground" />
                 <componentref id="tableSet" />
-                <componentref id="house" />
                 <componentref id="tree" />
                 <componentref id="football" />
                 <componentref id="poolSet" />
                 <componentref id="background" />
+                <componentref id="houseSet" />
             </children>
         </component>
 
@@ -900,126 +900,6 @@
             </children>
         </component>
 
-        <component id="house">
-            <transformation>
-                <translate x="-50.0" y="0.0" z="0.0" />
-            </transformation>
-            <materials>
-                <material id="defaultMaterial" />
-            </materials>
-            <texture id="none"/>
-            <children>
-                <componentref id="houseWalls" />
-                <componentref id="roof" />
-                <componentref id="chimney" />
-            </children>
-        </component>
-
-        <component id="houseWalls">
-            <transformation>
-                <scale x="40.0" y="40.0" z="40.0" />
-            </transformation>
-            <materials>
-                <material id="brickMaterial" />
-            </materials>
-            <texture id="brick" length_s="1.0" length_t="1.0" />
-            <children>
-                <componentref id="unitCube" />
-            </children>
-        </component>
-
-        <component id="roof">
-            <transformation>
-                <scale x="1.2" y="1.0" z="1.0" />
-                <translate x="0.0" y="40.0" z="0.0" />
-            </transformation>
-            <materials>
-                <material id="roofMaterial" />
-            </materials>
-            <texture id="roof" length_s="1.0" length_t="1.0" />
-            <children>
-                <componentref id="roofSide1" />
-                <componentref id="roofSide2" />
-                <componentref id="roofSide3" />
-                <componentref id="roofSide4" />
-            </children>
-        </component>
-
-        <component id="roofSide1">
-            <transformation>
-                <translate x="0.0" y="0.0" z="20.0" />
-                <scale x="40.0" y="10.0" z="1.0" />
-            </transformation>
-            <materials>
-                <material id="brickMaterial" />
-            </materials>
-            <texture id="brick" length_s="1.0" length_t="4.0" />
-            <children>
-                <primitiveref id="triangle" />
-            </children>
-        </component>
-
-        <component id="roofSide2">
-            <transformation>
-                <translate x="0.0" y="0.0" z="-20.0" />
-                <rotate axis="y" angle="180.0" />
-                <scale x="40.0" y="10.0" z="1.0" />
-            </transformation>
-            <materials>
-                <material id="brickMaterial" />
-            </materials>
-            <texture id="brick" length_s="1.0" length_t="4.0"/>
-            <children>
-                <primitiveref id="triangle" />
-            </children>
-        </component>
-
-        <component id="roofSide3">
-            <transformation>
-                <translate x="10.0" y="5.0" z="0.0" />
-                <rotate axis="z" angle="-26.565" />
-                <rotate axis="x" angle="-90.0" />
-                <scale x="22.3607" y="40.0" z="1.0" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <primitiveref id="unitSquare" />
-            </children>
-        </component>
-
-        <component id="roofSide4">
-            <transformation>
-                <translate x="-10.0" y="5.0" z="0.0" />
-                <rotate axis="z" angle="26.565" />
-                <rotate axis="x" angle="-90.0" />
-                <scale x="22.3607" y="40.0" z="1.0" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <primitiveref id="unitSquare" />
-            </children>
-        </component>
-
-        <component id="chimney">
-            <transformation>
-                <translate x="12.0" y="40.0" z="12.0" />
-                <scale x="7.0" y="12.0" z="7.0" />
-            </transformation>
-            <materials>
-                <material id="brickMaterial" />
-            </materials>
-            <texture id="brick" length_s="1.0"  length_t="3.0"/>
-            <children>
-                <componentref id="unitCube" />
-            </children>
-        </component>
-
         <component id="football">
             <transformation>
                 <scale x="3.0" y="3.0" z="3.0" />
@@ -1285,6 +1165,626 @@
                 <material id="inherit" />
             </materials>
             <texture id="inherit"/>
+            <children>
+                <primitiveref id="unitSquare" />
+            </children>
+        </component>
+
+        <component id="roof">
+            <transformation>
+                <scale x="3" y="1" z="1.325" />
+                <translate x="0" y="40" z="0" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="roofSide1" />
+                <componentref id="roofSide2" />
+                <componentref id="roofSide3" />
+                <componentref id="roofSide4" />
+                <componentref id="roofBase" />
+            </children>
+        </component>
+
+        <component id="roofSide1">
+            <transformation>
+                <translate x="0" y="0" z="20" />
+                <scale x="40" y="10" z="1" />
+            </transformation>
+            <materials>
+                <material id="brickMaterial" />
+            </materials>
+            <texture id="brick" length_s="0.3" length_t="4"/>
+            <children>
+                <primitiveref id="triangle" />
+            </children>
+        </component>
+
+        <component id="roofSide2">
+            <transformation>
+                <translate x="0" y="0" z="-20" />
+                <rotate axis="y" angle="180" />
+                <scale x="40" y="10" z="1" />
+            </transformation>
+            <materials>
+                <material id="brickMaterial" />
+            </materials>
+            <texture id="brick" length_s="0.3" length_t="4"/>
+            <children>
+                <primitiveref id="triangle" />
+            </children>
+        </component>
+
+        <component id="roofSide3">
+            <transformation>
+                <translate x="10" y="5" z="0" />
+                <rotate axis="z" angle="-26.565" />
+                <rotate axis="x" angle="-90" />
+                <scale x="22.3607" y="40" z="1" />
+            </transformation>
+            <materials>
+                <material id="houseRoofMaterial" />
+            </materials>
+            <texture id="roof" length_s="1" length_t="0.5"/>
+            <children>
+                <primitiveref id="unitSquare" />
+            </children>
+        </component>
+
+        <component id="roofSide4">
+            <transformation>
+                <translate x="-10" y="5" z="0" />
+                <rotate axis="z" angle="26.565" />
+                <rotate axis="x" angle="-90" />
+                <scale x="22.3607" y="40" z="1" />
+            </transformation>
+            <materials>
+                <material id="houseRoofMaterial" />
+            </materials>
+            <texture id="roof" length_s="1" length_t="0.5"/>
+            <children>
+                <primitiveref id="unitSquare" />
+            </children>
+        </component>
+
+        <component id="roofBase">
+            <transformation>
+                <rotate axis="x" angle="90" />
+                <scale x="40" y="40" z="1" />
+            </transformation>
+            <materials>
+                <material id="metalMaterial" />
+            </materials>
+            <texture id="metal"/>
+            <children>
+                <primitiveref id="unitSquare" />
+            </children>
+        </component>
+
+        <component id="window">
+            <transformation>
+                <translate x="0" y="12.5" z="0" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="windowSide1" />
+                <componentref id="windowSide2" />
+                <componentref id="windowSide3" />
+                <componentref id="windowSide4" />
+                <componentref id="windowFrame1" />
+                <componentref id="windowFrame2" />
+                <componentref id="glass" />
+            </children>
+        </component>
+
+        <component id="windowSide1">
+            <transformation>
+                <translate x="7.5" y="0" z="0" />
+                <scale x="1" y="15" z="1" />
+            </transformation>
+            <materials>
+                <material id="woodMaterial" />
+            </materials>
+            <texture id="dark-wood"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="windowSide2">
+            <transformation>
+                <translate x="-7.5" y="0" z="0" />
+                <scale x="1" y="15" z="1" />
+            </transformation>
+            <materials>
+                <material id="woodMaterial" />
+            </materials>
+            <texture id="dark-wood"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="windowSide3">
+            <transformation>
+                <scale x="14" y="1" z="1" />
+            </transformation>
+            <materials>
+                <material id="woodMaterial" />
+            </materials>
+            <texture id="dark-wood"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="windowSide4">
+            <transformation>
+                <translate x="0" y="14" z="0" />
+                <scale x="14" y="1" z="1" />
+            </transformation>
+            <materials>
+                <material id="woodMaterial" />
+            </materials>
+            <texture id="dark-wood"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="windowFrame1">
+            <transformation>
+                <translate x="0" y="1" z="0" />
+                <scale x="0.5" y="13" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="woodMaterial" />
+            </materials>
+            <texture id="dark-wood"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="windowFrame2">
+            <transformation>
+                <translate x="0" y="7.25" z="0" />
+                <scale x="14" y="0.5" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="woodMaterial" />
+            </materials>
+            <texture id="dark-wood"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="glass">
+            <transformation>
+                <translate x="0" y="7" z="0" />
+                <scale x="14" y="14" z="1" />
+            </transformation>
+            <materials>
+                <material id="waterMaterial" />
+            </materials>
+            <texture id="water"/>
+            <children>
+                <primitiveref id="unitSquare" />
+            </children>
+        </component>
+
+        <component id="doorSet">
+            <transformation>
+                <translate x="0" y="1" z="0" />
+            </transformation>
+            <materials>
+                <material id="woodMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="door" />
+                <componentref id="doorHandle" />
+            </children>
+        </component>
+
+        <component id="door">
+            <transformation>
+                <scale x="14" y="29" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="dark-wood"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="doorHandle">
+            <transformation>
+                <translate x="4.5" y="14.5" z="0.8" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="wood"/>
+            <children>
+                <primitiveref id="unitSphere" />
+            </children>
+        </component>
+
+        <component id="houseSet">
+            <transformation>
+                <translate x="-90" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="houseWall1" />
+                <componentref id="wallPartWindow3" />
+                <componentref id="wallPartWindow4" />
+                <componentref id="houseWall2" />
+                <componentref id="houseFloor" />
+                <componentref id="roof" />
+            </children>
+        </component>
+
+        <component id="houseWall1">
+            <transformation>
+                <translate x="0" y="0" z="25.1" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="wallPartWindow1" />
+                <componentref id="wallPartWindow2" />
+                <componentref id="wallPart5" />
+                <componentref id="doorSet" />
+            </children>
+        </component>
+
+        <component id="houseWall2">
+            <transformation>
+                <translate x="0" y="0" z="-25.1" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="wallPartWindow5" />
+                <componentref id="wallPart6" />
+                <componentref id="wallPart7" />
+                <componentref id="wallPart8" />
+                <componentref id="slidingDoor1" />
+                <componentref id="slidingDoor2" />
+            </children>
+        </component>
+
+        <component id="houseFloor">
+            <transformation>
+                <translate x="0" y="0.1" z="0" />
+                <scale x="119" y="1" z="52.8" />
+            </transformation>
+            <materials>
+                <material id="woodMaterial" />
+            </materials>
+            <texture id="wood"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="wallPartWindow1">
+            <transformation>
+                <translate x="-33.5" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="wallPart1" />
+                <componentref id="wallPart2" />
+                <componentref id="wallPart3" />
+                <componentref id="wallPart4" />
+                <componentref id="window" />
+            </children>
+        </component>
+
+        <component id="wallPartWindow2">
+            <transformation>
+                <translate x="33.5" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="wallPart1" />
+                <componentref id="wallPart2" />
+                <componentref id="wallPart3" />
+                <componentref id="wallPart4" />
+                <componentref id="window" />
+            </children>
+        </component>
+
+        <component id="wallPartWindow3">
+            <transformation>
+                <translate x="58.6" y="0" z="0" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="wallPart1" />
+                <componentref id="wallPart2" />
+                <componentref id="wallPart3" />
+                <componentref id="wallPart4" />
+                <componentref id="window" />
+            </children>
+        </component>
+
+        <component id="wallPartWindow4">
+            <transformation>
+                <translate x="-58.6" y="0" z="0" />
+                <rotate axis="y" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="wallPart1" />
+                <componentref id="wallPart2" />
+                <componentref id="wallPart3" />
+                <componentref id="wallPart4" />
+                <componentref id="window" />
+            </children>
+        </component>
+
+        <component id="wallPartWindow5">
+            <transformation>
+                <translate x="33.5" y="0" z="0" />
+                <rotate axis="y" angle="180" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="wallPart1" />
+                <componentref id="wallPart2" />
+                <componentref id="wallPart3" />
+                <componentref id="wallPart4" />
+                <componentref id="window" />
+            </children>
+        </component>
+
+        <component id="wallPart1">
+            <transformation>
+                <translate x="-17" y="0" z="0" />
+                <scale x="19" y="40" z="3" />
+            </transformation>
+            <materials>
+                <material id="brickMaterial" />
+            </materials>
+            <texture id="brick"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="wallPart2">
+            <transformation>
+                <translate x="17" y="0" z="0" />
+                <scale x="19" y="40" z="3" />
+            </transformation>
+            <materials>
+                <material id="brickMaterial" />
+            </materials>
+            <texture id="brick"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="wallPart3">
+            <transformation>
+                <scale x="15" y="12.5" z="3" />
+            </transformation>
+            <materials>
+                <material id="brickMaterial" />
+            </materials>
+            <texture id="brick" length_s="1" length_t="2.9"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="wallPart4">
+            <transformation>
+                <translate x="0" y="27.5" z="0" />
+                <scale x="15" y="12.5" z="3" />
+            </transformation>
+            <materials>
+                <material id="brickMaterial" />
+            </materials>
+            <texture id="brick" length_s="1" length_t="3.2"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="wallPart5">
+            <transformation>
+                <translate x="0" y="30" z="0" />
+                <scale x="14" y="10" z="3" />
+            </transformation>
+            <materials>
+                <material id="brickMaterial" />
+            </materials>
+            <texture id="brick" length_s="1" length_t="4"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="wallPart6">
+            <transformation>
+                <translate x="-3.5" y="0" z="0" />
+                <scale x="21" y="40" z="3" />
+            </transformation>
+            <materials>
+                <material id="brickMaterial" />
+            </materials>
+            <texture id="brick" length_s="1" length_t="1"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="wallPart7">
+            <transformation>
+                <translate x="-27.5" y="30" z="0" />
+                <scale x="27" y="10" z="3" />
+            </transformation>
+            <materials>
+                <material id="brickMaterial" />
+            </materials>
+            <texture id="brick" length_s="1" length_t="4"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="wallPart8">
+            <transformation>
+                <translate x="-50.5" y="0" z="0" />
+                <scale x="19" y="40" z="3" />
+            </transformation>
+            <materials>
+                <material id="brickMaterial" />
+            </materials>
+            <texture id="brick"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="slidingDoor1">
+            <transformation>
+                <translate x="-21" y="1" z="-0.5" />
+                <rotate axis="y" angle="180" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="slidingDoorPart1" />
+                <componentref id="slidingDoorPart2" />
+                <componentref id="slidingDoorPart3" />
+                <componentref id="slidingDoorPart4" />
+                <componentref id="doorGlass" />
+            </children>
+        </component>
+
+        <component id="slidingDoor2">
+            <transformation>
+                <translate x="-34" y="1" z="0.5" />
+                <rotate axis="y" angle="180" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="slidingDoorPart1" />
+                <componentref id="slidingDoorPart2" />
+                <componentref id="slidingDoorPart3" />
+                <componentref id="slidingDoorPart4" />
+                <componentref id="doorGlass" />
+            </children>
+        </component>
+
+        <component id="slidingDoorPart1">
+            <transformation>
+                <scale x="14" y="1" z="1" />
+            </transformation>
+            <materials>
+                <material id="metalMaterial" />
+            </materials>
+            <texture id="metal"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="slidingDoorPart2">
+            <transformation>
+                <translate x="0" y="28" z="0" />
+                <scale x="14" y="1" z="1" />
+            </transformation>
+            <materials>
+                <material id="metalMaterial" />
+            </materials>
+            <texture id="metal"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="slidingDoorPart3">
+            <transformation>
+                <translate x="6.5" y="1" z="0" />
+                <scale x="1" y="28" z="1" />
+            </transformation>
+            <materials>
+                <material id="metalMaterial" />
+            </materials>
+            <texture id="metal"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="slidingDoorPart4">
+            <transformation>
+                <translate x="-6.5" y="1" z="0" />
+                <scale x="1" y="28" z="1" />
+            </transformation>
+            <materials>
+                <material id="metalMaterial" />
+            </materials>
+            <texture id="metal"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="doorGlass">
+            <transformation>
+                <translate x="0" y="14.5" z="0" />
+                <scale x="12" y="27" z="1" />
+            </transformation>
+            <materials>
+                <material id="waterMaterial" />
+            </materials>
+            <texture id="water"/>
             <children>
                 <primitiveref id="unitSquare" />
             </children>

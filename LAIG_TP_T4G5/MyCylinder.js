@@ -50,7 +50,7 @@ class MyCylinder extends CGFobject {
                 );
               }
 
-            this.texCoords.push((Math.cos(ang) + 1)/2, (Math.sin(ang) + 1)/2);
+            this.texCoords.push(i / this.slices, 0.1);
 
             ang+=angDiff;
         }
@@ -84,7 +84,7 @@ class MyCylinder extends CGFobject {
                     );
                   }
     
-                this.texCoords.push((Math.cos(ang) + 1)/2, (Math.sin(ang) + 1)/2);
+                  this.texCoords.push(j / this.slices, i / this.stacks);
                 
                 ang+=angDiff;
             }
