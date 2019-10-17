@@ -113,10 +113,10 @@
             <specular r="1" g="1" b="1" a="1.0" />
         </material>
         <material id="waterMaterial" shininess="50.0">
-            <emission r="1" g="1" b="0.9" a="1.0" />
-            <ambient r="1" g="1" b="1" a="1.0" />
-            <diffuse r="1" g="1" b="1" a="1.0" />
-            <specular r="1" g="1" b="1" a="1.0" />
+            <emission r="1.0" g="1.0" b="0.9" a="1.0" />
+            <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
         </material>
         <material id="vidralMaterial" shininess="50.0">
             <emission r="1" g="1" b="0.9" a="1.0" />
@@ -548,7 +548,6 @@
             <children>
                 <componentref id="pool_sides"/>
                 <componentref id="pool_floor"/>
-                <componentref id="pool_water"/>
             </children>
         </component>
 
@@ -829,31 +828,30 @@
 
         <component id="pool_floor">
             <transformation>
-                <translate x="12.5" y="0.1" z="-2.5" />
-                <rotate axis="y" angle="-90.0"/>
-                <scale x="65.0" y="3.0" z="30.0" />
+                <translate x="12.5" y="4.0" z="0.5" />
+                <rotate axis="x" angle="-90.0"/>
+                <scale x="30.0" y="60.0" z="5.0" />
             </transformation>
             <materials>
                 <material id="poolFloorMaterial" />
             </materials>
             <texture id="pool_floor" length_s="1.0" length_t="1.0" />
             <children>
-                <componentref id="unitCube" />
+                <primitiveref id="unitSquare" />
+                <componentref id="pool_water" />
             </children>
         </component>
 
         <component id="pool_water">
             <transformation>
-                <translate x="12.5" y="3.0" z="-2.5" />
-                <rotate axis="y" angle="90.0"/>
-                <scale x="65.0" y="3.0" z="30.0" />
+                <translate x="0.0" y="0.0" z="0.5" />
             </transformation>
             <materials>
                 <material id="waterMaterial" />
             </materials>
             <texture id="water" length_s="1.0" length_t="1.0" />
             <children>
-                <componentref id="unitCube" />
+                <primitiveref id="unitSquare" />
             </children>
         </component>
 
