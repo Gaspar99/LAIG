@@ -2,37 +2,46 @@
     <scene root="root" axis_length="5"/>
 
     <views default="defaultCamera">
-        <perspective id="defaultCamera" near="0.1" far="500" angle="45">
-            <from x="100" y="60" z="100" />
-            <to x="-30" y="0" z="-50" />
+        <perspective id="defaultCamera" near="0.1" far="500.0" angle="45.0">
+            <from x="100.0" y="60.0" z="100.0" />
+            <to x="-30.0" y="0.0" z="-50.0" />
         </perspective>
 
-        <ortho id="orthoCamera"  near="0.2" far="400" left="-50" right="50" top="20" bottom="20" >
-            <from x="10" y="10" z="10" />
-            <to x="0" y="0" z="0" />
-            <up x="0" y="2" z="0" /> 
+        <ortho id="orthoCamera"  near="0.2" far="400.0" left="0.0" right="100.0" top="50.0" bottom="0.0" >
+            <from x="10.0" y="10.0" z="10.0" />
+            <to x="0.0" y="0.0" z="0.0" />
+            <up x="0.0" y="2.0" z="0.0" /> 
         </ortho>
     </views>
 
     <globals>
-        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
         <background r="0.0" g="0.0" b="0.0" a="1.0" />
     </globals>
 
     <lights>
-        <omni id="omniLight" enabled="1">
-            <location x="-20" y="50" z="-20" w="1.0" />
+        <omni id="centerLight_omni" enabled="1">
+            <location x="0.0" y="50.0" z="0.0" w="0.0" />
+            <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1.0" />
+            <specular r="0.6" g="0.6" b="0.6" a="1.0" />
+            <attenuation constant="1.0" linear="0.0" quadratic="0.0" />  
+        </omni>
+
+        <omni id="omniRedLight" enabled="0">
+            <location x="-20.0" y="50.0" z="-20.0" w="0.0" />
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+            <attenuation constant="1.0" linear="0.0" quadratic="0.0" />  
         </omni>
 
-        <spot id="spotLight" enabled="1" angle="45" exponent="10">
-            <location x="10" y="10" z="10" w="10" />
-            <target x="0" y="0" z="0" />
-            <ambient r="0" g="0" b="0" a="0" />
+        <spot id="spotLight" enabled="0" angle="15.0" exponent="2.0">
+            <location x="10.0" y="10.0" z="10.0" w="1.0" />
+            <target x="0.0" y="0.0" z="0.0" />
+            <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
-            <specular r="0.5" g="0.5" b="0.5" a="0.5" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
             <attenuation constant="1.0" linear="0.0" quadratic="0.0" />
         </spot>
     </lights>
@@ -64,80 +73,80 @@
     </textures>
 
     <materials>
-        <material id="defaultMaterial" shininess="50.0">
-            <emission r="1.0" g="1.0" b="1.0" a="1.0" />
+        <material id="defaultMaterial" shininess="5.0">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
             <ambient r="1.0" g="1.0" b="1.o" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
         </material>
-        <material id="grassMaterial" shininess="20.0">
-            <emission r="1.0" g="1.0" b="1.0" a="1.0" />
-            <ambient r="1.0" g="1.0" b="1.o" a="1.0" />
+        <material id="grassMaterial" shininess="5.0">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.3" g="0.7" b="0.3" a="1.0" />
             <diffuse r="0.3" g="0.7" b="0.3" a="1.0" />
             <specular r="0.2" g="0.5" b="0.2" a="1.0" />
         </material>
-        <material id="houseWallMaterial" shininess="20.0">
-            <emission r="0.1" g="0.1" b="0.0" a="1.0" />
+        <material id="houseWallMaterial" shininess="5.0">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
             <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
             <diffuse r="0.8" g="0.25" b="0.33" a="1.0" />
             <specular r="0.3" g="0.1" b="0.15" a="1.0" />
         </material>
         <material id="houseRoofMaterial" shininess="30.0">
-            <emission r="1.0" g="1.0" b="0.9" a="1.0" />
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
             <diffuse r="0.75" g="0.28" b="0.2" a="1.0" />
             <specular r="0.3" g="0.12" b="0.1" a="1.0" />
         </material>
         <material id="metalMaterial" shininess="50.0">
-            <emission r="1.0" g="1.0" b="0.9" a="1.0" />
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
             <diffuse r="0.2" g="0.2" b="0.2" a="1.0" />
             <specular r="0.54" g="0.54" b="0.51" a="1.0" />
         </material>
         <material id="plasticMaterial" shininess="10.0">
-            <emission r="1.0" g="1.0" b="0.9" a="1.0" />
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
             <diffuse r="0.0" g="0.0" b="0.55" a="1.0" />
             <specular r="0.0" g="0.0" b="0.2" a="1.0" />
         </material>
         <material id="woodMaterial" shininess="15.0">
-            <emission r="1.0" g="1.0" b="0.9" a="1.0" />
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
             <diffuse r="0.34" g="0.24" b="0.17" a="1.0" />
             <specular r="0.15" g="0.1" b="0.05" a="1.0" />
         </material>
-        <material id="poolFloorMaterial" shininess="30.0">
-            <emission r="1.0" g="1.0" b="0.9" a="1.0" />
+        <material id="poolFloorMaterial" shininess="10.0">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
             <diffuse r="0.4" g="0.55" b="1.0" a="1.0" />
             <specular r="0.4" g="0.55" b="1.0" a="1.0" />
         </material>
         <material id="waterMaterial" shininess="70.0">
-            <emission r="0.1" g="0.4" b="0.2" a="1.0" />
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
             <diffuse r="0.1" g="0.2" b="0.3" a="1.0" />
             <specular r="0.4" g="0.76" b="1.0" a="1.0" />
         </material>
-        <material id="vidralMaterial" shininess="60.0">
-            <emission r="1.0" g="1.0" b="0.9" a="1.0" />
+        <material id="vidralMaterial" shininess="5.0">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
             <diffuse r="0.2" g="0.2" b="0.2" a="1.0" />
             <specular r="0.75" g="0.75" b="0.75" a="1.0" />
         </material>
-        <material id="ropeMaterial" shininess="30.0">
-            <emission r="1.0" g="1.0" b="0.9" a="1.0" />
+        <material id="ropeMaterial" shininess="5.0">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
             <diffuse r="0.75" g="0.75" b="0.75" a="1.0" />
             <specular r="0.2" g="0.2" b="0.2" a="1.0" />
         </material>
         <material id="rubberMaterial" shininess="10.0">
-            <emission r="1.0" g="1.0" b="0.9" a="1.0" />
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
             <diffuse r="0.2" g="0.2" b="0.2" a="1.0" />
             <specular r="0.0" g="0.0" b="0.0" a="1.0" />
         </material>
         <material id="brickMaterial" shininess="30.0">
-            <emission r="1.0" g="1.0" b="0.9" a="1.0" />
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
             <diffuse r="0.8" g="0.25" b="0.33" a="1.0" />
             <specular r="0.3" g="0.1" b="0.15" a="1.0" />
@@ -1258,7 +1267,7 @@
             <materials>
                 <material id="metalMaterial" />
             </materials>
-            <texture id="metal"/>
+            <texture id="metal" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="unitSquare" />
             </children>
@@ -1291,7 +1300,7 @@
             <materials>
                 <material id="woodMaterial" />
             </materials>
-            <texture id="dark-wood"/>
+            <texture id="dark-wood" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -1305,7 +1314,7 @@
             <materials>
                 <material id="woodMaterial" />
             </materials>
-            <texture id="dark-wood"/>
+            <texture id="dark-wood" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -1318,7 +1327,7 @@
             <materials>
                 <material id="woodMaterial" />
             </materials>
-            <texture id="dark-wood"/>
+            <texture id="dark-wood" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -1332,7 +1341,7 @@
             <materials>
                 <material id="woodMaterial" />
             </materials>
-            <texture id="dark-wood"/>
+            <texture id="dark-wood" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -1346,7 +1355,7 @@
             <materials>
                 <material id="woodMaterial" />
             </materials>
-            <texture id="dark-wood"/>
+            <texture id="dark-wood" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -1360,7 +1369,7 @@
             <materials>
                 <material id="woodMaterial" />
             </materials>
-            <texture id="dark-wood"/>
+            <texture id="dark-wood" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -1374,7 +1383,7 @@
             <materials>
                 <material id="waterMaterial" />
             </materials>
-            <texture id="water"/>
+            <texture id="water" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="unitSquare" />
             </children>
@@ -1401,7 +1410,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="dark-wood"/>
+            <texture id="dark-wood" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -1414,7 +1423,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="wood"/>
+            <texture id="wood" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="unitSphere" />
             </children>
@@ -1480,7 +1489,7 @@
             <materials>
                 <material id="woodMaterial" />
             </materials>
-            <texture id="wood"/>
+            <texture id="wood" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -1582,7 +1591,7 @@
             <materials>
                 <material id="brickMaterial" />
             </materials>
-            <texture id="brick"/>
+            <texture id="brick" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -1596,7 +1605,7 @@
             <materials>
                 <material id="brickMaterial" />
             </materials>
-            <texture id="brick"/>
+            <texture id="brick" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -1679,7 +1688,7 @@
             <materials>
                 <material id="brickMaterial" />
             </materials>
-            <texture id="brick"/>
+            <texture id="brick" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -1728,7 +1737,7 @@
             <materials>
                 <material id="metalMaterial" />
             </materials>
-            <texture id="metal"/>
+            <texture id="metal" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -1742,7 +1751,7 @@
             <materials>
                 <material id="metalMaterial" />
             </materials>
-            <texture id="metal"/>
+            <texture id="metal" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -1756,7 +1765,7 @@
             <materials>
                 <material id="metalMaterial" />
             </materials>
-            <texture id="metal"/>
+            <texture id="metal" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -1770,7 +1779,7 @@
             <materials>
                 <material id="metalMaterial" />
             </materials>
-            <texture id="metal"/>
+            <texture id="metal" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -1784,7 +1793,7 @@
             <materials>
                 <material id="waterMaterial" />
             </materials>
-            <texture id="water"/>
+            <texture id="water" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="unitSquare" />
             </children>

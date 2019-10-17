@@ -73,6 +73,10 @@ class XMLscene extends CGFscene {
         var i = 0;
         // Lights index.
 
+        // Interface UI to turn on or off each scene light
+        var lightsGroup = this.interface.gui.addFolder("Lights (ON/OFF)");
+        lightsGroup.open();
+
         // Reads the lights from the scene graph.
         for (var key in this.graph.lights) {
             if (i >= 8)
@@ -100,7 +104,7 @@ class XMLscene extends CGFscene {
 
                 this.lights[i].update();
 
-                this.interface.gui.add(this.lights[i], 'enabled').name(key);
+                lightsGroup.add(this.lights[i], 'enabled').name(key);
 
                 i++;
             }
@@ -154,25 +158,22 @@ class XMLscene extends CGFscene {
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
-        // Initialize Model-View matrix as identity (no transformation)
-        if(this.sceneInited) {
+        this.pushMatrix();
+        this.axis.display();
+
+        if (this.sceneInited) {
+
+            // Initialize Model-View matrix as identity (no transformation)
             this.updateProjectionMatrix();
             this.loadIdentity();
 
             // Apply transformations corresponding to the camera position relative to the origin
             this.applyViewMatrix();
-        }
 
-        this.pushMatrix();
-        this.axis.display();
-
-        for (var i = 0; i < this.lights.length; i++) {
-            this.lights[i].update();
-        }
-
-        if (this.sceneInited) {
-            // Draw axis
-            this.setDefaultAppearance();
+            // Updating of lights so that switching ON/OFF works
+            for (var i = 0; i < this.lights.length; i++) 
+                this.lights[i].update();              
+            
 
             // Displays the scene (MySceneGraph function).
             this.graph.displayScene();
