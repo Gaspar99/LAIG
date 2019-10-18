@@ -162,7 +162,6 @@ class XMLscene extends CGFscene {
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
 
         this.pushMatrix();
-        this.axis.display();
 
         if (this.sceneInited) {
 
@@ -177,6 +176,7 @@ class XMLscene extends CGFscene {
             for (var i = 0; i < this.lights.length; i++) 
                 this.lights[i].update();              
             
+            this.axis.display();
 
             // Displays the scene (MySceneGraph function).
             this.graph.displayScene();
