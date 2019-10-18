@@ -20,8 +20,8 @@
     </globals>
 
     <lights>
-        <omni id="centralLight_omni" enabled="1">
-            <location x="100.0" y="60.0" z="100.0" w="1.0" />
+        <omni id="centralLight_omni" enabled="0">
+            <location x="101.0" y="61.0" z="101.0" w="0.0" />
             <ambient r="1.0" g="0.8" b="0.3" a="1.0" />
             <diffuse r="1.0" g="0.8" b="0.3" a="1.0" />
             <specular r="1.0" g="0.8" b="0.3" a="1.0" />
@@ -29,20 +29,20 @@
         </omni>
 
         <omni id="omniRedLight" enabled="0">
-            <location x="-20.0" y="50.0" z="-20.0" w="1.0" />
-            <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
-            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
-            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
-            <attenuation constant="1.0" linear="0.0" quadratic="0.0" />  
+            <location x="-20.0" y="10.0" z="-55.0" w="1.0" />
+            <ambient r="1.0" g="0.7" b="0.8" a="0.0" />
+            <diffuse r="1.0" g="0.7" b="0.8" a="1.0" />
+            <specular r="1.0" g="0.7" b="0.8" a="1.0" />
+            <attenuation constant="1.0" linear="0.05" quadratic="0.0" />  
         </omni>
 
-        <spot id="spotLight" enabled="0" angle="30" exponent="2.0">
-            <location x="0.0" y="10.0" z="0.0" w="1.0" />
-            <target x="0.0" y="0.0" z="0.0" />
+        <spot id="spotLight" enabled="1" angle="45" exponent="0.0">
+            <location x="-5.0" y="10.0" z="-5.0" w="0.0" />
+            <target x="0.0" y="5.0" z="0.0" />
             <ambient r="1.0" g="0.6" b="0.6" a="1.0" />
             <diffuse r="1.0" g="0.6" b="0.6" a="1.0" />
             <specular r="1.0" g="0.6" b="0.6" a="1.0" />
-            <attenuation constant="1.0" linear="0.0" quadratic="0.0" />
+            <attenuation constant="0.0" linear="0.0" quadratic="0.0" />
         </spot>
     </lights>
 
@@ -173,10 +173,23 @@
     </materials>
 
     <transformations>
-        <transformation id="transform1">
-            <scale x="5.0" y="1.0" z="5.0" />
-            <rotate axis="x" angle="-45.0" />
-            <rotate axis="z" angle="-45.0" />
+        <transformation id="tablePos">
+            <translate x="20.0" y="0.0" z="-5.0" />
+        </transformation>
+        <transformation id="housePos">
+            <translate x="0.0" y="0.0" z="60.0" />
+        </transformation>
+        <transformation id="treePos">
+            <translate x="50.0" y="0.0" z="-60.0" />
+            <rotate axis="y" angle="90" />
+        </transformation>
+        <transformation id="poolPos">
+            <translate x="0.0" y="0.0" z="-55.0" />
+            <rotate axis="y" angle="90.0"/>
+        </transformation>
+        <transformation id="footballPos">
+            <translate x="-20.0" y="3.0" z="-35.0" />
+            <scale x="3.0" y="3.0" z="3.0" />
         </transformation>
     </transformations>
 
@@ -252,6 +265,7 @@
 
         <component id="tableSet">
             <transformation>
+                <transformationref id="tablePos" />
             </transformation>
             <materials>
                 <material id="defaultMaterial" />
@@ -551,8 +565,7 @@
 
         <component id="poolSet">
             <transformation>
-                <translate x="-20.0" y="-3.9" z="-55.0" />
-                <rotate axis="y" angle="90.0"/>
+                <transformationref id="poolPos" />
             </transformation>
             <materials>
                 <material id="defaultMaterial" />
@@ -932,8 +945,7 @@
 
         <component id="football">
             <transformation>
-                <scale x="3.0" y="3.0" z="3.0" />
-                <translate x="8.0" y="1.0" z="12.0" />
+                <transformationref id="footballPos" />
             </transformation>
             <materials>
                 <material id="plasticMaterial" />
@@ -946,7 +958,7 @@
 
         <component id="tree">
             <transformation>
-                <translate x="0.0" y="0.0" z="-30.0" />
+                <transformationref id="treePos" />
             </transformation>
             <materials>
                 <material id="defaultMaterial" />
@@ -1452,7 +1464,7 @@
 
         <component id="houseSet">
             <transformation>
-                <translate x="-90" y="0" z="0" />
+                <transformationref id="housePos" />
             </transformation>
             <materials>
                 <material id="defaultMaterial" />
