@@ -1,14 +1,14 @@
 <lxs>
     <scene root="root" axis_length="5"/>
 
-    <views default="defaultCamera">
-        <perspective id="defaultCamera" near="0.1" far="500.0" angle="45.0">
+    <views default="mainCamera">
+        <perspective id="mainCamera" near="0.1" far="500.0" angle="45.0">
             <from x="100.0" y="60.0" z="100.0" />
             <to x="-30.0" y="0.0" z="-50.0" />
         </perspective>
 
         <ortho id="orthoCamera"  near="0.2" far="400.0" left="0.0" right="100.0" top="50.0" bottom="0.0" >
-            <from x="10.0" y="10.0" z="10.0" />
+            <from x="10.0" y="20.0" z="10.0" />
             <to x="0.0" y="0.0" z="0.0" />
             <up x="0.0" y="2.0" z="0.0" /> 
         </ortho>
@@ -21,10 +21,10 @@
 
     <lights>
         <omni id="centralLight_omni" enabled="1">
-            <location x="0.0" y="40.0" z="0.0" w="1.0" />
-            <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
-            <diffuse r="0.7" g="0.7" b="0.7" a="1.0" />
-            <specular r="0.6" g="0.6" b="0.6" a="1.0" />
+            <location x="100.0" y="60.0" z="100.0" w="1.0" />
+            <ambient r="1.0" g="0.8" b="0.3" a="1.0" />
+            <diffuse r="1.0" g="0.8" b="0.3" a="1.0" />
+            <specular r="1.0" g="0.8" b="0.3" a="1.0" />
             <attenuation constant="1.2" linear="0.0" quadratic="0.0" />  
         </omni>
 
@@ -36,12 +36,12 @@
             <attenuation constant="1.0" linear="0.0" quadratic="0.0" />  
         </omni>
 
-        <spot id="spotLight" enabled="0" angle="15.0" exponent="2.0">
-            <location x="0.0" y="5.0" z="0.0" w="0.0" />
+        <spot id="spotLight" enabled="0" angle="30" exponent="2.0">
+            <location x="0.0" y="10.0" z="0.0" w="1.0" />
             <target x="0.0" y="0.0" z="0.0" />
-            <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
-            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
-            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+            <ambient r="1.0" g="0.6" b="0.6" a="1.0" />
+            <diffuse r="1.0" g="0.6" b="0.6" a="1.0" />
+            <specular r="1.0" g="0.6" b="0.6" a="1.0" />
             <attenuation constant="1.0" linear="0.0" quadratic="0.0" />
         </spot>
     </lights>
@@ -190,7 +190,7 @@
                         x3="0.0" y3="1.0" z3="0.0"/>
         </primitive>
         <primitive id="tableLeg">
-            <cylinder base="1.0" top="0.6" height="8.0" slices="15.0" stacks="15.0" />
+            <cylinder base="0.3" top="1.1" height="8.0" slices="15.0" stacks="15.0" />
         </primitive>
         <primitive id="treeTrunk">
             <cylinder base="4.0" top="2.0" height="30.0" slices="15.0" stacks="15.0" />
@@ -242,6 +242,7 @@
             <materials>
                 <material id="greenGrassMaterial" />
                 <material id="brownGrassMaterial" />
+                <material id="defaultMaterial" />
             </materials>
             <texture id="grass" length_s="0.1" length_t="0.1"/>
             <children>
