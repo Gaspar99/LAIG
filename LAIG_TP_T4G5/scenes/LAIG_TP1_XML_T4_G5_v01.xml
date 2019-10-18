@@ -1,13 +1,28 @@
 <lxs>
     <scene root="root" axis_length="5"/>
 
-    <views default="mainCamera">
-        <perspective id="mainCamera" near="0.1" far="500.0" angle="45.0">
-            <from x="100.0" y="60.0" z="100.0" />
-            <to x="-30.0" y="0.0" z="-50.0" />
+    <views default="House Front (P)">
+        <perspective id="House Front (P)" near="0.1" far="500.0" angle="45.0">
+            <from x="0.0" y="90.0" z="230.0" />
+            <to x="0.0" y="0.0" z="-50.0" />
         </perspective>
 
-        <ortho id="orthoCamera"  near="0.2" far="400.0" left="0.0" right="100.0" top="50.0" bottom="0.0" >
+        <perspective id="House Back (P)" near="0.1" far="500.0" angle="45.0">
+            <from x="0.0" y="80.0" z="-230.0" />
+            <to x="0.0" y="0.0" z="50.0" />
+        </perspective>
+
+        <perspective id="Tree (P)" near="0.1" far="500.0" angle="45.0">
+            <from x="150.0" y="35.0" z="-70.0" />
+            <to x="-100.0" y="5.0" z="-75.0" />
+        </perspective>
+
+        <perspective id="Football (P)" near="0.1" far="500.0" angle="45.0">
+            <from x="-35.0" y="5.0" z="-40.0" />
+            <to x="-20.0" y="0.0" z="-35.0" />
+        </perspective>
+
+        <ortho id="orthoCamera (O)"  near="0.2" far="400.0" left="0.0" right="100.0" top="50.0" bottom="0.0" >
             <from x="10.0" y="20.0" z="10.0" />
             <to x="0.0" y="0.0" z="0.0" />
             <up x="0.0" y="2.0" z="0.0" /> 
@@ -215,7 +230,7 @@
             <sphere radius="18.0" slices="5.0" stacks="5.0" />
         </primitive>
         <primitive id="unitSphere">
-            <sphere radius="1.0" slices="10.0" stacks="10.0" />
+            <sphere radius="1.0" slices="20.0" stacks="20.0" />
         </primitive>
         <primitive id="tirePrimitive">
             <torus inner="1.0" outer="5.0" slices="20.0" loops="20.0" />
