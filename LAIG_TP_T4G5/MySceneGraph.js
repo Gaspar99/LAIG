@@ -1325,7 +1325,7 @@ class MySceneGraph {
 
         var materialID = component.materials[component.activeMaterial];
 
-        if (materialID = "inherit")
+        if (materialID == "inherit")
             materialID = parentMaterialID;
 
         var material = this.materials[materialID];

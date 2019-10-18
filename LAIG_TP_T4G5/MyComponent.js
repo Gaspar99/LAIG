@@ -19,7 +19,6 @@ class MyComponent {
     }
 
     updateActiveMaterial() {
-        console.log("Called update active material.");
         this.activeMaterial++;
 
         if (this.activeMaterial == this.materials.length) 
