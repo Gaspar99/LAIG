@@ -1,7 +1,7 @@
 <lxs>
     <scene root="root" axis_length="5"/>
 
-    <views default="House Front (P)">
+    <views default="Pool (O)">
         <perspective id="House Front (P)" near="0.1" far="500.0" angle="45.0">
             <from x="0.0" y="90.0" z="230.0" />
             <to x="0.0" y="0.0" z="-50.0" />
@@ -22,10 +22,10 @@
             <to x="-20.0" y="0.0" z="-35.0" />
         </perspective>
 
-        <ortho id="orthoCamera (O)"  near="0.2" far="400.0" left="0.0" right="100.0" top="50.0" bottom="0.0" >
-            <from x="10.0" y="20.0" z="10.0" />
-            <to x="0.0" y="0.0" z="0.0" />
-            <up x="0.0" y="2.0" z="0.0" /> 
+        <ortho id="Pool (O)"  near="0.2" far="400.0" left="0.0" right="100.0" top="60.0" bottom="0.0" >
+            <from x="80.0" y="40.0" z="-220.0" />
+            <to x="50.0" y="0.0" z="-120.0" />
+            <up x="0.0" y="1.0" z="0.0" /> 
         </ortho>
     </views>
 
