@@ -1,7 +1,7 @@
 <lxs>
     <scene root="root" axis_length="5"/>
 
-    <views default="Pool (O)">
+    <views default="House Front (P)">
         <perspective id="House Front (P)" near="0.1" far="500.0" angle="45.0">
             <from x="0.0" y="90.0" z="230.0" />
             <to x="0.0" y="0.0" z="-50.0" />
@@ -31,28 +31,44 @@
 
     <globals>
         <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
-        <background r="0.0" g="0.0" b="0.0" a="1.0" />
+        <background r="0.1" g="0.1" b="0.1" a="1.0" />
     </globals>
 
     <lights>
-        <omni id="centralLight_omni" enabled="0">
-            <location x="101.0" y="61.0" z="101.0" w="0.0" />
-            <ambient r="1.0" g="0.8" b="0.3" a="1.0" />
-            <diffuse r="1.0" g="0.8" b="0.3" a="1.0" />
-            <specular r="1.0" g="0.8" b="0.3" a="1.0" />
-            <attenuation constant="1.2" linear="0.0" quadratic="0.0" />  
+        <omni id="Sun (O)" enabled="1">
+            <location x="0.0" y="60.0" z="100.0" w="0.0" />
+            <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+            <attenuation constant="1.0" linear="0.0" quadratic="0.0" />  
         </omni>
 
-        <omni id="omniRedLight" enabled="0">
-            <location x="-20.0" y="10.0" z="-55.0" w="1.0" />
-            <ambient r="1.0" g="0.7" b="0.8" a="0.0" />
-            <diffuse r="1.0" g="0.7" b="0.8" a="1.0" />
-            <specular r="1.0" g="0.7" b="0.8" a="1.0" />
-            <attenuation constant="1.0" linear="0.05" quadratic="0.0" />  
+        <omni id="Light House 1 (O)" enabled="0">
+            <location x="0.0" y="34.0" z="87.0"  w="1.0" />
+            <ambient r="0.7" g="0.4" b="0.7" a="0.0" />
+            <diffuse r="0.7" g="0.4" b="0.7" a="1.0" />
+            <specular r="0.7" g="0.4" b="0.7" a="1.0" />
+            <attenuation constant="0.0" linear="0.0" quadratic="0.01" />  
         </omni>
 
-        <spot id="spotLight" enabled="1" angle="45" exponent="0.0">
-            <location x="-5.0" y="10.0" z="-5.0" w="0.0" />
+        <omni id="Light House 1 (O)" enabled="0">
+            <location x="0.0" y="34.0" z="87.0"  w="1.0" />
+            <ambient r="0.7" g="0.4" b="0.7" a="0.0" />
+            <diffuse r="0.7" g="0.4" b="0.7" a="1.0" />
+            <specular r="0.7" g="0.4" b="0.7" a="1.0" />
+            <attenuation constant="0.0" linear="0.0" quadratic="0.01" />  
+        </omni>
+
+        <omni id="Light House 2 (O)" enabled="0">
+            <location x="2.0" y="24.0" z="-10.0" w="5.0" />
+            <ambient r="0.7" g="0.4" b="0.7" a="0.0" />
+            <diffuse r="0.7" g="0.4" b="0.7" a="1.0" />
+            <specular r="0.7" g="0.4" b="0.7" a="1.0" />
+            <attenuation constant="0.0" linear="0.0" quadratic="0.1" />   
+        </omni>
+
+        <spot id="spotLight" enabled="0" angle="45" exponent="0.0">
+            <location x="-5.0" y="10.0" z="-5.0" w="1.0" />
             <target x="0.0" y="5.0" z="0.0" />
             <ambient r="1.0" g="0.6" b="0.6" a="1.0" />
             <diffuse r="1.0" g="0.6" b="0.6" a="1.0" />
@@ -184,6 +200,24 @@
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
             <diffuse r="0.8" g="0.25" b="0.33" a="1.0" />
             <specular r="0.3" g="0.1" b="0.15" a="1.0" />
+        </material>
+        <material id="yellowMaterial" shininess="30.0">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="1.0" g="1.0" b="0.0" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="0.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="0.0" a="1.0" />
+        </material>
+        <material id="blueMaterial" shininess="30.0">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.0" g="0.0" b="1.0" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="1.0" a="1.0" />
+            <specular r="0.0" g="0.0" b="1.0" a="1.0" />
+        </material>
+        <material id="redMaterial" shininess="30.0">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="1.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="1.0" g="0.0" b="0.0" a="1.0" />
         </material>
     </materials>
 
@@ -1462,6 +1496,8 @@
                 <componentref id="houseWall2" />
                 <componentref id="houseFloor" />
                 <componentref id="roof" />
+                <componentref id="houseLight1" />
+                <componentref id="houseLight2" />
             </children>
         </component>
 
@@ -1814,6 +1850,38 @@
             <texture id="glassWindow" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="unitSquare" />
+            </children>
+        </component>
+
+        <component id="houseLight1">
+            <transformation>
+                <translate x="0.0" y="34.0" z="27.0" />
+                <scale x="2.0" y="2.0" z="2.0" />
+            </transformation>
+            <materials>
+                <material id="yellowMaterial" />
+                <material id="redMaterial" />
+                <material id="blueMaterial" />
+            </materials>
+            <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
+            <children>
+                <primitiveref id="unitSphere" />
+            </children>
+        </component>
+
+        <component id="houseLight2">
+            <transformation>
+                <translate x="2.0" y="24.0" z="-27.0" />
+                <scale x="3.0" y="3.0" z="3.0" />
+            </transformation>
+            <materials>
+                <material id="yellowMaterial" />
+                <material id="redMaterial" />
+                <material id="blueMaterial" />
+            </materials>
+            <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
+            <children>
+                <primitiveref id="unitSphere" />
             </children>
         </component>
     </components>
