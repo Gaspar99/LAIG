@@ -35,7 +35,7 @@
     </globals>
 
     <lights>
-        <omni id="Sun (O)" enabled="1">
+        <omni id="Sun" enabled="1">
             <location x="0.0" y="60.0" z="100.0" w="0.0" />
             <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
@@ -43,20 +43,20 @@
             <attenuation constant="1.0" linear="0.0" quadratic="0.0" />  
         </omni>
 
-        <omni id="Light House 1" enabled="0">
+        <omni id="House 1" enabled="0">
             <location x="0.0" y="34.0" z="87.0"  w="1.0" />
-            <ambient r="0.9" g="0.9" b="0.9" a="0.0" />
-            <diffuse r="0.9" g="0.9" b="0.9" a="0.7" />
-            <specular r="0.9" g="0.9" b="0.9" a="0.7" />
+            <ambient r="1.0" g="0.6" b="0.2" a="1.0" />
+            <diffuse r="1.0" g="0.6" b="0.2" a="1.0" />
+            <specular r="1.0" g="0.6" b="0.2" a="1.0" />
             <attenuation constant="0.0" linear="0.0" quadratic="0.01" />  
         </omni>
 
-        <omni id="Light House 2" enabled="0">
+        <omni id="House 2" enabled="0">
             <location x="0.0" y="24.0" z="33.0"  w="1.0" />
-            <ambient r="0.9" g="0.9" b="0.9" a="0.0" />
+            <ambient r="0.9" g="0.9" b="0.9" a="1.0" />
             <diffuse r="0.9" g="0.9" b="0.9" a="1.0" />
             <specular r="0.9" g="0.9" b="0.9" a="1.0" />
-            <attenuation constant="0.0" linear="0.0" quadratic="0.01" />   
+            <attenuation constant="0.0" linear="0.0" quadratic="0.005" />   
         </omni>
 
         <omni id="Pool 1" enabled="0">
@@ -91,13 +91,13 @@
             <attenuation constant="0.0" linear="0.1" quadratic="0.1" />   
         </omni>
 
-        <spot id="spotLight" enabled="0" angle="45" exponent="0.0">
+        <spot id="Spotlight" enabled="0" angle="30" exponent="2">
             <location x="0.0" y="24.0" z="33.0" w="1.0" />
-            <target x="20.0" y="5.0" z="-5.0" />
-            <ambient r="0.7" g="0.7" b="0.7" a="0.0" />
-            <diffuse r="0.7" g="0.7" b="0.7" a="1.0" />
-            <specular r="0.7" g="0.7" b="0.7" a="1.0" />
-            <attenuation constant="0.0" linear="0.0" quadratic="0.01" />
+            <target x="20.0" y="0.0" z="-5.0" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="1.0" g="0.6" b="0.2" a="1.0" />
+            <specular r="1.0" g="0.6" b="0.2" a="1.0" />
+            <attenuation constant="0" linear="0.0" quadratic="0.0001" />
         </spot>
     </lights>
 
