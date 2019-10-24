@@ -12,6 +12,8 @@ class XMLscene extends CGFscene {
         super();
 
         this.interface = myinterface;
+
+        this.last = 0;
     }
 
     /**
@@ -149,6 +151,9 @@ class XMLscene extends CGFscene {
         if (this.gui.isKeyPressed("KeyM")) {
             this.graph.updateActiveMaterials();
         }
+
+        var deltaT = t - this.last;
+        this.last = t;
     }
 
     /**
