@@ -1,11 +1,13 @@
 class MyCylinder extends CGFobject {
-    constructor(scene, id, base, top, height, slices, stacks){
+    constructor(scene, base, top, height, slices, stacks){
         super(scene);
+
         this.slices=slices;
         this.stacks=stacks;
         this.base=base;
         this.top=top;
         this.height = height;
+        
         this.initBuffers();
     }
 

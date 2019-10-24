@@ -3,11 +3,13 @@
 * @constructor
 */
 class MySphere extends CGFobject {
-  constructor(scene, id, radius, slices, stacks) {
+  constructor(scene, radius, slices, stacks) {
     super(scene);
+
     this.slices = slices;
     this.stacks = stacks;
     this.radius = radius;
+    
     this.initBuffers();
   }
 

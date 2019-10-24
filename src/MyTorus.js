@@ -1,10 +1,12 @@
 class MyTorus extends CGFobject {
-    constructor(scene, id, inner, outer, slices, loops) {
+    constructor(scene, inner, outer, slices, loops) {
         super(scene);
+
         this.slices = slices;
         this.inner = inner;
         this.outer = outer;
         this.loops = loops;
+        
         this.initBuffers();
     }
 

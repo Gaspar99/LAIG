@@ -922,7 +922,7 @@ class MySceneGraph {
                     if (!(y2 != null && !isNaN(y2) && y2 > y1))
                         return "unable to parse y2 of the primitive coordinates for ID = " + primitiveId;
 
-                    var rect = new MyRectangle(this.scene, primitiveId, x1, x2, y1, y2);
+                    var rect = new MyRectangle(this.scene, x1, x2, y1, y2);
 
                     this.primitives[primitiveId] = rect;
 
@@ -974,7 +974,7 @@ class MySceneGraph {
                     if (!(z3 != null && !isNaN(z3)))
                         return "unable to parse z3 of the primitive coordinates for ID = " + primitiveId;
 
-                    var triangle = new MyTriangle(this.scene, primitiveId, x1, x2, x3, y1, y2, y3, z1, z2, z3);
+                    var triangle = new MyTriangle(this.scene, x1, x2, x3, y1, y2, y3, z1, z2, z3);
 
                     this.primitives[primitiveId] = triangle;
 
@@ -1006,7 +1006,7 @@ class MySceneGraph {
                     if (!(stacks != null && !isNaN(stacks)))
                         return "unable to parse stacks value of the primitive for ID = " + primitiveId;
 
-                    var cylinder = new MyCylinder(this.scene, primitiveId, base, top, height, slices, stacks);
+                    var cylinder = new MyCylinder(this.scene, base, top, height, slices, stacks);
 
                     this.primitives[primitiveId] = cylinder;
 
@@ -1028,7 +1028,7 @@ class MySceneGraph {
                     if (!(stacks != null && !isNaN(stacks)))
                         return "unable to parse stacks value of the primitive for ID = " + primitiveId;
                     
-                    var sphere = new MySphere(this.scene, primitiveId, radius, slices, stacks);
+                    var sphere = new MySphere(this.scene, radius, slices, stacks);
 
                     this.primitives[primitiveId] = sphere;
 
@@ -1055,7 +1055,7 @@ class MySceneGraph {
                     if (!(loops != null && !isNaN(loops)))
                         return "unable to parse loops value of the primitive for ID = " + primitiveId;
 
-                    var torus = new MyTorus(this.scene, primitiveId, inner, outer, slices, loops);
+                    var torus = new MyTorus(this.scene, inner, outer, slices, loops);
 
                     this.primitives[primitiveId] = torus;
                     
@@ -1182,9 +1182,11 @@ class MySceneGraph {
             // Animation
             var animationIndex = nodeNames.indexOf("animationref");
 
-            var animationID = this.reader.getString(grandChildren[animationIndex], "id");
-            if (animationID == null)
-                return "Error reading animation ID."
+            if (animationIndex != -1) {
+                var animationID = this.reader.getString(grandChildren[animationIndex], "id");
+                if (animationID == null)
+                    return "Error reading animation ID."
+            }
 
             // Materials
             var componentMaterials = [];

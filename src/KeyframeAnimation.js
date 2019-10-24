@@ -1,5 +1,6 @@
 class KeyFrameAnimation extends Animation {
     constructor(keyFrames) {
+        var ks = keyFrames;
         super();
 
         this.keyFrames = keyFrames;
@@ -8,13 +9,13 @@ class KeyFrameAnimation extends Animation {
         this.ma = [];
     }
 
-    get update(time) {
+    get update() {
         this.sumT += time;
 
 
     }
 
-    get apply(scene) {
+    get apply() {
         scene.multMatrix(this.ma);
     }
 
