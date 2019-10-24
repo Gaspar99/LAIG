@@ -762,6 +762,100 @@ class MySceneGraph {
         var children = animationsNode.children;
 
         this.animations = [];
+
+        var grandChildren = [];
+        var grandgrandChildren = [];
+
+        // Any number of animations
+        for (var i = 0; i < children.length; i++) {
+            
+            if (children[i].nodeName != "animation") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+
+            // Get id of the current animation.
+            var animationID = this.reader.getString(children[i], 'id');
+            if (animationID == null)
+                return "no ID defined for animation";
+
+            // Checks for repeated IDs.
+            if (this.animations[animationID] != null)
+                return "ID must be unique for each animation (conflict: ID = " + animationID + ")";
+
+            grandChildren = children[i].children;
+
+            var keyFrames = [];
+
+            // Goes through key frames for current animation
+            for (var j = 0; j < grandChildren.length; j++) {
+
+                if (grandChildren[j].nodeName != "keyframe") {
+                    this.onXMLMinorError("unknown tag <" + grandChildren[j].nodeName + ">");
+                    continue;
+                }
+
+                // Get instant of the frame
+                var instant = this.reader.getString(grandChildren[j], "instant");
+                if (instant == null)
+                    return "no instant defined for keyframe";
+                
+                grandgrandChildren = grandChildren[j].children;
+
+                // Specifications for the current keyframe.
+                var transfCoords = [], angleCoords = [], scaleCoords = [];
+                
+                for (var k = 0; k < grandgrandChildren.length; k++) {
+                    
+                    switch (grandgrandChildren[k].nodeName) {
+                        case 'translate': {
+                            var transfCoords = this.parseCoordinates3D(grandgrandChildren[k], "translate animation for ID " + animationID);
+                            if (!Array.isArray(coordinates))
+                                return coordinates;
+    
+                            break;
+                        }
+                        case 'scale': {
+                            var scaleCoords = this.parseCoordinates3D(grandgrandChildren[k], "scale animation for ID " + animationID);
+                            if (!Array.isArray(coordinates))
+                                return coordinates;
+    
+                            break;
+                        }
+                        case 'rotate': {
+
+                            // Angle X Coord
+                            var angle_x = this.reader.getFloat(grandgrandChildren[k], "angle_x");
+                            if (!(angle_x != null && !isNaN(angle_x)))
+                                return "unable to parse angle_x property of scale animation for ID = " + animationID;
+                            
+                            // Angle Y Coord
+                            var angle_y = this.reader.getFloat(grandgrandChildren[k], "angle_y");
+                            if (!(angle_y != null && !isNaN(angle_y)))
+                                return "unable to parse angle_y property of scale animation for ID = " + animationID;
+
+                            // Angle Z Coord
+                            var angle_z = this.reader.getFloat(grandgrandChildren[k], "angle_z");
+                            if (!(angle_z != null && !isNaN(angle_z)))
+                                return "unable to parse angle_z property of scale animation for ID = " + animationID;
+
+                            scaleCoords = [angle_x, angle_y, angle_z];
+    
+                            break;
+                        }                  
+                    }
+                }
+
+                var keyFrame = new KeyFrame(instant, transfCoords, angleCoords, scaleCoords);
+                keyFrames.push(keyFrame);
+            }
+
+            var keyFrameAnimation = new keyFrameAnimation(keyFrames);
+            this.animations[animationID] = keyFrameAnimation;
+        }
+
+        this.log("Parsed animations");
+        return null;
     }
 
     /**
@@ -786,7 +880,7 @@ class MySceneGraph {
             // Get id of the current primitive.
             var primitiveId = this.reader.getString(children[i], 'id');
             if (primitiveId == null)
-                return "no ID defined for texture";
+                return "no ID defined for primitive";
 
             // Checks for repeated IDs.
             if (this.primitives[primitiveId] != null)
@@ -1085,6 +1179,13 @@ class MySceneGraph {
                 }
             }
 
+            // Animation
+            var animationIndex = nodeNames.indexOf("animationref");
+
+            var animationID = this.reader.getString(grandChildren[animationIndex], "id");
+            if (animationID == null)
+                return "Error reading animation ID."
+
             // Materials
             var componentMaterials = [];
             grandgrandChildren = [];
@@ -1176,7 +1277,7 @@ class MySceneGraph {
                 }
             }
             
-            this.components[componentID] = new MyComponent(transfMatrix, componentMaterials, texture, componentChildren, primitiveChildren);
+            this.components[componentID] = new MyComponent(transfMatrix, animationID, componentMaterials, texture, componentChildren, primitiveChildren);
         }
     }
 

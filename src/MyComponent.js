@@ -8,9 +8,10 @@
  * @param primitiveChildren - Array with the list of children that are primitives
  */
 class MyComponent {
-    constructor(transfMatrix, materials, texture, componentChildren, primitiveChildren) {
+    constructor(transfMatrix, animationID, materials, texture, componentChildren, primitiveChildren) {
 
         this.transfMatrix = transfMatrix;
+        this.animationID = animationID;
         this.materials = materials;
         this.texture = texture;
         this.componentChildren = componentChildren;

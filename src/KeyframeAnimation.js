@@ -8,6 +8,8 @@ class KeyFrameAnimation extends Animation {
 
     get update(time) {
         this.sumT += time;
+
+        
     }
 
     get apply(scene) {
