@@ -1,6 +1,7 @@
 <lxs>
     <scene root="root" axis_length="5"/>
 
+
     <views default="House Front (P)">
         <perspective id="House Front (P)" near="0.1" far="500.0" angle="45.0">
             <from x="0.0" y="90.0" z="230.0" />
@@ -29,10 +30,12 @@
         </ortho>
     </views>
 
+
     <globals>
         <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
         <background r="0.1" g="0.1" b="0.1" a="1.0" />
     </globals>
+
 
     <lights>
         <omni id="Sun" enabled="1">
@@ -58,6 +61,15 @@
             <specular r="0.9" g="0.9" b="0.9" a="1.0" />
             <attenuation constant="0.0" linear="0.0" quadratic="0.005" />   
         </omni>
+
+        <spot id="House Spotlight" enabled="0" angle="30" exponent="2">
+            <location x="0.0" y="24.0" z="33.0" w="1.0" />
+            <target x="20.0" y="0.0" z="-5.0" />
+            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="1.0" g="0.6" b="0.2" a="1.0" />
+            <specular r="1.0" g="0.6" b="0.2" a="1.0" />
+            <attenuation constant="0" linear="0.0" quadratic="0.0001" />
+        </spot>
 
         <omni id="Pool 1" enabled="0">
             <location x="-40" y="3.5" z="-55"  w="1.0" />
@@ -90,16 +102,8 @@
             <specular r="0.5" g="0.5" b="0.5" a="0.1" />
             <attenuation constant="0.0" linear="0.1" quadratic="0.1" />   
         </omni>
-
-        <spot id="Spotlight" enabled="0" angle="30" exponent="2">
-            <location x="0.0" y="24.0" z="33.0" w="1.0" />
-            <target x="20.0" y="0.0" z="-5.0" />
-            <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
-            <diffuse r="1.0" g="0.6" b="0.2" a="1.0" />
-            <specular r="1.0" g="0.6" b="0.2" a="1.0" />
-            <attenuation constant="0" linear="0.0" quadratic="0.0001" />
-        </spot>
     </lights>
+
 
     <textures>
         <texture id="defaultTexture" file="scenes/images/default_texture.jpg" />
@@ -127,6 +131,7 @@
         <texture id="pool_ball" file="scenes/images/pool_ball.jpg" />
         <texture id="glassWindow" file="scenes/images/glassWindow.jpg" />
     </textures>
+
 
     <materials>
         <material id="defaultMaterial" shininess="5.0">
@@ -299,6 +304,7 @@
         </material>
     </materials>
 
+
     <transformations>
         <transformation id="tablePos">
             <translate x="20.0" y="0.0" z="-5.0" />
@@ -319,6 +325,7 @@
             <scale x="3.0" y="3.0" z="3.0" />
         </transformation>
     </transformations>
+
 
     <primitives>
         <primitive id="unitSquare">
@@ -355,6 +362,7 @@
         </primitive>
     </primitives>
 
+
     <components>
         <component id="root">
             <transformation>
@@ -374,6 +382,7 @@
             </children>
         </component>
 
+        <!-- ========================= ground ========================= -->
         <component id="ground">
             <transformation>
                 <scale x="500.0" y="1.0" z="500.0" />
@@ -390,6 +399,7 @@
             </children>
         </component>
 
+        <!-- ========================= tableSet ========================= -->
         <component id="tableSet">
             <transformation>
                 <transformationref id="tablePos" />
@@ -696,6 +706,7 @@
             </children>
         </component>
 
+        <!-- ========================= poolSet ========================= -->
         <component id="poolSet">
             <transformation>
                 <transformationref id="poolPos" />
@@ -1068,6 +1079,71 @@
             </children>
         </component>
 
+        <component id="poolLight1">
+            <transformation>
+                <translate x="0.0" y="1.5" z="-40" />
+                <scale x="2.0" y="2.0" z="2.0" />
+            </transformation>
+            <materials>
+                <material id="yellowMaterial" />
+                <material id="redMaterial" />
+                <material id="blueMaterial" />
+            </materials>
+            <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
+            <children>
+                <primitiveref id="unitSphere" />
+            </children>
+        </component>
+
+        <component id="poolLight2">
+            <transformation>
+                <translate x="0.0" y="1.5" z="40" />
+                <scale x="2.0" y="2.0" z="2.0" />
+            </transformation>
+            <materials>
+                <material id="yellowMaterial" />
+                <material id="redMaterial" />
+                <material id="blueMaterial" />
+            </materials>
+            <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
+            <children>
+                <primitiveref id="unitSphere" />
+            </children>
+        </component>
+
+        <component id="poolLight3">
+            <transformation>
+                <translate x="50.0" y="1.5" z="40" />
+                <scale x="2.0" y="2.0" z="2.0" />
+            </transformation>
+            <materials>
+                <material id="yellowMaterial" />
+                <material id="redMaterial" />
+                <material id="blueMaterial" />
+            </materials>
+            <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
+            <children>
+                <primitiveref id="unitSphere" />
+            </children>
+        </component>
+
+        <component id="poolLight4">
+            <transformation>
+                <translate x="50.0" y="1.5" z="-40" />
+                <scale x="2.0" y="2.0" z="2.0" />
+            </transformation>
+            <materials>
+                <material id="yellowMaterial" />
+                <material id="redMaterial" />
+                <material id="blueMaterial" />
+            </materials>
+            <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
+            <children>
+                <primitiveref id="unitSphere" />
+            </children>
+        </component>
+
+        <!-- ========================= football ========================= -->
         <component id="football">
             <transformation>
                 <transformationref id="footballPos" />
@@ -1083,6 +1159,7 @@
             </children>
         </component>
 
+        <!-- ========================= tree ========================= -->
         <component id="tree">
             <transformation>
                 <transformationref id="treePos" />
@@ -1174,105 +1251,7 @@
             </children>
         </component>
 
-        <component id="unitCube">
-            <transformation>
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <componentref id="cubeBase" />
-                <componentref id="cubeTop" />
-                <componentref id="cubeSide1" />
-                <componentref id="cubeSide2" />
-                <componentref id="cubeSide3" />
-                <componentref id="cubeSide4" />
-            </children>
-        </component>
-
-        <component id="cubeBase">
-            <transformation> 
-                <rotate axis="x" angle="90.0" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <primitiveref id="unitSquare" />
-            </children>
-        </component>
-
-        <component id="cubeTop">
-            <transformation>
-                <translate x="0.0" y="1.0" z="0.0" />
-                <rotate axis="x" angle="-90.0" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <primitiveref id="unitSquare" />
-            </children>
-        </component>
-
-        <component id="cubeSide1">
-            <transformation>
-                <translate x="0.5" y="0.5" z="0.0" />
-                <rotate axis="y" angle="90.0" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <primitiveref id="unitSquare" />
-            </children>
-        </component>
-
-        <component id="cubeSide2">
-            <transformation>
-                <translate x="-0.5" y="0.5" z="0.0" />
-                <rotate axis="y" angle="-90.0" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <primitiveref id="unitSquare" />
-            </children>
-        </component>
-
-        <component id="cubeSide3">
-            <transformation>
-                <translate x="0.0" y="0.5" z="-0.5" />
-                <rotate axis="y" angle="180.0" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <primitiveref id="unitSquare" />
-            </children>
-        </component>
-
-        <component id="cubeSide4">
-            <transformation>
-                <translate x="0.0" y="0.5" z="0.5" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="inherit"/>
-            <children>
-                <primitiveref id="unitSquare" />
-            </children>
-        </component>
-
+        <!-- ========================= background ========================= -->
         <component id="background">
             <transformation>
             </transformation>
@@ -1347,6 +1326,27 @@
             </children>
         </component>
 
+        <!-- ========================= houseSet ========================= -->
+        <component id="houseSet">
+            <transformation>
+                <transformationref id="housePos" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="houseWall1" />
+                <componentref id="wallPartWindow3" />
+                <componentref id="wallPartWindow4" />
+                <componentref id="houseWall2" />
+                <componentref id="houseFloor" />
+                <componentref id="roof" />
+                <componentref id="houseLight1" />
+                <componentref id="houseLight2" />
+            </children>
+        </component>
+        
         <component id="roof">
             <transformation>
                 <scale x="3" y="1" z="1.325" />
@@ -1620,26 +1620,6 @@
             <texture id="wood" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="unitSphere" />
-            </children>
-        </component>
-
-        <component id="houseSet">
-            <transformation>
-                <transformationref id="housePos" />
-            </transformation>
-            <materials>
-                <material id="defaultMaterial" />
-            </materials>
-            <texture id="none"/>
-            <children>
-                <componentref id="houseWall1" />
-                <componentref id="wallPartWindow3" />
-                <componentref id="wallPartWindow4" />
-                <componentref id="houseWall2" />
-                <componentref id="houseFloor" />
-                <componentref id="roof" />
-                <componentref id="houseLight1" />
-                <componentref id="houseLight2" />
             </children>
         </component>
 
@@ -2055,67 +2035,103 @@
             </children>
         </component>
 
-        <component id="poolLight1">
+        <!-- ============= unitCube =============-->
+        <component id="unitCube">
             <transformation>
-                <translate x="0.0" y="1.5" z="-40" />
-                <scale x="2.0" y="2.0" z="2.0" />
             </transformation>
             <materials>
-                <material id="yellowMaterial" />
-                <material id="redMaterial" />
-                <material id="blueMaterial" />
+                <material id="inherit" />
             </materials>
-            <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
+            <texture id="inherit"/>
             <children>
-                <primitiveref id="unitSphere" />
+                <componentref id="cubeBase" />
+                <componentref id="cubeTop" />
+                <componentref id="cubeSide1" />
+                <componentref id="cubeSide2" />
+                <componentref id="cubeSide3" />
+                <componentref id="cubeSide4" />
             </children>
         </component>
 
-        <component id="poolLight2">
-            <transformation>
-                <translate x="0.0" y="1.5" z="40" />
-                <scale x="2.0" y="2.0" z="2.0" />
+        <component id="cubeBase">
+            <transformation> 
+                <rotate axis="x" angle="90.0" />
             </transformation>
             <materials>
-                <material id="yellowMaterial" />
-                <material id="redMaterial" />
-                <material id="blueMaterial" />
+                <material id="inherit" />
             </materials>
-            <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
+            <texture id="inherit"/>
             <children>
-                <primitiveref id="unitSphere" />
+                <primitiveref id="unitSquare" />
             </children>
         </component>
 
-        <component id="poolLight3">
+        <component id="cubeTop">
             <transformation>
-                <translate x="50.0" y="1.5" z="40" />
-                <scale x="2.0" y="2.0" z="2.0" />
+                <translate x="0.0" y="1.0" z="0.0" />
+                <rotate axis="x" angle="-90.0" />
             </transformation>
             <materials>
-                <material id="yellowMaterial" />
-                <material id="redMaterial" />
-                <material id="blueMaterial" />
+                <material id="inherit" />
             </materials>
-            <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
+            <texture id="inherit"/>
             <children>
-                <primitiveref id="unitSphere" />
+                <primitiveref id="unitSquare" />
             </children>
         </component>
 
-        <component id="poolLight4">
+        <component id="cubeSide1">
             <transformation>
-                <translate x="50.0" y="1.5" z="-40" />
-                <scale x="2.0" y="2.0" z="2.0" />
+                <translate x="0.5" y="0.5" z="0.0" />
+                <rotate axis="y" angle="90.0" />
             </transformation>
             <materials>
-                <material id="yellowMaterial" />
-                <material id="redMaterial" />
-                <material id="blueMaterial" />
+                <material id="inherit" />
             </materials>
-            <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
+            <texture id="inherit"/>
             <children>
-                <primitiveref id="unitSphere" />
+                <primitiveref id="unitSquare" />
+            </children>
+        </component>
+
+        <component id="cubeSide2">
+            <transformation>
+                <translate x="-0.5" y="0.5" z="0.0" />
+                <rotate axis="y" angle="-90.0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unitSquare" />
+            </children>
+        </component>
+
+        <component id="cubeSide3">
+            <transformation>
+                <translate x="0.0" y="0.5" z="-0.5" />
+                <rotate axis="y" angle="180.0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unitSquare" />
+            </children>
+        </component>
+
+        <component id="cubeSide4">
+            <transformation>
+                <translate x="0.0" y="0.5" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unitSquare" />
             </children>
         </component>
     </components>
