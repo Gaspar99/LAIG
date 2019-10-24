@@ -846,11 +846,11 @@ class MySceneGraph {
                     }
                 }
 
-                var keyFrame = new KeyFrame(instant, transfCoords, angleCoords, scaleCoords);
+                var keyFrame = new MyKeyFrame(instant, transfCoords, angleCoords, scaleCoords);
                 keyFrames.push(keyFrame);
             }
 
-            var keyFrameAnimation = new KeyFrameAnimation(keyFrames);
+            var keyFrameAnimation = new MyKeyFrameAnimation(keyFrames);
             this.animations[animationID] = keyFrameAnimation;
         }
 
@@ -1061,6 +1061,21 @@ class MySceneGraph {
                     
                     break;
                 }
+                case 'plane': {
+
+
+                    break;
+                }
+                case 'patch': {
+
+
+                    break;
+                }
+                case 'cylinder2': {
+
+
+                    break;
+                }
             }
         }
 
@@ -1180,10 +1195,11 @@ class MySceneGraph {
             }
 
             // Animation
+            var animationID = null;
             var animationIndex = nodeNames.indexOf("animationref");
 
             if (animationIndex != -1) {
-                var animationID = this.reader.getString(grandChildren[animationIndex], "id");
+                animationID = this.reader.getString(grandChildren[animationIndex], "id");
                 if (animationID == null)
                     return "Error reading animation ID."
             }
@@ -1370,6 +1386,11 @@ class MySceneGraph {
         return color;
     }
 
+    /**
+     * Parses the atenuation components from a node
+     * @param {block element} node 
+     * @param {message to be displayed in case of error} messageError 
+     */
     parseAttenuation(node, messageError) {
         var attenuation = [];
 
@@ -1393,7 +1414,7 @@ class MySceneGraph {
         return attenuation;
     }
 
-    /*
+    /** 
      * Callback to be executed on any read error, showing an error on the console.
      * @param {string} message
      */
@@ -1418,11 +1439,27 @@ class MySceneGraph {
         console.log("   " + message);
     }
 
+    /**
+     * Goes trough every component and updates its active material index
+     */
     updateActiveMaterials() {
         
         for (var key in this.components) {
             if (this.components.hasOwnProperty(key)) {
                 this.components[key].updateActiveMaterial();
+            }
+        }
+    }
+
+    /**
+     * Goes trough every animation and updates it considering the time passes
+     * @param {time passed since last call} time 
+     */
+    updateAnimations(time) {
+
+        for (var key in this.animations) {
+            if (this.animations.hasOwnProperty(key)) {
+                this.animations[key].update(time);
             }
         }
     }
@@ -1441,21 +1478,38 @@ class MySceneGraph {
         this.processNode(this.idRoot, rootComponent.transfMatrix, materialID, textureID, length_s, length_t);
     }
 
+    /**
+     * Processes a node, displaying its primitive children with the proper transformations, materials and textures 
+     * and processes its component children
+     * @param {ID of the component} componentID 
+     * @param {Transformation Matrix received from parent} parentTransfMatrix 
+     * @param {Material ID received from parent} parentMaterialID 
+     * @param {Texture ID received from parent} parentTextureID 
+     * @param {Texture length_s property received from parent} parentLength_s 
+     * @param {Texture length_t property received from parent} parentLength_t 
+     */
     processNode(componentID, parentTransfMatrix, parentMaterialID, parentTextureID, parentLength_s, parentLength_t) {
 
         var component = this.components[componentID];
         
+        // Transformations
         var transfMatrix = [];
         transfMatrix = mat4.multiply(transfMatrix, parentTransfMatrix, component.transfMatrix);
 
-        var materialID = component.materials[component.activeMaterial];
+        // Animation 
+        var animationID = component.animationID;
+        if (animationID != null)
+            this.animations[animationID].apply(this.scene);
 
+        // Material
+        var materialID = component.materials[component.activeMaterial];
         if (materialID == "inherit")
             materialID = parentMaterialID;
 
         var material = this.materials[materialID];
         material.setTextureWrap('REPEAT', 'REPEAT');
 
+        // Texture
         var texture = [];
         var length_s = 1, length_t = 1;
 
@@ -1476,6 +1530,7 @@ class MySceneGraph {
 
         material.apply();
 
+        // Display of primitives
         this.scene.pushMatrix();
         this.scene.multMatrix(transfMatrix);
         var primitiveChildren = component.primitiveChildren;
@@ -1485,6 +1540,7 @@ class MySceneGraph {
         }
         this.scene.popMatrix();
 
+        // Process of children that are components
         var componentChildren = component.componentChildren;
         for (var i = 0; i < componentChildren.length; i++) {
             this.processNode(componentChildren[i], transfMatrix, materialID, textureID, length_s, length_t);

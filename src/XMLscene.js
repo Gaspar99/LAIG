@@ -141,11 +141,18 @@ class XMLscene extends CGFscene {
         this.sceneInited = true;
     }
 
+    /**
+     * Updates the active camera of the scene
+     */
     updateActiveCamera() {
         this.camera = this.cameras[this.camerasIDs.indexOf(this.selectedView)];
         this.interface.setActiveCamera(this.camera);
     }
 
+    /**
+     * Function called every x seconds, being x the set update period in the constructor
+     * @param {acumulated time} t 
+     */
     update(t) {
 
         if (this.gui.isKeyPressed("KeyM")) {
@@ -154,6 +161,8 @@ class XMLscene extends CGFscene {
 
         var deltaT = t - this.last;
         this.last = t;
+
+        this.graph.updateAnimations(deltaT);
     }
 
     /**
