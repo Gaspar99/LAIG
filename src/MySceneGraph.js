@@ -810,15 +810,15 @@ class MySceneGraph {
                     switch (grandgrandChildren[k].nodeName) {
                         case 'translate': {
                             var transfCoords = this.parseCoordinates3D(grandgrandChildren[k], "translate animation for ID " + animationID);
-                            if (!Array.isArray(coordinates))
-                                return coordinates;
+                            if (!Array.isArray(transfCoords))
+                                return transfCoords;
     
                             break;
                         }
                         case 'scale': {
                             var scaleCoords = this.parseCoordinates3D(grandgrandChildren[k], "scale animation for ID " + animationID);
-                            if (!Array.isArray(coordinates))
-                                return coordinates;
+                            if (!Array.isArray(scaleCoords))
+                                return scaleCoords;
     
                             break;
                         }
@@ -850,7 +850,7 @@ class MySceneGraph {
                 keyFrames.push(keyFrame);
             }
 
-            var keyFrameAnimation = new keyFrameAnimation(keyFrames);
+            var keyFrameAnimation = new KeyFrameAnimation(keyFrames);
             this.animations[animationID] = keyFrameAnimation;
         }
 

@@ -11,6 +11,8 @@ class Animation {
         if (this.apply === undefined) {
             throw new TypeError('Classes extending the Animation abstract class');
         }
+
+
     }
 
     

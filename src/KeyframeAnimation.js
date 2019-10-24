@@ -1,7 +1,9 @@
 class KeyFrameAnimation extends Animation {
-    constructor() {
-        super(keyFrames);
+    constructor(keyFrames) {
+        super();
 
+        this.keyFrames = keyFrames;
+        
         this.sumT = 0;
         this.ma = [];
     }
@@ -9,7 +11,7 @@ class KeyFrameAnimation extends Animation {
     get update(time) {
         this.sumT += time;
 
-        
+
     }
 
     get apply(scene) {
