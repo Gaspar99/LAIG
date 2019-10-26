@@ -1,7 +1,8 @@
 var DEGREE_TO_RAD = Math.PI / 180;
 
 class MyKeyFrameAnimation {
-    constructor(keyFrames) {
+    constructor(scene, keyFrames) {
+        this.scene = scene;
         this.keyFrames = keyFrames;
 
         this.addInitialKeyFrame();
@@ -32,14 +33,16 @@ class MyKeyFrameAnimation {
         this.calculateScaleMatrix(timeIntervalPercentage);
     }
 
-    apply(scene) {
+    apply() {
         var ma = mat4.create();
 
         var ma = mat4.multiply(ma, ma, this.translateMatrix);
         var ma = mat4.multiply(ma, ma, this.rotationMatrix); 
         var ma = mat4.multiply(ma, ma, this.scaleMatrix);  
 
-        scene.multMatrix(ma);
+        this.scene.multMatrix(ma);
+
+        return ma;
     }
 
     addInitialKeyFrame() {

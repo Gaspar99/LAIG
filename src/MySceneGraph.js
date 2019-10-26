@@ -850,7 +850,7 @@ class MySceneGraph {
                 keyFrames.push(keyFrame);
             }
 
-            var keyFrameAnimation = new MyKeyFrameAnimation(keyFrames);
+            var keyFrameAnimation = new MyKeyFrameAnimation(this.scene, keyFrames);
             this.animations[animationID] = keyFrameAnimation;
         }
 
@@ -1570,7 +1570,7 @@ class MySceneGraph {
         var component = this.components[componentID];
         
         // Transformations
-        var transfMatrix = [];
+        var transfMatrix = mat4.create();
         transfMatrix = mat4.multiply(transfMatrix, parentTransfMatrix, component.transfMatrix);
 
         // Animation 
@@ -1609,8 +1609,9 @@ class MySceneGraph {
         this.scene.pushMatrix();
 
         this.scene.multMatrix(transfMatrix);
+        var ma = mat4.create();
         if (animationID != null)
-            this.animations[animationID].apply(this.scene);
+            ma = this.animations[animationID].apply();
 
         var primitiveChildren = component.primitiveChildren;
         for (var i = 0; i < primitiveChildren.length; i++) {
@@ -1618,6 +1619,8 @@ class MySceneGraph {
             this.primitives[primitiveChildren[i]].display();
         }
         this.scene.popMatrix();
+
+        transfMatrix = mat4.multiply(transfMatrix, transfMatrix, ma);
 
         // Process of children that are components
         var componentChildren = component.componentChildren;

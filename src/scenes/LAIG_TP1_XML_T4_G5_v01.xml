@@ -329,8 +329,20 @@
     <animations>
         <animation id="footballAnimation" >
             <keyframe instant="5.0">
-                <translate x="10.0" y="0.0" z="0.0" />
-                <rotate angle_x="0.0" angle_y="0.0" angle_z="10.0" />
+                <translate x="20.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="-360.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="10.0">
+                <translate x="40.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="-720.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+        </animation>
+        <animation id="swingAnimation" >
+            <keyframe instant="5.0">
+                <translate x="1.0" y="1.0" z="0.0" />
+                <rotate angle_x="-45.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
         </animation>
@@ -1219,6 +1231,7 @@
             <transformation>
                 <translate x="12.0" y="4.0" z="0.0" />
             </transformation>
+            <animationref id="swingAnimation" />
             <materials>
                 <material id="defaultMaterial" />
             </materials>
