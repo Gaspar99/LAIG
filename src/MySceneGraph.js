@@ -1062,17 +1062,94 @@ class MySceneGraph {
                     break;
                 }
                 case 'plane': {
+                    // npartsU
+                    var npartsU = this.reader.getInteger(grandChildren[0], 'npartsU');
+                    if (!(npartsU != null && !isNaN(npartsU)))
+                        return "unable to parse npartsU value of the primitive for ID = " + primitiveId;
+                    
+                    // npartsV
+                    var npartsV = this.reader.getInteger(grandChildren[0], 'npartsV');
+                    if (!(npartsV != null && !isNaN(npartsV)))
+                        return "unable to parse npartsV value of the primitive for ID = " + primitiveId;
+                    
+                    var plane = new MyPlane(this.scene, npartsU, npartsV);
 
+                    this.primitives[primitiveId] = plane;
 
                     break;
                 }
                 case 'patch': {
+                    // npointsU
+                    var npointsU = this.reader.getInteger(grandChildren[0], 'npointsU');
+                    if (!(npointsU != null && !isNaN(npointsU)))
+                        return "unable to parse npointsU value of the primitive for ID = " + primitiveId;
+                    
+                    // npointsV
+                    var npointsV = this.reader.getInteger(grandChildren[0], 'npointsV');
+                    if (!(npointsV != null && !isNaN(npointsV)))
+                        return "unable to parse npointsV value of the primitive for ID = " + primitiveId;
+                    
+                    // npartsU
+                    var npartsU = this.reader.getInteger(grandChildren[0], 'npartsU');
+                    if (!(npartsU != null && !isNaN(npartsU)))
+                        return "unable to parse npartsU value of the primitive for ID = " + primitiveId;
+                    
+                    // npartsV
+                    var npartsV = this.reader.getInteger(grandChildren[0], 'npartsV');
+                    if (!(npartsV != null && !isNaN(npartsV)))
+                        return "unable to parse npartsV value of the primitive for ID = " + primitiveId;
+                    
+                    // Control Points
+                    var numControlPoints = npointsU * npointsV;
+                    var grandgrandChildren = grandChildren[0].children;
+                    if (numControlPoints != grandgrandChildren.length)
+                        return "number of control points diferent to npointsU * npointsV for primitive with ID = " + primitiveId;
 
+                    var controlPoints = [];
+                    
+                    for (var j = 0; j < grandgrandChildren.length; j++) {
+                        var controlPoint = this.parseCoordinates3D(grandgrandChildren[j], "control point for primitive with ID " + primitiveId);
+                        if (!Array.isArray(controlPoint))
+                            return controlPoint;
+
+                        controlPoints.push(controlPoint);
+                    }
+
+                    var patch = new MyPatch(this.scene, npointsU, npointsU, npartsU, npartsV, controlPoints);
+
+                    this.primitives[primitiveId] = patch;
 
                     break;
                 }
                 case 'cylinder2': {
+                    // Base
+                    var base = this.reader.getFloat(grandChildren[0], 'base');
+                    if (!(base != null && !isNaN(base)))
+                        return "unable to parse base value of the primitive for ID = " + primitiveId;
+                    
+                    // Top
+                    var top = this.reader.getFloat(grandChildren[0], 'top');
+                    if (!(top != null && !isNaN(top)))
+                        return "unable to parse top value of the primitive for ID = " + primitiveId;
 
+                    // Height
+                    var height = this.reader.getFloat(grandChildren[0], 'height');
+                    if (!(height != null && !isNaN(height)))
+                        return "unable to parse height value of the primitive for ID = " + primitiveId;
+
+                    // Slices
+                    var slices = this.reader.getInteger(grandChildren[0], 'slices');
+                    if (!(slices != null && !isNaN(slices)))
+                        return "unable to parse slices value of the primitive for ID = " + primitiveId;
+
+                    // Stacks
+                    var stacks = this.reader.getInteger(grandChildren[0], 'stacks');
+                    if (!(stacks != null && !isNaN(stacks)))
+                        return "unable to parse stacks value of the primitive for ID = " + primitiveId;
+
+                    var cylinder2 = new MyCylinder2(this.scene, base, top, height, slices, stacks);
+
+                    this.primitives[primitiveId] = cylinder2;
 
                     break;
                 }
