@@ -1,8 +1,8 @@
 class MyKeyFrame {
     constructor(instant, transCoords, rotateCoords, scaleCoords) {
 
-        // Instant
-        this.instant = instant;
+        // Instant - stored in milliseconds
+        this.instant = instant * 1000;
 
         // Translate info
         this.transX = transCoords[0];

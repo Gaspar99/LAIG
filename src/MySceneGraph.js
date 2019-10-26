@@ -796,9 +796,9 @@ class MySceneGraph {
                 }
 
                 // Get instant of the frame
-                var instant = this.reader.getString(grandChildren[j], "instant");
-                if (instant == null)
-                    return "no instant defined for keyframe";
+                var instant = this.reader.getFloat(grandChildren[j], "instant");
+                if (!(instant != null && !isNaN(instant)))
+                    return "unable to parse instant property of animation for ID = " + animationID;
                 
                 grandgrandChildren = grandChildren[j].children;
 
@@ -839,7 +839,7 @@ class MySceneGraph {
                             if (!(angle_z != null && !isNaN(angle_z)))
                                 return "unable to parse angle_z property of scale animation for ID = " + animationID;
 
-                            scaleCoords = [angle_x, angle_y, angle_z];
+                            angleCoords = [angle_x, angle_y, angle_z];
     
                             break;
                         }                  
@@ -1115,7 +1115,7 @@ class MySceneGraph {
                         controlPoints.push(controlPoint);
                     }
 
-                    var patch = new MyPatch(this.scene, npointsU, npointsU, npartsU, npartsV, controlPoints);
+                    var patch = new MyPatch(this.scene, npointsU, npointsV, npartsU, npartsV, controlPoints);
 
                     this.primitives[primitiveId] = patch;
 
@@ -1529,7 +1529,7 @@ class MySceneGraph {
     }
 
     /**
-     * Goes trough every animation and updates it considering the time passes
+     * Goes trough every animation and updates it considering the time passed
      * @param {time passed since last call} time 
      */
     updateAnimations(time) {
@@ -1575,8 +1575,6 @@ class MySceneGraph {
 
         // Animation 
         var animationID = component.animationID;
-        if (animationID != null)
-            this.animations[animationID].apply(this.scene);
 
         // Material
         var materialID = component.materials[component.activeMaterial];
@@ -1609,7 +1607,11 @@ class MySceneGraph {
 
         // Display of primitives
         this.scene.pushMatrix();
+
         this.scene.multMatrix(transfMatrix);
+        if (animationID != null)
+            this.animations[animationID].apply(this.scene);
+
         var primitiveChildren = component.primitiveChildren;
         for (var i = 0; i < primitiveChildren.length; i++) {
             this.primitives[primitiveChildren[i]].updateTexCoords(length_s, length_t);

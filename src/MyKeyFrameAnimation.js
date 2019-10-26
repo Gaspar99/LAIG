@@ -1,3 +1,5 @@
+var DEGREE_TO_RAD = Math.PI / 180;
+
 class MyKeyFrameAnimation {
     constructor(keyFrames) {
         this.keyFrames = keyFrames;
@@ -8,14 +10,19 @@ class MyKeyFrameAnimation {
         this.timeIntervals = [];
         this.constructTimeIntervals();
 
-        this.ma = mat4.create();
         this.sumT = 0;
+
+        this.identityMatrix = mat4.create();
+        this.translateMatrix = mat4.create();
+        this.rotationMatrix = mat4.create();
+        this.scaleMatrix = mat4.create();
     }
 
     update(time) {
         this.sumT += time;
 
-        this.checkTimeInterval();
+        if (!this.checkTimeInterval())
+            return;
 
         var timeIntervalPercentage = this.sumT / this.timeIntervals[this.currentTimeInterval];
 
@@ -26,14 +33,20 @@ class MyKeyFrameAnimation {
     }
 
     apply(scene) {
-        scene.multMatrix(this.ma);
+        var ma = mat4.create();
+
+        var ma = mat4.multiply(ma, ma, this.translateMatrix);
+        var ma = mat4.multiply(ma, ma, this.rotationMatrix); 
+        var ma = mat4.multiply(ma, ma, this.scaleMatrix);  
+
+        scene.multMatrix(ma);
     }
 
     addInitialKeyFrame() {
 
-        var transCoords = [0, 0, 0];
-        var rotateCoords = [0, 0, 0];
-        var scaleCoords = [1, 1, 1];
+        var transCoords = [0.0, 0.0, 0.0];
+        var rotateCoords = [0.0, 0.0, 0.0];
+        var scaleCoords = [1.0, 1.0, 1.0];
 
         var initialKeyFrame = new MyKeyFrame(0.0, transCoords, rotateCoords, scaleCoords);
 
@@ -42,15 +55,21 @@ class MyKeyFrameAnimation {
 
     constructTimeIntervals() {
         for (var i = 0; i < this.keyFrames.length - 1; i++) {
-            this.timeIntervals[i] = this.keyFrames[i].instance - this.keyFrames[i + 1].instance;
+            this.timeIntervals[i] = this.keyFrames[i + 1].instant - this.keyFrames[i].instant;
         }
     }
 
     checkTimeInterval() {
+
         if (this.sumT > this.timeIntervals[this.currentTimeInterval]) {
             this.sumT -= this.timeIntervals[this.currentTimeInterval];
             this.currentTimeInterval++;
         }
+
+        if (this.currentTimeInterval >= this.keyFrames.length - 1)
+            return false;
+
+        return true;
     }
 
     calculateTranslateMatrix(timeIntervalPercentage) {
@@ -69,7 +88,7 @@ class MyKeyFrameAnimation {
 
         var coords = [dx, dy, dz];
 
-        this.ma = mat4.translate(this.ma, this.ma, coords);
+        this.translateMatrix = mat4.translate(this.translateMatrix, this.identityMatrix, coords);
     }
 
     calculateRotationMatrix(timeIntervalPercentage) {
@@ -79,15 +98,15 @@ class MyKeyFrameAnimation {
 
         // X Coord
         var dx = keyFrame1.angleX + (keyFrame2.angleX - keyFrame1.angleX) * timeIntervalPercentage;
-        this.ma = mat4.rotateX(this.ma, this.ma, dx);
+        this.rotationMatrix = mat4.rotateX(this.rotationMatrix, this.identityMatrix, dx * DEGREE_TO_RAD);
 
         // Y Coord
         var dy = keyFrame1.angleY + (keyFrame2.angleY - keyFrame1.angleY) * timeIntervalPercentage;
-        this.ma = mat4.rotateY(this.ma, this.ma, dy);
+        this.rotationMatrix = mat4.rotateY(this.rotationMatrix, this.rotationMatrix, dy * DEGREE_TO_RAD);
 
         // Z Coord
         var dz = keyFrame1.angleZ + (keyFrame2.angleZ - keyFrame1.angleZ) * timeIntervalPercentage;
-        this.ma = mat4.rotateZ(this.ma, this.ma, dz);
+        this.rotationMatrix = mat4.rotateZ(this.rotationMatrix, this.rotationMatrix, dz * DEGREE_TO_RAD);
     }
 
     calculateScaleMatrix(timeIntervalPercentage) {
@@ -106,7 +125,7 @@ class MyKeyFrameAnimation {
 
         var coords = [dx, dy, dz];
 
-        this.ma = mat4.scale(this.ma, this.ma, coords);
+        this.scaleMatrix = mat4.scale(this.scaleMatrix, this.identityMatrix, coords);
     }
 
 }

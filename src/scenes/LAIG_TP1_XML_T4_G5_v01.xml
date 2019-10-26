@@ -2,7 +2,7 @@
     <scene root="root" axis_length="5"/>
 
 
-    <views default="House Front (P)">
+    <views default="House Back (P)">
         <perspective id="House Front (P)" near="0.1" far="500.0" angle="45.0">
             <from x="0.0" y="90.0" z="230.0" />
             <to x="0.0" y="0.0" z="-50.0" />
@@ -327,10 +327,10 @@
     </transformations>
 
     <animations>
-        <animation id="animation1" >
+        <animation id="footballAnimation" >
             <keyframe instant="5.0">
-                <translate x="1.0" y="1.0" z="1.0" />
-                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <translate x="10.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="10.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
         </animation>
@@ -1157,6 +1157,7 @@
             <transformation>
                 <transformationref id="footballPos" />
             </transformation>
+            <animationref id="footballAnimation" />
             <materials>
                 <material id="plasticMaterial" />
                 <material id="redPlasticMaterial" />
