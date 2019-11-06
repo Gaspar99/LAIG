@@ -5,7 +5,7 @@ class MyPatch extends CGFobject {
         this.nPointsV = nPointsV;
         this.npartsU = npartsU;
         this.npartsV = npartsV;
-        this.controlPoints;
+        this.controlPoints = controlPoints;
 
         this.initBuffers();
     }
