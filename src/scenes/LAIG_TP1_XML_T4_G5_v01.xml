@@ -577,19 +577,23 @@
             <torus inner="3.0" outer="5.0" slices="20.0" loops="20.0" />
         </primitive>
         <primitive id="patch">
-            <patch npointsU="2" npointsV="2" npartsU="5" npartsV="5" >
-                <controlpoint xx="0.0" yy="10.0" zz="0.0" />
+            <patch npointsU="4" npointsV="2" npartsU="10" npartsV="10" >
+                <controlpoint xx="-5.0" yy="0.0" zz="0.0" />
+                <controlpoint xx="-5.0" yy="10.0" zz="0.0" />
+                <controlpoint xx="-5.0" yy="0.0" zz="6.67" />
+                <controlpoint xx="-5.0" yy="10.0" zz="6.67" />
+                <controlpoint xx="5.0" yy="0.0" zz="6.67" />
+                <controlpoint xx="5.0" yy="10.0" zz="6.67" />
+                <controlpoint xx="5.0" yy="0.0" zz="0.0" />
                 <controlpoint xx="5.0" yy="10.0" zz="0.0" />
-                <controlpoint xx="0.0" yy="10.0" zz="5.0" />
-                <controlpoint xx="5.0" yy="10.0" zz="5.0" />
             </patch>
         </primitive>
-        <primitive id="plane">
-            <plane npartsU="5" npartsV="5" />
+        <primitive id="groundPrimitive">
+            <plane npartsU="50" npartsV="50" />
         </primitive>
-        <!--<primitive id="cylinder2">
-            <cylinder2 base="4.0" top="2.0" height="30.0" slices="15.0" stacks="15.0" />
-        </primitive>-->
+        <primitive id="cylinder2">
+            <cylinder2 base="5.0" top="5.0" height="10.0" slices="10.0" stacks="10.0" />
+        </primitive>
         
     </primitives>
 
@@ -603,16 +607,13 @@
             </materials>
             <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
             <children>
-                <!--<primitiveref id="patch" />
-                <primitiveref id="plane" />-->
-
                 <componentref id="ground" />
                 <componentref id="tableSet" />
                 <componentref id="tree" />
                 <componentref id="football" />
                 <componentref id="poolSet" />
                 <componentref id="background" />
-                <componentref id="houseSet" />
+                <componentref id="houseSet" /> 
             </children>
         </component>
 
@@ -620,7 +621,6 @@
         <component id="ground">
             <transformation>
                 <scale x="500.0" y="1.0" z="500.0" />
-                <rotate axis="x" angle="-90.0" />
             </transformation>
             <materials>
                 <material id="greenGrassMaterial" />
@@ -629,7 +629,7 @@
             </materials>
             <texture id="grass" length_s="0.1" length_t="0.1"/>
             <children>
-                <primitiveref id="unitSquare" />
+                <primitiveref id="groundPrimitive" />
             </children>
         </component>
 

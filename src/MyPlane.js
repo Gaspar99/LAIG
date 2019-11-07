@@ -33,5 +33,6 @@ class MyPlane extends CGFobject {
     }
 
     updateTexCoords(length_s, length_t) {
+        
     }
 }
