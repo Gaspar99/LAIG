@@ -340,17 +340,205 @@
             </keyframe>
         </animation>
         <animation id="swingAnimation" >
+            <keyframe instant="1.0">
+                <translate x="1.0" y="1.0" z="0.0" />
+                <rotate angle_x="-30.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="3.0">
+                <translate x="1.0" y="1.0" z="0.0" />
+                <rotate angle_x="30.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
             <keyframe instant="5.0">
                 <translate x="1.0" y="1.0" z="0.0" />
+                <rotate angle_x="-30.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="7.0">
+                <translate x="1.0" y="1.0" z="0.0" />
+                <rotate angle_x="30.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="9.0">
+                <translate x="1.0" y="1.0" z="0.0" />
+                <rotate angle_x="-30.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="11.0">
+                <translate x="1.0" y="1.0" z="0.0" />
+                <rotate angle_x="30.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="13.0">
+                <translate x="1.0" y="1.0" z="0.0" />
+                <rotate angle_x="-30.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="15.0">
+                <translate x="1.0" y="1.0" z="0.0" />
+                <rotate angle_x="30.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="16.0">
+                <translate x="1.0" y="1.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+        </animation>
+        <animation id="poolFloat1Animation" >
+            <keyframe instant="3.0">
+                <translate x="0.0" y="-5.0" z="0.0" />
                 <rotate angle_x="-45.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
         </animation>
-        <animation id="poolFloatAnimation" >
-            <keyframe instant="5.0">
-                <translate x="0.0" y="-5.0" z="0.0" />
-                <rotate angle_x="-45.0" angle_y="0.0" angle_z="0.0" />
+        <animation id="doorMoving1Animation" >
+            <keyframe instant="9.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="11.0">
+                <translate x="-13.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="13.0">
+                <translate x="-13.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="14.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+        </animation>
+        <animation id="doorMoving2Animation" >
+            <keyframe instant="9.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="11.0">
+                <translate x="13.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="13.0">
+                <translate x="13.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="14.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+        </animation>
+        <animation id="poolFloat2Animation" >
+            <keyframe instant="10.0">
+                <translate x="30.0" y="-5.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="180.0" />
+                <scale x="0.7" y="0.7" z="0.7" />
+            </keyframe>
+        </animation>
+        <animation id="chair1Animation" >
+            <keyframe instant="4.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="6.0">
+                <translate x="0.0" y="0.0" z="25.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+        </animation>
+        <animation id="chair3Animation" >
+            <keyframe instant="2.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="3.0">
+                <translate x="0.0" y="0.0" z="8.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="13.0">
+                <translate x="0.0" y="0.0" z="8.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="15.0">
+                <translate x="-20.0" y="0.0" z="-45.0" />
+                <rotate angle_x="0.0" angle_y="-180.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+        </animation>
+        <animation id="chair4Animation" >
+            <keyframe instant="2.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="3.0">
+                <translate x="0.0" y="0.0" z="8.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="13.0">
+                <translate x="0.0" y="0.0" z="8.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="15.0">
+                <translate x="20.0" y="0.0" z="-45.0" />
+                <rotate angle_x="0.0" angle_y="180.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+        </animation>
+        <animation id="chair5Animation" >
+            <keyframe instant="6.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="8.0">
+                <translate x="35.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="90.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+        </animation>
+        <animation id="chair6Animation" >
+            <keyframe instant="6.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="8.0">
+                <translate x="-35.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="-90.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+        </animation>
+        <animation id="tableAnimation" >
+            <keyframe instant="8.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="10.0">
+                <translate x="-32.0" y="0.0" z="10.0" />
+                <rotate angle_x="0.0" angle_y="90.0" angle_z="0.0" />
+                <scale x="1.5" y="1.0" z="0.68" />
+            </keyframe>
+            <keyframe instant="13.0">
+                <translate x="-32.0" y="0.0" z="60.0" />
+                <rotate angle_x="0.0" angle_y="90.0" angle_z="0.0" />
+                <scale x="1.5" y="1.0" z="0.68" />
             </keyframe>
         </animation>
     </animations>
@@ -469,6 +657,7 @@
             <transformation>
                 <scale x="1.5" y="1.0" z="1.0" />
             </transformation>
+            <animationref id="tableAnimation" />
             <materials>
                 <material id="defaultMaterial" />
             </materials>
@@ -569,6 +758,7 @@
             <transformation>
                 <translate x="5.0" y="0.0" z="10.0" />
             </transformation>
+            <animationref id="chair1Animation" />
             <materials>
                 <material id="defaultMaterial" />
             </materials>
@@ -582,6 +772,7 @@
             <transformation>
                 <translate x="-5.0" y="0.0" z="10.0" />
             </transformation>
+            <animationref id="chair1Animation" />
             <materials>
                 <material id="defaultMaterial" />
             </materials>
@@ -596,6 +787,7 @@
                 <translate x="5.0" y="0.0" z="-10.0" />
                 <rotate axis="y" angle="180.0" />
             </transformation>
+            <animationref id="chair3Animation" />
             <materials>
                 <material id="defaultMaterial" />
             </materials>
@@ -610,6 +802,7 @@
                 <translate x="-5.0" y="0.0" z="-10.0" />
                 <rotate axis="y" angle="180.0" />
             </transformation>
+            <animationref id="chair4Animation" />
             <materials>
                 <material id="defaultMaterial" />
             </materials>
@@ -624,6 +817,7 @@
                 <translate x="-15.0" y="0.0" z="0.0" />
                 <rotate axis="y" angle="-90.0" />
             </transformation>
+            <animationref id="chair5Animation" />
             <materials>
                 <material id="defaultMaterial" />
             </materials>
@@ -638,6 +832,7 @@
                 <translate x="15.0" y="0.0" z="0.0" />
                 <rotate axis="y" angle="90.0" />
             </transformation>
+            <animationref id="chair6Animation" />
             <materials>
                 <material id="defaultMaterial" />
             </materials>
@@ -1080,6 +1275,7 @@
                 <rotate axis="x" angle="90.0"/>
                 <scale x="0.7" y="0.7" z="0.7" />
             </transformation>
+            <animationref id="poolFloat2Animation" />
             <materials>
                 <material id="plasticMaterial" />
                 <material id="redPlasticMaterial" />
@@ -1098,7 +1294,7 @@
                 <rotate axis="x" angle="-50.0"/>
                 <scale x="0.7" y="0.7" z="0.7" />
             </transformation>
-            <animationref id="poolFloatAnimation" />
+            <animationref id="poolFloat1Animation" />
             <materials>
                 <material id="plasticMaterial" />
                 <material id="redPlasticMaterial" />
@@ -1255,7 +1451,7 @@
 
         <component id="swing">
             <transformation>
-                <translate x="12.0" y="4.0" z="0.0" />
+                <translate x="10.0" y="32.0" z="0.0" />
             </transformation>
             <animationref id="swingAnimation" />
             <materials>
@@ -1270,7 +1466,7 @@
 
         <component id="rope">
             <transformation>
-                <translate x="0.0" y="12.0" z="0.0" />
+                <translate x="0.0" y="-15.0" z="0.0" />
                 <scale x="1.0" y="18.0" z="1.0" />
                 <rotate axis="x" angle="-90.0" />
             </transformation>
@@ -1287,7 +1483,7 @@
 
         <component id="tire">
             <transformation>
-                <translate x="0.0" y="6.0" z="0.0" />
+                <translate x="0.0" y="-20.0" z="0.0" />
             </transformation>
             <materials>
                 <material id="rubberMaterial" />
@@ -1942,6 +2138,7 @@
                 <translate x="-21" y="1" z="-0.5" />
                 <rotate axis="y" angle="180" />
             </transformation>
+            <animationref id="doorMoving1Animation" />
             <materials>
                 <material id="defaultMaterial" />
             </materials>
@@ -1960,6 +2157,7 @@
                 <translate x="-34" y="1" z="0.5" />
                 <rotate axis="y" angle="180" />
             </transformation>
+            <animationref id="doorMoving2Animation" />
             <materials>
                 <material id="defaultMaterial" />
             </materials>
