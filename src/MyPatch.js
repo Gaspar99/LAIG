@@ -11,9 +11,11 @@ class MyPatch extends CGFobject {
     }
 
     initBuffers(){
-        var nurbsSurface = new CGFnurbsSurface(this.nPointsU, this.nPointsV, this.controlPoints);
+        var nurbsSurface = new CGFnurbsSurface(this.nPointsU - 1, this.nPointsV - 1, this.controlPoints);
 
-        this.obj = new CGFnurbsObject(this.scene, this.npartsU, this.npartsV, nurbsSurface );
+        this.obj = new CGFnurbsObject(this.scene, this.npartsU, this.npartsV, nurbsSurface);
+
+        this.obj.initBuffers();
     }
 
     display() {
