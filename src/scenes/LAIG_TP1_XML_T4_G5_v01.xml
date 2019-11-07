@@ -578,10 +578,10 @@
         </primitive>
         <primitive id="patch">
             <patch npointsU="2" npointsV="2" npartsU="5" npartsV="5" >
-                <controlpoint x="0.0" y="10.0" z="0.0" />
-                <controlpoint x="5.0" y="10.0" z="0.0" />
-                <controlpoint x="0.0" y="10.0" z="5.0" />
-                <controlpoint x="5.0" y="10.0" z="5.0" />
+                <controlpoint xx="0.0" yy="10.0" zz="0.0" />
+                <controlpoint xx="5.0" yy="10.0" zz="0.0" />
+                <controlpoint xx="0.0" yy="10.0" zz="5.0" />
+                <controlpoint xx="5.0" yy="10.0" zz="5.0" />
             </patch>
         </primitive>
         <primitive id="plane">
