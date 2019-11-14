@@ -34,6 +34,8 @@ class XMLscene extends CGFscene {
 
         this.axis = new CGFaxis(this);
         this.setUpdatePeriod(33.3);
+
+        this.securityCamera = new MySecurityCamera(this);
     }
 
     /**
@@ -166,9 +168,9 @@ class XMLscene extends CGFscene {
     }
 
     /**
-     * Displays the scene.
+     * Renders the scene.
      */
-    display() {
+    render() {
         // ---- BEGIN Background, camera and axis setup
 
         // Clear image and depth buffer everytime we update the scene
@@ -198,5 +200,19 @@ class XMLscene extends CGFscene {
 
         this.popMatrix();
         // ---- END Background, camera and axis setup
+    }
+
+    /**
+     * Displays the scene.
+     */
+    display() {
+        this.securityCamera.attachFrameBuffer();
+        this.render();
+        this.securityCamera.detachFrameBuffer();
+        this.render();
+
+        this.gl.disable(this.gl.DEPTH_TEST);
+        this.securityCamera.display();
+        this.gl.enable(this.gl.DEPTH_TEST);
     }
 }
