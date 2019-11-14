@@ -327,6 +327,19 @@
     </transformations>
 
     <animations>
+        <animation id="robotAnimation" >
+            <keyframe instant="3.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="5.0">
+                <translate x="60.0" y="20.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="-90.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            
+        </animation>
         <animation id="footballAnimation" >
             <keyframe instant="5.0">
                 <translate x="20.0" y="0.0" z="0.0" />
@@ -394,12 +407,12 @@
             </keyframe>
         </animation>
         <animation id="doorMoving1Animation" >
-            <keyframe instant="9.0">
+            <keyframe instant="2.0">
                 <translate x="0.0" y="0.0" z="0.0" />
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
-            <keyframe instant="11.0">
+            <keyframe instant="5.0">
                 <translate x="-13.0" y="0.0" z="0.0" />
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
@@ -416,12 +429,12 @@
             </keyframe>
         </animation>
         <animation id="doorMoving2Animation" >
-            <keyframe instant="9.0">
+            <keyframe instant="2.0">
                 <translate x="0.0" y="0.0" z="0.0" />
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
-            <keyframe instant="11.0">
+            <keyframe instant="5.0">
                 <translate x="13.0" y="0.0" z="0.0" />
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
@@ -553,7 +566,7 @@
                         x3="0.0" y3="1.0" z3="0.0"/>
         </primitive>
         <primitive id="tableLeg">
-            <cylinder2 base="0.3" top="1.1" height="8.0" slices="10.0" stacks="10.0" />
+            <cylinder2 base="0.3" top="1.1" height="8.0" slices="2.0" stacks="2.0" />
         </primitive>
         <primitive id="treeTrunk">
             <cylinder2 base="4.0" top="2.0" height="30.0" slices="10.0" stacks="10.0" />
@@ -562,7 +575,7 @@
             <cylinder2 base="0.5" top="0.5" height="1.0" slices="10.0" stacks="10.0" />
         </primitive>
         <primitive id="basicCylinder2">
-            <cylinder2 base="0.5" top="0.2" height="1.0" slices="10.0" stacks="10.0" />
+            <cylinder2 base="3" top="1.5" height="5.0" slices="10.0" stacks="10.0" />
         </primitive>
         <primitive id="treeBush">
             <sphere radius="18.0" slices="5.0" stacks="5.0" />
@@ -617,8 +630,141 @@
                 <componentref id="poolSet" />
                 <componentref id="background" />
                 <componentref id="houseSet" /> 
-                <componentref id="lampTop" /> 
-                <componentref id="lampBottom" /> 
+                <componentref id="robot" />
+            </children>
+        </component>
+
+        <!-- ========================= ground ========================= -->
+        <component id="robot">
+            <transformation>
+                <translate x="-28.0" y="0.0" z="45.0" />
+                <rotate axis="y" angle="90.0" />
+            </transformation>
+            <animationref id="robotAnimation" />
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="robotBody" />
+                <componentref id="robotHead" />
+                <componentref id="robotArm1" />
+                <componentref id="robotArm1.1" />
+                <componentref id="robotArm2" />
+                <componentref id="robotArm2.1" />
+                <componentref id="jetpack1" />
+                <componentref id="jetpack2" />
+            </children>
+        </component>
+        <component id="robotBody">
+            <transformation>
+                <scale x="7.0" y="12.0" z="7.0" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+        <component id="jetpack1">
+            <transformation>
+                <translate x="-5.0" y="3.0" z="-2.0" />
+                <scale x="0.4" y="0.8" z="0.4" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="cylinder2" />
+            </children>
+        </component>
+
+        <component id="jetpack2">
+            <transformation>
+                <translate x="-5.0" y="3.0" z="2.0" />
+                <scale x="0.4" y="0.8" z="0.4" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="cylinder2" />
+            </children>
+        </component>
+
+        <component id="robotHead">
+            <transformation>
+                <translate x="0.0" y="11.0" z="0.0" />
+                <scale x="5.0" y="6.0" z="5.0" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="robotArm1">
+            <transformation>
+                <translate x="0.0" y="9.0" z="-4.0" />
+                <scale x="1.0" y="1.0" z="4.0" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="robotArm1.1">
+            <transformation>
+                <translate x="3.0" y="9.0" z="-6.0" />
+                <rotate axis="y" angle="90.0" />
+                <scale x="2.0" y="2.0" z="8.0" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="robotArm2">
+            <transformation>
+                <translate x="0.0" y="9.0" z="4.0" />
+                <scale x="1.0" y="1.0" z="4.0" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="robotArm2.1">
+            <transformation>
+                <translate x="3.0" y="9.0" z="6.0" />
+                <rotate axis="y" angle="90.0" />
+                <scale x="2.0" y="2.0" z="8.0" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="unitCube" />
             </children>
         </component>
 
@@ -673,11 +819,13 @@
                 <componentref id="tableLeg2" />
                 <componentref id="tableLeg3" />
                 <componentref id="tableLeg4" />
+                <componentref id="lamp" />
             </children>
         </component>
 
         <component id="lamp">
             <transformation>
+                <translate x="0.0" y="10.0" z="0.0" />
             </transformation>
             <materials>
                 <material id="defaultMaterial" />
@@ -705,7 +853,6 @@
         <component id="lampTop">
             <transformation>
                 <translate x="0.0" y="4.0" z="0.0" />
-                <scale x="6.0" y="4.0" z="5.0" />
             </transformation>
             <materials>
                 <material id="defaultMaterial" />
@@ -1509,8 +1656,8 @@
 
         <component id="rope">
             <transformation>
-                <translate x="0.0" y="-15.0" z="0.0" />
-                <scale x="1.0" y="18.0" z="1.0" />
+                <translate x="0.0" y="-9.0" z="0.0" />
+                <scale x="1.0" y="15.0" z="1.0" />
                 <rotate axis="x" angle="-90.0" />
             </transformation>
             <materials>
