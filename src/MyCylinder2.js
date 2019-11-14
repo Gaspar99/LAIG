@@ -58,8 +58,8 @@ class MyCylinder2 extends CGFobject {
       
                             
         
-        this.halfCylinder1 = new MyPatch(this.scene, 4, 2, this.slices/2, this.stacks, controlPoints1);
-        this.halfCylinder2 = new MyPatch(this.scene, 4, 2, this.slices/2, this.stacks, controlPoints2);
+        this.halfCylinder1 = new MyPatch(this.scene, 4, 2, Math.round(this.slices/2), this.stacks, controlPoints1);
+        this.halfCylinder2 = new MyPatch(this.scene, 4, 2, Math.round(this.slices/2), this.stacks, controlPoints2);
     }
 
     display() {
