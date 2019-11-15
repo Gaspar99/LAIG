@@ -1,21 +1,18 @@
 class MySecurityCamera extends CGFobject {
     constructor(scene) {
         super(scene);
-
-        this.texture = null;
-		this.appearance = null;
         
-        this.rectangle = new MyRectangle(this.scene, this.scene.gl.canvas.width * (3/4), this.scene.gl.width, 0, this.scene.gl.height * (1/4));
+        this.rectangle = new MyRectangle(scene, 0, 1, 0, 1);
+        
+        this.rttTexture = new CGFtextureRTT(scene, scene.gl.canvas.width, scene.gl.canvas.height);
 
-        this.createTexture();
-    }
+        this.cameraShader = new CGFshader(scene.gl, "shaders/securityCamera.vert", "shaders/securityCamera.frag");
+        
+        this.cameraShader.setUniformsValues({ uSampler: 0});
 
-    createTexture() {
-        this.appearance = new CGFappearance(this.scene);
-
-        this.rttTexture = new CGFtextureRTT(this.scene, this.scene.gl.canvas.width, this.scene.gl.canvas.height);
-        this.appearance.setTexture(this.rttTexture);
-		this.appearance.setTextureWrap('REPEAT', 'REPEAT');
+        this.cameraMaterial = new CGFappearance(scene);
+        this.cameraMaterial.setTexture(this.rttTexture);
+        this.cameraMaterial.setTextureWrap('REPEAT', 'REPEAT');
     }
 
     attachFrameBuffer() {
@@ -27,7 +24,15 @@ class MySecurityCamera extends CGFobject {
     }
 
     display() {
-        this.appearance.apply();
+        this.rttTexture.bind(0);
+
+        this.scene.setActiveShader(this.cameraShader);
+
+        this.cameraMaterial.apply();
         this.rectangle.display();
+
+        this.scene.setActiveShader(this.scene.defaultShader);
+
+        this.rttTexture.unbind(0);
     }
 }
