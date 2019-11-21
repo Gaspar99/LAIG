@@ -9,6 +9,8 @@ class MySecurityCamera extends CGFobject {
         this.cameraShader = new CGFshader(scene.gl, "shaders/securityCamera.vert", "shaders/securityCamera.frag");
         
         this.cameraShader.setUniformsValues({ uSampler: 0});
+
+        this.cameraShader.setUniformsValues({ timeFactor: 0});
     }
 
     attachFrameBuffer() {
@@ -18,6 +20,10 @@ class MySecurityCamera extends CGFobject {
     detachFrameBuffer() {
         this.rttTexture.detachFromFrameBuffer();
     }
+
+    updateTextureTime(time) {
+        this.cameraShader.setUniformsValues({ timeFactor: time / 100 % 1000 });
+    }   
 
     display() {
         this.rttTexture.bind(0);
