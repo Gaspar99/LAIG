@@ -17,11 +17,11 @@ void main() {
     float distPercentage = (maxDist - dist) / maxDist; //Value on range 0 to 1
     
     vec4 color = vec4(originalColor.rgb * distPercentage, 1.0);
-    vec4 stripeColor = vec4(0.5, 0.5, 0.5, 1.0);
+    vec4 stripeColor = vec4(0.5, 0.5, 0.5, 1);
 
     // Calculations to add white horizontal stripes to texture
-    if(mod(vTextureCoord.y * 10.0, 2.0) > 1.0)
-        color = stripeColor;
+    if(mod(vTextureCoord.y * 10.0, 1.5) > 1.0)
+        color = vec4(color * 3.0);
 
     gl_FragColor = vec4(color.rgb, 1.0);
 }
