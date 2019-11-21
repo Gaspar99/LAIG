@@ -166,6 +166,8 @@ class XMLscene extends CGFscene {
         this.last = t;
 
         this.graph.updateAnimations(deltaT);
+
+        this.securityCamera.updateTextureTime(t);
     }
 
     /**
