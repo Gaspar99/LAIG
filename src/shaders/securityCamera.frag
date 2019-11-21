@@ -3,6 +3,7 @@ precision highp float;
 #endif
 
 uniform sampler2D uSampler;
+uniform sampler2D uSampler2;
 uniform float timeFactor;
 
 varying vec2 vTextureCoord;
@@ -21,10 +22,10 @@ void main() {
     vec4 color = vec4(originalColor.rgb * distPercentage, 1.0);
 
     // Calculations to add white horizontal stripes to texture
-    float yCoord = vTextureCoord.y + sin(timeFactor);
+    float yCoord = vTextureCoord.y + timeFactor*0.01;
 
     if(mod(yCoord * 10.0, 2.0) > 1.7)
-        color = vec4(color * 3.0);
+        color = texture2D(uSampler2, vTextureCoord);
 
     gl_FragColor = vec4(color.rgb, 1.0);
 }

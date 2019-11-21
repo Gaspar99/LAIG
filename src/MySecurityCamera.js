@@ -5,10 +5,12 @@ class MySecurityCamera extends CGFobject {
         this.rectangle = new MyRectangle(scene, 0.5, 1.0, -1.0, -0.5);
         
         this.rttTexture = new CGFtextureRTT(scene, scene.gl.canvas.width, scene.gl.canvas.height);
+        this.noiseTexture = new CGFtexture(scene, "scenes/images/noise.jpg");
 
         this.cameraShader = new CGFshader(scene.gl, "shaders/securityCamera.vert", "shaders/securityCamera.frag");
         
         this.cameraShader.setUniformsValues({ uSampler: 0});
+        this.cameraShader.setUniformsValues({ uSampler2: 1});
 
         this.cameraShader.setUniformsValues({ timeFactor: 0});
     }
@@ -27,6 +29,7 @@ class MySecurityCamera extends CGFobject {
 
     display() {
         this.rttTexture.bind(0);
+        this.noiseTexture.bind(1);
 
         this.scene.setActiveShader(this.cameraShader);
 
@@ -35,5 +38,6 @@ class MySecurityCamera extends CGFobject {
         this.scene.setActiveShader(this.scene.defaultShader);
 
         this.rttTexture.unbind(0);
+        this.noiseTexture.unbind(1);
     }
 }
