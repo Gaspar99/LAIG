@@ -1,12 +1,15 @@
+/**
+ * MyCylinder class, creates a cylinder using vertices
+ */
 class MyCylinder extends CGFobject {
     constructor(scene, base, top, height, slices, stacks){
         super(scene);
 
-        this.slices=slices;
-        this.stacks=stacks;
-        this.base=base;
-        this.top=top;
-        this.height = height;
+        this.slices=slices;     //number of slices
+        this.stacks=stacks;     //number of stacks
+        this.base=base;         //base radius
+        this.top=top;           //top radius
+        this.height = height;   //cylinder height
         
         this.initBuffers();
     }
@@ -97,6 +100,10 @@ class MyCylinder extends CGFobject {
         this.initGLBuffers();
     }
 
+
+/**
+ * Updates texture coords, with given length_s and length_t
+ */
     updateTexCoords(length_s, length_t) {
     }
 }
