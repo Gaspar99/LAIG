@@ -107,7 +107,7 @@
 
     <textures>
         <texture id="defaultTexture" file="scenes/images/default_texture.jpg" />
-        <texture id="grass" file="scenes/images/grass.jpg" />
+        <texture id="grass" file="scenes/images/grass2.jpg" />
         <texture id="wood" file="scenes/images/wood.jpg" />
         <texture id="roof" file="scenes/images/roof.jpg" />
         <texture id="football" file="scenes/images/football.jpg" />
