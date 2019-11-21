@@ -130,6 +130,7 @@
         <texture id="pool_float2" file="scenes/images/pool_float2.jpg" />
         <texture id="pool_ball" file="scenes/images/pool_ball.jpg" />
         <texture id="glassWindow" file="scenes/images/glassWindow.jpg" />
+        <texture id="robotMetal" file="scenes/images/robot_metal.jpg" />
     </textures>
 
 
@@ -854,7 +855,7 @@
             </children>
         </component>
 
-        <!-- ========================= ground ========================= -->
+        <!-- ========================= robot ========================= -->
         <component id="robot">
             <transformation>
                 <translate x="-28.0" y="0.0" z="45.0" />
@@ -864,7 +865,7 @@
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="robotMetal"/>
             <children>
                 <componentref id="robotBody" />
                 <componentref id="robotHead" />
@@ -896,7 +897,7 @@
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="rubber"/>
             <children>
                 <primitiveref id="cylinder2" />
             </children>
@@ -910,7 +911,7 @@
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="rubber"/>
             <children>
                 <primitiveref id="cylinder2" />
             </children>
@@ -924,7 +925,7 @@
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="metal"/>
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -938,7 +939,7 @@
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="metal"/>
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -967,7 +968,7 @@
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="metal"/>
             <children>
                 <componentref id="unitCube" />
             </children>
