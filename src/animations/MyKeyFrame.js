@@ -1,4 +1,14 @@
+/**
+ * Responsible for storing key frame data
+ */
 class MyKeyFrame {
+    /**
+     * Creates Key Frame object
+     * @argument instant Instant in which the animated object must have suffered a total transformation equal to the key frame values
+     * @argument transCoords Translate coordinates for the key frame
+     * @argument rotateCoords Rotation coordinates for the key frame
+     * @argument scaleCoords Scale coordinates for the key frame
+     */
     constructor(instant, transCoords, rotateCoords, scaleCoords) {
 
         // Instant - stored in milliseconds

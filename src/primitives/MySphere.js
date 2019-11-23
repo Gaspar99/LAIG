@@ -1,8 +1,10 @@
 /**
-* MySphere
-* @constructor Constructs a sphere
+* MySphere Object
 */
 class MySphere extends CGFobject {
+  /**
+   * Constructs a sphere
+   */
   constructor(scene, radius, slices, stacks) {
     super(scene);
 

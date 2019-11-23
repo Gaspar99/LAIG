@@ -2,6 +2,15 @@
  * MyCylinder class, creates a cylinder using vertices
  */
 class MyCylinder extends CGFobject {
+    /**
+     * Creates cylinder object
+     * @argument scene XML scene
+     * @argument base Radius of the cylinder base circle 
+     * @argument top Radius of the cylinder top circle
+     * @argument height Height of the cylinder
+     * @argument slices Number of parts in the horizontal axis
+     * @argument stacks Number of parts in the vertical axis
+     */
     constructor(scene, base, top, height, slices, stacks){
         super(scene);
 
@@ -101,9 +110,9 @@ class MyCylinder extends CGFobject {
     }
 
 
-/**
- * Updates texture coords, with given length_s and length_t
- */
-    updateTexCoords(length_s, length_t) {
+  /**
+  * Updates texture coords, with given length_s and length_t
+  */
+  updateTexCoords(length_s, length_t) {
     }
 }

@@ -21,7 +21,7 @@ class MyComponent {
     }
 
     /**
-    * 
+    * Updates the current active material of this component object
     */
     updateActiveMaterial() {
         this.activeMaterial++;

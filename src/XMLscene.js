@@ -233,6 +233,7 @@ class XMLscene extends CGFscene {
             // Render scene to main camera
             this.render(this.cameras[this.camerasIDs.indexOf(this.selectedView)]);
 
+            // Display security camera on bottom right corner of screen
             this.gl.disable(this.gl.DEPTH_TEST);
             this.securityCamera.display();
             this.gl.enable(this.gl.DEPTH_TEST);

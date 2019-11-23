@@ -107,7 +107,7 @@
 
     <textures>
         <texture id="defaultTexture" file="scenes/images/default_texture.jpg" />
-        <texture id="grass" file="scenes/images/grass2.jpg" />
+        <texture id="grass" file="scenes/images/grass.jpg" />
         <texture id="wood" file="scenes/images/wood.jpg" />
         <texture id="roof" file="scenes/images/roof.jpg" />
         <texture id="football" file="scenes/images/football.jpg" />
@@ -131,6 +131,7 @@
         <texture id="pool_ball" file="scenes/images/pool_ball.jpg" />
         <texture id="glassWindow" file="scenes/images/glassWindow.jpg" />
         <texture id="robotMetal" file="scenes/images/robot_metal.jpg" />
+        <texture id="lamp" file="scenes/images/lamp.jpg" />
     </textures>
 
 
@@ -831,6 +832,9 @@
         <primitive id="cylinder2">
             <cylinder2 base="5.0" top="5.0" height="10.0" slices="10.0" stacks="10.0" />
         </primitive>
+        <primitive id="cylinder_light">
+            <cylinder2 base="3.0" top="3.0" height="6.0" slices="10.0" stacks="10.0" />
+        </primitive>
         
     </primitives>
 
@@ -865,7 +869,7 @@
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="robotMetal"/>
+            <texture id="robotMetal" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="robotBody" />
                 <componentref id="robotHead" />
@@ -897,7 +901,7 @@
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="rubber"/>
+            <texture id="rubber" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="cylinder2" />
             </children>
@@ -911,7 +915,7 @@
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="rubber"/>
+            <texture id="rubber" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="cylinder2" />
             </children>
@@ -925,7 +929,7 @@
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="metal"/>
+            <texture id="metal" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -939,7 +943,7 @@
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="metal"/>
+            <texture id="metal" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -968,7 +972,7 @@
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="metal"/>
+            <texture id="metal" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -1744,7 +1748,7 @@
                 <material id="redMaterial" />
                 <material id="blueMaterial" />
             </materials>
-            <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
+            <texture id="lamp" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="unitSphere" />
             </children>
@@ -1760,7 +1764,7 @@
                 <material id="redMaterial" />
                 <material id="blueMaterial" />
             </materials>
-            <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
+            <texture id="lamp" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="unitSphere" />
             </children>
@@ -1776,7 +1780,7 @@
                 <material id="redMaterial" />
                 <material id="blueMaterial" />
             </materials>
-            <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
+            <texture id="lamp" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="unitSphere" />
             </children>
@@ -1792,7 +1796,7 @@
                 <material id="redMaterial" />
                 <material id="blueMaterial" />
             </materials>
-            <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
+            <texture id="lamp" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="unitSphere" />
             </children>
@@ -2663,33 +2667,31 @@
 
         <component id="houseLight1">
             <transformation>
-                <translate x="0.0" y="34.0" z="27.0" />
-                <scale x="2.0" y="2.0" z="2.0" />
+                <translate x="0.0" y="32.0" z="27.0" />
             </transformation>
             <materials>
                 <material id="yellowMaterial" />
                 <material id="redMaterial" />
                 <material id="blueMaterial" />
             </materials>
-            <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
+            <texture id="lamp" length_s="1.0" length_t="1.0" />
             <children>
-                <primitiveref id="unitSphere" />
+                <primitiveref id="cylinder_light" />
             </children>
         </component>
 
         <component id="houseLight2">
             <transformation>
-                <translate x="2.0" y="24.0" z="-27.0" />
-                <scale x="3.0" y="3.0" z="3.0" />
+                <translate x="2.0" y="26.0" z="-27.0" />
             </transformation>
             <materials>
                 <material id="yellowMaterial" />
                 <material id="redMaterial" />
                 <material id="blueMaterial" />
             </materials>
-            <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
+            <texture id="lamp" length_s="1.0" length_t="1.0" />
             <children>
-                <primitiveref id="unitSphere" />
+                <primitiveref id="cylinder_light" />
             </children>
         </component>
 
