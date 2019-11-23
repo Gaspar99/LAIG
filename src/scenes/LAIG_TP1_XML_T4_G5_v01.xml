@@ -107,7 +107,7 @@
 
     <textures>
         <texture id="defaultTexture" file="scenes/images/default_texture.jpg" />
-        <texture id="grass" file="scenes/images/grass.jpg" />
+        <texture id="grass" file="scenes/images/grass2.jpg" />
         <texture id="wood" file="scenes/images/wood.jpg" />
         <texture id="roof" file="scenes/images/roof.jpg" />
         <texture id="football" file="scenes/images/football.jpg" />
@@ -130,6 +130,7 @@
         <texture id="pool_float2" file="scenes/images/pool_float2.jpg" />
         <texture id="pool_ball" file="scenes/images/pool_ball.jpg" />
         <texture id="glassWindow" file="scenes/images/glassWindow.jpg" />
+        <texture id="robotMetal" file="scenes/images/robot_metal.jpg" />
     </textures>
 
 
@@ -328,7 +329,7 @@
 
     <animations>
         <animation id="robotAnimation" >
-            <keyframe instant="3.0">
+            <keyframe instant="3.9">
                 <translate x="0.0" y="0.0" z="0.0" />
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
@@ -336,6 +337,151 @@
             <keyframe instant="5.0">
                 <translate x="60.0" y="20.0" z="0.0" />
                 <rotate angle_x="0.0" angle_y="-90.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="5.3">
+                <translate x="60.0" y="20.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="-70.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="5.5">
+                <translate x="60.0" y="20.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="-70.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="7.0">
+                <translate x="65.0" y="20.0" z="45.0" />
+                <rotate angle_x="0.0" angle_y="-180.0" angle_z="-30.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="8.0">
+                <translate x="40.0" y="20.0" z="45.0" />
+                <rotate angle_x="0.0" angle_y="-180.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="8.2">
+                <translate x="40.0" y="20.0" z="45.0" />
+                <rotate angle_x="0.0" angle_y="-180.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="8.8">
+                <translate x="50.0" y="20.0" z="45.0" />
+                <rotate angle_x="0.0" angle_y="-90.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="9.0">
+                <translate x="50.0" y="20.0" z="45.0" />
+                <rotate angle_x="0.0" angle_y="-90.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="9.8">
+                <translate x="50.0" y="20.0" z="45.0" />
+                <rotate angle_x="0.0" angle_y="-150.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="10.0">
+                <translate x="50.0" y="20.0" z="45.0" />
+                <rotate angle_x="0.0" angle_y="-150.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="10.8">
+                <translate x="50.0" y="20.0" z="45.0" />
+                <rotate angle_x="0.0" angle_y="-275.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="11.0">
+                <translate x="50.0" y="20.0" z="45.0" />
+                <rotate angle_x="0.0" angle_y="-275.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="11.8">
+                <translate x="50.0" y="20.0" z="45.0" />
+                <rotate angle_x="0.0" angle_y="-200.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="12.0">
+                <translate x="50.0" y="20.0" z="45.0" />
+                <rotate angle_x="0.0" angle_y="-200.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="13.2">
+                <translate x="50.0" y="20.0" z="75.0" />
+                <rotate angle_x="0.0" angle_y="-275.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="15.0">
+                <translate x="65.0" y="15.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="-180.0" angle_z="-50.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="15.5">
+                <translate x="65.0" y="15.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="-180.0" angle_z="-50.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="17.0">
+                <translate x="55.0" y="15.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="-180.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="17.2">
+                <translate x="55.0" y="15.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="-180.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="18.0">
+                <translate x="55.0" y="15.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="-70.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="18.2">
+                <translate x="55.0" y="15.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="-70.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="19.2">
+                <translate x="55.0" y="15.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="-160.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="19.4">
+                <translate x="55.0" y="15.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="-160.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="20.4">
+                <translate x="55.0" y="15.0" z="25.0" />
+                <rotate angle_x="0.0" angle_y="-70.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="20.6">
+                <translate x="55.0" y="15.0" z="25.0" />
+                <rotate angle_x="0.0" angle_y="-70.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="21.8">
+                <translate x="55.0" y="15.0" z="25.0" />
+                <rotate angle_x="0.0" angle_y="-160.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="22.0">
+                <translate x="55.0" y="15.0" z="25.0" />
+                <rotate angle_x="0.0" angle_y="-160.0" angle_z="-20.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="23.0">
+                <translate x="30.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="23.2">
+                <translate x="30.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="24.8">
+                <translate x="-5.0" y="10.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
             
@@ -417,12 +563,47 @@
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
-            <keyframe instant="13.0">
+            <keyframe instant="6.0">
+                <translate x="-0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="15.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="16.0">
                 <translate x="-13.0" y="0.0" z="0.0" />
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
-            <keyframe instant="14.0">
+            <keyframe instant="17.0">
+                <translate x="-13.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="18.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="23.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="24.0">
+                <translate x="-13.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="24.8">
+                <translate x="-13.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="25.8">
                 <translate x="0.0" y="0.0" z="0.0" />
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
@@ -439,12 +620,47 @@
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
-            <keyframe instant="13.0">
+            <keyframe instant="6.0">
+                <translate x="-0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="15.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="16.0">
                 <translate x="13.0" y="0.0" z="0.0" />
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
-            <keyframe instant="14.0">
+            <keyframe instant="17.0">
+                <translate x="13.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="18.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="23.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="24.0">
+                <translate x="13.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="24.8">
+                <translate x="13.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="25.8">
                 <translate x="0.0" y="0.0" z="0.0" />
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
@@ -458,98 +674,103 @@
             </keyframe>
         </animation>
         <animation id="chair1Animation" >
-            <keyframe instant="4.0">
+            <keyframe instant="7.0">
                 <translate x="0.0" y="0.0" z="0.0" />
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
-            <keyframe instant="6.0">
+            <keyframe instant="8.0">
                 <translate x="0.0" y="0.0" z="25.0" />
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
         </animation>
         <animation id="chair3Animation" >
-            <keyframe instant="2.0">
+            <keyframe instant="5.0">
                 <translate x="0.0" y="0.0" z="0.0" />
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
-            <keyframe instant="3.0">
+            <keyframe instant="5.3">
                 <translate x="0.0" y="0.0" z="8.0" />
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
-            <keyframe instant="13.0">
+            <keyframe instant="20.6">
                 <translate x="0.0" y="0.0" z="8.0" />
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
-            <keyframe instant="15.0">
+            <keyframe instant="21.8">
                 <translate x="-20.0" y="0.0" z="-45.0" />
                 <rotate angle_x="0.0" angle_y="-180.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
         </animation>
         <animation id="chair4Animation" >
-            <keyframe instant="2.0">
+            <keyframe instant="5.0">
                 <translate x="0.0" y="0.0" z="0.0" />
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
-            <keyframe instant="3.0">
+            <keyframe instant="5.3">
                 <translate x="0.0" y="0.0" z="8.0" />
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
-            <keyframe instant="13.0">
+            <keyframe instant="18.2">
                 <translate x="0.0" y="0.0" z="8.0" />
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
-            <keyframe instant="15.0">
+            <keyframe instant="19.2">
                 <translate x="20.0" y="0.0" z="-45.0" />
                 <rotate angle_x="0.0" angle_y="180.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
         </animation>
         <animation id="chair5Animation" >
-            <keyframe instant="6.0">
+            <keyframe instant="11.0">
                 <translate x="0.0" y="0.0" z="0.0" />
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
-            <keyframe instant="8.0">
+            <keyframe instant="11.8">
                 <translate x="35.0" y="0.0" z="0.0" />
                 <rotate angle_x="0.0" angle_y="90.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
         </animation>
         <animation id="chair6Animation" >
-            <keyframe instant="6.0">
+            <keyframe instant="9.0">
                 <translate x="0.0" y="0.0" z="0.0" />
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
-            <keyframe instant="8.0">
+            <keyframe instant="9.8">
                 <translate x="-35.0" y="0.0" z="0.0" />
                 <rotate angle_x="0.0" angle_y="-90.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
         </animation>
         <animation id="tableAnimation" >
-            <keyframe instant="8.0">
+            <keyframe instant="13.2">
                 <translate x="0.0" y="0.0" z="0.0" />
                 <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
-            <keyframe instant="10.0">
+            <keyframe instant="15.0">
                 <translate x="-32.0" y="0.0" z="10.0" />
                 <rotate angle_x="0.0" angle_y="90.0" angle_z="0.0" />
                 <scale x="1.5" y="1.0" z="0.68" />
             </keyframe>
-            <keyframe instant="13.0">
-                <translate x="-32.0" y="0.0" z="60.0" />
+            <keyframe instant="15.5">
+                <translate x="-32.0" y="0.0" z="10.0" />
+                <rotate angle_x="0.0" angle_y="90.0" angle_z="0.0" />
+                <scale x="1.5" y="1.0" z="0.68" />
+            </keyframe>
+            <keyframe instant="17.0">
+                <translate x="-32.0" y="0.0" z="70.0" />
                 <rotate angle_x="0.0" angle_y="90.0" angle_z="0.0" />
                 <scale x="1.5" y="1.0" z="0.68" />
             </keyframe>
@@ -634,7 +855,7 @@
             </children>
         </component>
 
-        <!-- ========================= ground ========================= -->
+        <!-- ========================= robot ========================= -->
         <component id="robot">
             <transformation>
                 <translate x="-28.0" y="0.0" z="45.0" />
@@ -644,7 +865,7 @@
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="robotMetal"/>
             <children>
                 <componentref id="robotBody" />
                 <componentref id="robotHead" />
@@ -676,7 +897,7 @@
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="rubber"/>
             <children>
                 <primitiveref id="cylinder2" />
             </children>
@@ -690,7 +911,7 @@
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="rubber"/>
             <children>
                 <primitiveref id="cylinder2" />
             </children>
@@ -704,7 +925,7 @@
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="metal"/>
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -718,7 +939,7 @@
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="metal"/>
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -747,7 +968,7 @@
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="metal"/>
             <children>
                 <componentref id="unitCube" />
             </children>
