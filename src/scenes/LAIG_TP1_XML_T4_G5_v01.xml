@@ -1031,7 +1031,6 @@
 
         <component id="table">
             <transformation>
-                <scale x="1.5" y="1.0" z="1.0" />
             </transformation>
             <animationref id="tableAnimation" />
             <materials>
@@ -1091,7 +1090,7 @@
         <component id="tableBase">
             <transformation>
                 <translate x="0.0" y="8.0" z="0.0" />
-                <scale x="20.0" y="1.0" z="20.0" />
+                <scale x="30.0" y="1.0" z="20.0" />
             </transformation>
             <materials>
                 <material id="woodMaterial" />
