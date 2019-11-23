@@ -1,11 +1,15 @@
 /**
- * MyRectangle
- * @constructor
- * @param scene - Reference to MyScene object
- * @param x - Scale of rectangle in X
- * @param y - Scale of rectangle in Y
+ * MyRectangle class, creates a rectangle using vertices
  */
 class MyRectangle extends CGFobject {
+	/**
+     * Creates rectangle object
+     * @argument scene XML scene
+     * @argument x1 First x coordinate
+	 * @argument x2 Second x coordinate
+	 * @argument y1 First y coordinate
+	 * @argument y2 Second y coordinate
+     */
 	constructor(scene, x1, x2, y1, y2) {
 		super(scene);
 		
@@ -56,10 +60,8 @@ class MyRectangle extends CGFobject {
 	}
 
 	/**
-	 * @method updateTexCoords
-	 * Updates the list of texture coordinates of the rectangle
-	 * @param {Array} coords - Array of texture coordinates
-	 */
+  	* Updates texture coords, with given length_s and length_t
+  	*/
 	updateTexCoords(length_s, length_t) {
 
 		//0

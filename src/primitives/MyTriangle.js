@@ -1,9 +1,20 @@
 /**
- * MyTriangle
- * @constructor
- * @param scene - Reference to MyScene object
+ * MyTriangle class, creates a tringle using vertices
  */
 class MyTriangle extends CGFobject {
+	/**
+     * Creates rectangle object
+     * @argument scene XML scene
+     * @argument x1 X coordinate of the first vertice
+	 * @argument x2 X coordinate of the second vertice
+	 * @argument x3 X coordinate of the third vertice
+	 * @argument y1 Y coordinate of the first vertice
+	 * @argument y2 Y coordinate of the second vertice
+	 * @argument y3 Y coordinate of the third vertice
+	 * @argument z1 Z coordinate of the first vertice
+	 * @argument z2 Z coordinate of the second vertice
+	 * @argument z3 Z coordinate of the third vertice
+     */
 	constructor(scene, x1, x2, x3, y1, y2, y3, z1, z2, z3) {
 		super(scene);
 		
@@ -56,10 +67,8 @@ class MyTriangle extends CGFobject {
 	}
 
 	/**
-	 * @method updateTexCoords
-	 * Updates the list of texture coordinates of the rectangle
-	 * @param {Array} coords - Array of texture coordinates
-	 */
+    * Updates texture coords, with given length_s and length_t
+	*/
 	updateTexCoords(length_s, length_t) {
 		var a = Math.sqrt(Math.pow(this.x2-this.x1, 2) + Math.pow(this.y2-this.y1,2) + Math.pow(this.z2-this.z1,2));
 		var b = Math.sqrt(Math.pow(this.x3-this.x2, 2) + Math.pow(this.y3-this.y2,2) + Math.pow(this.z3-this.z2,2));

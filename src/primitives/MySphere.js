@@ -1,10 +1,14 @@
 /**
-* MySphere Object
-*/
+ * MySphere class, creates a sphere using vertices
+ */
 class MySphere extends CGFobject {
   /**
-   * Constructs a sphere
-   */
+     * Creates sphere object
+     * @argument scene XML scene
+     * @argument radius Radius of the sphere
+     * @argument slices Number of parts in the horizontal axis
+     * @argument stacks Number of parts in the vertical axis
+     */
   constructor(scene, radius, slices, stacks) {
     super(scene);
 
@@ -62,6 +66,9 @@ class MySphere extends CGFobject {
     this.initGLBuffers();
   }
 
+  /**
+  * Updates texture coords, with given length_s and length_t
+	*/
   updateTexCoords(length_s, length_t) {
   }
 }
