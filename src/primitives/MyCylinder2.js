@@ -20,7 +20,6 @@ class MyCylinder2 extends CGFobject {
         this.stacks = stacks;
 
         this.makeSurfaces();
-        this.makeCircles();
     }
 
     /**
@@ -79,30 +78,11 @@ class MyCylinder2 extends CGFobject {
     }
 
     /**
-     * Makes top and base circle for the cylinder
-     */
-    makeCircles() {
-        this.topCircle = new MySphere(this.scene, this.top, 4, 4);
-        this.baseCircle = new MySphere(this.scene, this.base, 4, 4);
-    }
-
-    /**
      * Displays surfaces
      */
     display() {
         this.halfCylinder1.display();
         this.halfCylinder2.display();
-
-        this.scene.pushMatrix();
-        this.scene.translate(0, this.height, 0);
-        this.scene.scale(1, 0.1, 1);
-        this.topCircle.display();
-        this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-        this.scene.scale(1, 0.1, 1);
-        this.baseCircle.display();
-        this.scene.popMatrix();
     }
 
     /**

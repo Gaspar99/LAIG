@@ -818,7 +818,7 @@
         <primitive id="basicCylinder">
             <cylinder2 base="0.5" top="0.5" height="1.0" slices="10.0" stacks="10.0" />
         </primitive>
-        <primitive id="basicCylinder2">
+        <primitive id="lampPrimitive">
             <cylinder2 base="3" top="1.5" height="5.0" slices="10.0" stacks="10.0" />
         </primitive>
         <primitive id="treeBush">
@@ -889,7 +889,7 @@
                 <componentref id="poolSet" />
                 <componentref id="background" />
                 <componentref id="houseSet" /> 
-                <componentref id="robot" /> 
+                <componentref id="robot" />
             </children>
         </component>
 
@@ -1102,7 +1102,7 @@
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="inherit"/>
             <children>
                 <primitiveref id="basicCylinder" />
             </children>
@@ -1115,9 +1115,36 @@
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="inherit"/>
             <children>
-                <primitiveref id="basicCylinder2" />
+                <componentref id="topClosedCylinder" />
+            </children>
+        </component>
+
+        <component id="topClosedCylinder">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="lampPrimitive" />
+                <componentref id="cylinderTop" />
+            </children>
+        </component>
+
+        <component id="cylinderTop">
+            <transformation>
+                <translate x="0.0" y="5.0" z="0.0" />
+                <scale x="1.5" y="0.1" z="1.5" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unitSphere" />
             </children>
         </component>
 
@@ -2788,7 +2815,7 @@
             </materials>
             <texture id="lamp" length_s="1.0" length_t="1.0" />
             <children>
-                <primitiveref id="cylinder_light" />
+                <componentref id="cylinder_light" />
             </children>
         </component>
 
@@ -2803,7 +2830,50 @@
             </materials>
             <texture id="lamp" length_s="1.0" length_t="1.0" />
             <children>
+                <componentref id="cylinder_light" />
+            </children>
+        </component>
+
+        <component id="cylinder_light">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="yellowMaterial" />
+                <material id="redMaterial" />
+                <material id="blueMaterial" />
+            </materials>
+            <texture id="inherit" />
+            <children>
                 <primitiveref id="cylinder_light" />
+                <componentref id="light_top" />
+                <componentref id="light_bottom" />
+            </children>
+        </component>
+
+        <component id="light_top">
+            <transformation>
+                <translate x="0.0" y="6.0" z="0.0" />
+                <scale x="3.0" y="0.1" z="3.0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="unitSphere" />
+            </children>
+        </component>
+
+        <component id="light_bottom">
+            <transformation>
+                <scale x="3.0" y="0.1" z="3.0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="unitSphere" />
             </children>
         </component>
 
