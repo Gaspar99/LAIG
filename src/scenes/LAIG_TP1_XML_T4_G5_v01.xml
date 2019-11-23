@@ -806,24 +806,36 @@
             <sphere radius="1.0" slices="20.0" stacks="20.0" />
         </primitive>
         <primitive id="tirePrimitive">
-            <torus inner="1.0" outer="5.0" slices="20.0" loops="20.0" />
+            <torus inner="1.0" outer="5.0" slices="10.0" loops="10.0" />
         </primitive>
         <primitive id="poolFloat1Primitive">
-            <torus inner="2.5" outer="5.0" slices="20.0" loops="20.0" />
+            <torus inner="2.5" outer="5.0" slices="10.0" loops="10.0" />
         </primitive>
         <primitive id="poolFloat2Primitive">
-            <torus inner="3.0" outer="5.0" slices="20.0" loops="20.0" />
+            <torus inner="3.0" outer="5.0" slices="10.0" loops="10.0" />
         </primitive>
-        <primitive id="patch">
+        <primitive id="waterPatch1">
             <patch npointsU="4" npointsV="2" npartsU="10" npartsV="10" >
-                <controlpoint xx="-5.0" yy="0.0" zz="0.0" />
-                <controlpoint xx="-5.0" yy="10.0" zz="0.0" />
-                <controlpoint xx="-5.0" yy="0.0" zz="6.67" />
-                <controlpoint xx="-5.0" yy="10.0" zz="6.67" />
-                <controlpoint xx="5.0" yy="0.0" zz="6.67" />
-                <controlpoint xx="5.0" yy="10.0" zz="6.67" />
-                <controlpoint xx="5.0" yy="0.0" zz="0.0" />
-                <controlpoint xx="5.0" yy="10.0" zz="0.0" />
+                <controlpoint xx="4.0" yy="0.0" zz="0.0" />
+                <controlpoint xx="4.0" yy="0.0" zz="4.0" />
+                <controlpoint xx="3" yy="1.5" zz="0.0" />
+                <controlpoint xx="3" yy="1.5" zz="4.0" />
+                <controlpoint xx="1" yy="1.5" zz="0.0" />
+                <controlpoint xx="1" yy="1.5" zz="4.0" />
+                <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+                <controlpoint xx="0.0" yy="0.0" zz="4.0" />
+            </patch>
+        </primitive>
+        <primitive id="waterPatch2">
+            <patch npointsU="4" npointsV="2" npartsU="10" npartsV="10" >
+                <controlpoint xx="4.0" yy="0.0" zz="0.0" />
+                <controlpoint xx="4.0" yy="0.0" zz="4.0" />
+                <controlpoint xx="3" yy="-1.5" zz="0.0" />
+                <controlpoint xx="3" yy="-1.5" zz="4.0" />
+                <controlpoint xx="1" yy="-1.5" zz="0.0" />
+                <controlpoint xx="1" yy="-1.5" zz="4.0" />
+                <controlpoint xx="0.0" yy="0.0" zz="0.0" />
+                <controlpoint xx="0.0" yy="0.0" zz="4.0" />
             </patch>
         </primitive>
         <primitive id="groundPrimitive">
@@ -855,7 +867,7 @@
                 <componentref id="poolSet" />
                 <componentref id="background" />
                 <componentref id="houseSet" /> 
-                <componentref id="robot" />
+                <componentref id="robot" /> 
             </children>
         </component>
 
@@ -1474,9 +1486,9 @@
 
         <component id="pool_water">
             <transformation>
-                <translate x="25.0" y="0.2" z="0.0" />
-                <scale x="55.0" y="1.0" z="80.0" />
-                <rotate axis="x" angle="-90" />
+                <scale x="13.0" y="1.0" z="4.0" />
+                <translate x="0.0" y="1.51" z="10.0" />
+                <rotate axis="y" angle="90" />
             </transformation>
             <materials>
                 <material id="waterMaterial" />
@@ -1485,7 +1497,85 @@
             </materials>
             <texture id="water" length_s="1.0" length_t="1.0" />
             <children>
-                <primitiveref id="unitSquare" />
+                <componentref id="pool_water_wave1" />
+                <componentref id="pool_water_wave2" />
+                <componentref id="pool_water_wave3" />
+                <componentref id="pool_water_wave4" />
+                <componentref id="pool_water_wave5" />
+            </children>
+        </component>
+
+        <component id="pool_water_wave1" >
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="waterMaterial" />
+                <material id="greenWaterMaterial" />
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="waterPatch1" />
+            </children>
+        </component>
+
+        <component id="pool_water_wave2">
+            <transformation>
+                <translate x="4.0" y="0.0" z="0.0" />
+            </transformation>
+            <materials>
+                <material id="waterMaterial" />
+                <material id="greenWaterMaterial" />
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="waterPatch2" />
+            </children>
+        </component>
+
+        <component id="pool_water_wave3" >
+            <transformation>
+                <translate x="8.0" y="0.0" z="0.0" />
+            </transformation>
+            <materials>
+                <material id="waterMaterial" />
+                <material id="greenWaterMaterial" />
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="waterPatch1" />
+            </children>
+        </component>
+
+        <component id="pool_water_wave4">
+            <transformation>
+                <translate x="12.0" y="0.0" z="0.0" />
+            </transformation>
+            <materials>
+                <material id="waterMaterial" />
+                <material id="greenWaterMaterial" />
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="waterPatch2" />
+            </children>
+        </component>
+
+        <component id="pool_water_wave5" >
+            <transformation>
+                <translate x="16.0" y="0.0" z="0.0" />
+            </transformation>
+            <materials>
+                <material id="waterMaterial" />
+                <material id="greenWaterMaterial" />
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="waterPatch1" />
             </children>
         </component>
 
