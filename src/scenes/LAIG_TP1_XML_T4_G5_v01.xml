@@ -329,6 +329,28 @@
     </transformations>
 
     <animations>
+        <animation id="poolWaterAnimation" >
+            <keyframe instant="5.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="-1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="10.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="15.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="-1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="20.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0.0" angle_y="0.0" angle_z="0.0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+        </animation>
         <animation id="robotAnimation" >
             <keyframe instant="3.9">
                 <translate x="0.0" y="0.0" z="0.0" />
@@ -1490,6 +1512,7 @@
                 <translate x="0.0" y="1.51" z="10.0" />
                 <rotate axis="y" angle="90" />
             </transformation>
+            <animationref id="poolWaterAnimation" />
             <materials>
                 <material id="waterMaterial" />
                 <material id="greenWaterMaterial" />
