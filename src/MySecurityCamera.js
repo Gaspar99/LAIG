@@ -4,14 +4,15 @@
 class MySecurityCamera extends CGFobject {
     /**
      * Constructs security camera object applying render to texture technique
-     * @param scene XML Scene
+     * @argument scene XML Scene
+     * @argument rttTexture Texture used to apply render to texture technique
      */
-    constructor(scene) {
+    constructor(scene, rttTexture) {
         super(scene);
         
         this.rectangle = new MyRectangle(scene, 0.5, 1.0, -1.0, -0.5);
         
-        this.rttTexture = new CGFtextureRTT(scene, scene.gl.canvas.width, scene.gl.canvas.height);
+        this.rttTexture = rttTexture;
         this.noiseTexture = new CGFtexture(scene, "scenes/images/noise.jpg");
 
         this.cameraShader = new CGFshader(scene.gl, "shaders/securityCamera.vert", "shaders/securityCamera.frag");

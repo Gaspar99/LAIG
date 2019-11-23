@@ -148,7 +148,8 @@ class XMLscene extends CGFscene {
 
         this.initLights();
 
-        this.securityCamera = new MySecurityCamera(this);
+        this.rttTexture = new CGFtextureRTT(this, this.gl.canvas.width, this.gl.canvas.height);
+        this.securityCamera = new MySecurityCamera(this, this.rttTexture);
 
         this.sceneInited = true;
     }
