@@ -42,7 +42,7 @@ class MySecurityCamera extends CGFobject {
      * @param time acumulates time received from scene
      */
     updateTextureTime(time) {
-        this.cameraShader.setUniformsValues({ timeFactor: time / 1000 % 10000 });
+        this.cameraShader.setUniformsValues({ timeFactor: time / 100 % 1000 });
     }   
 
     /**

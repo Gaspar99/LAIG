@@ -23,7 +23,7 @@ void main() {
     vec4 color = vec4(originalColor.rgb * distPercentage, 1.0);
 
     // Calculations to add white horizontal stripes to texture
-    float yCoord = vTextureCoord.y + sin(timeFactor)*0.1;
+    float yCoord = vTextureCoord.y - timeFactor*0.01;
 
     if(mod(yCoord * 10.0, 2.0) > 1.7)
         color = texture2D(uSampler2, vTextureCoord);
