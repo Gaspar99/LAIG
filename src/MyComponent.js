@@ -20,6 +20,9 @@ class MyComponent {
         this.activeMaterial = 0;
     }
 
+    /**
+    * 
+    */
     updateActiveMaterial() {
         this.activeMaterial++;
 

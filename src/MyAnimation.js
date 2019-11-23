@@ -1,9 +1,10 @@
+/**
+* MyAnimation
+* 
+*/
 class MyAnimation {
     constructor(scene) {
         this.scene = scene;
-
-        this.ma = [];
-
     }
 
     update(time) {
@@ -11,7 +12,7 @@ class MyAnimation {
     }
 
     apply() {
-        this.scene.multMatrix(this.ma);
+        
     }
 
     

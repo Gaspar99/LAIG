@@ -1,8 +1,16 @@
 var DEGREE_TO_RAD = Math.PI / 180;
 
-class MyKeyFrameAnimation {
+/**
+ * Responsible for doing animations on scene using keyframes
+ */
+class MyKeyFrameAnimation extends MyAnimation {
+    /**
+     * Constructs object
+     * @param scene XML Scene
+     * @param keyFrames KeyFrames used to do the values interpolations to be used in animations
+     */
     constructor(scene, keyFrames) {
-        this.scene = scene;
+        super(scene);
         this.keyFrames = keyFrames;
 
         this.addInitialKeyFrame();
@@ -19,6 +27,11 @@ class MyKeyFrameAnimation {
         this.scaleMatrix = mat4.create();
     }
 
+    /**
+     * Receives acumulated time from XML scene and updates timeIntervalPercentage to be used 
+     * in the calculations of the interpolations for the animations
+     * @param time Acumulated time received from XML scene
+     */
     update(time) {
         this.sumT += time;
 
@@ -33,6 +46,10 @@ class MyKeyFrameAnimation {
         this.calculateScaleMatrix(timeIntervalPercentage);
     }
 
+    /**
+     * Applys interpolated values to create an animations matrix multiplies it with the scene matrix
+     * and then return the animation matrix 
+     */
     apply() {
         var ma = mat4.create();
 
@@ -45,6 +62,10 @@ class MyKeyFrameAnimation {
         return ma;
     }
 
+    /**
+     * Adds KeyFrame 0 to list of keyframes with neutral values
+     * so that interpolations calculations are done correctly
+     */
     addInitialKeyFrame() {
 
         var transCoords = [0.0, 0.0, 0.0];
@@ -56,12 +77,18 @@ class MyKeyFrameAnimation {
         this.keyFrames.unshift(initialKeyFrame);
     }
 
+    /**
+     * Constructs array of time intervals with the time diference between each frame
+     */
     constructTimeIntervals() {
         for (var i = 0; i < this.keyFrames.length - 1; i++) {
             this.timeIntervals[i] = this.keyFrames[i + 1].instant - this.keyFrames[i].instant;
         }
     }
 
+    /**
+     * Updates currentTimeInterval value considering the current sumT (variable that acumulates time)
+     */
     checkTimeInterval() {
 
         if (this.sumT > this.timeIntervals[this.currentTimeInterval]) {
@@ -75,6 +102,11 @@ class MyKeyFrameAnimation {
         return true;
     }
 
+    /**
+     * Gets the two key frames to do the interpolation of values considering the current time interval
+     * and creates the translate matrix considering also the percentage in which the animations is on on the current time interval
+     * @param timeIntervalPercentage Percentage in which the animation is on the current time interval
+     */
     calculateTranslateMatrix(timeIntervalPercentage) {
         
         var keyFrame1 = this.keyFrames[this.currentTimeInterval];
@@ -94,6 +126,11 @@ class MyKeyFrameAnimation {
         this.translateMatrix = mat4.translate(this.translateMatrix, this.identityMatrix, coords);
     }
 
+    /**
+     * Gets the two key frames to do the interpolation of values considering the current time interval
+     * and creates the rotation matrix considering also the percentage in which the animations is on on the current time interval
+     * @param timeIntervalPercentage Percentage in which the animation is on the current time interval
+     */
     calculateRotationMatrix(timeIntervalPercentage) {
 
         var keyFrame1 = this.keyFrames[this.currentTimeInterval];
@@ -112,6 +149,11 @@ class MyKeyFrameAnimation {
         this.rotationMatrix = mat4.rotateZ(this.rotationMatrix, this.rotationMatrix, dz * DEGREE_TO_RAD);
     }
 
+    /**
+     * Gets the two key frames to do the interpolation of values considering the current time interval
+     * and creates the scale matrix considering also the percentage in which the animations is on on the current time interval
+     * @param timeIntervalPercentage Percentage in which the animation is on the current time interval
+     */
     calculateScaleMatrix(timeIntervalPercentage) {
 
         var keyFrame1 = this.keyFrames[this.currentTimeInterval];

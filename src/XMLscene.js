@@ -41,6 +41,7 @@ class XMLscene extends CGFscene {
      */
     initCameras() {
         this.cameras = [];
+        this.securityCameras = [];
         this.camerasIDs = [];
 
         //Reads the views from the scene graph.
@@ -52,13 +53,20 @@ class XMLscene extends CGFscene {
                 this.camerasIDs.push(view[1]);
 
                 var newCamera;
+                var securityCamera;
 
-                if (view[0] == "perspective") 
+                if (view[0] == "perspective") {
                     newCamera = new CGFcamera(view[6] * DEGREE_TO_RAD, view[2], view[3], view[4], view[5]);
-                else if (view[0] == "ortho") 
+                    securityCamera = new CGFcamera(view[6] * DEGREE_TO_RAD, view[2], view[3], view[4], view[5]);
+                }
+                else if (view[0] == "ortho") {
                     newCamera = new CGFcameraOrtho(view[7], view[8], view[10], view[9], view[2], view[3], view[4], view[5], view[6]);
-                
+                    securityCamera = new CGFcameraOrtho(view[7], view[8], view[10], view[9], view[2], view[3], view[4], view[5], view[6]); 
+                } 
+                    
                 this.cameras.push(newCamera);
+                this.securityCameras.push(securityCamera);
+                
             }
         }
 
@@ -154,7 +162,7 @@ class XMLscene extends CGFscene {
 
     /**
      * Function called every x seconds, being x the set update period in the constructor
-     * @param {acumulated time} t 
+     * @argument t acumulated time
      */
     update(t) {
 
@@ -165,9 +173,11 @@ class XMLscene extends CGFscene {
         var deltaT = t - this.last;
         this.last = t;
 
-        this.graph.updateAnimations(deltaT);
+        if (this.sceneInited) {
+            this.graph.updateAnimations(deltaT);
+            this.securityCamera.updateTextureTime(t);
+        }
 
-        this.securityCamera.updateTextureTime(t);
     }
 
     /**
@@ -177,11 +187,11 @@ class XMLscene extends CGFscene {
     render(camera) {
         // ---- BEGIN Background, camera and axis setup
 
+        this.camera = camera;
+
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
-
-        this.camera = camera;
 
         this.pushMatrix();
 
@@ -209,7 +219,7 @@ class XMLscene extends CGFscene {
     }
 
     /**
-     * Displays the scene.
+     * Displays the scene, rendering it two times. One for the main camera, and the second for the security camera
      */
     display() {
 
@@ -217,10 +227,10 @@ class XMLscene extends CGFscene {
 
             // Render scene to security camera
             this.securityCamera.attachFrameBuffer();
-            this.render(this.cameras[this.camerasIDs.indexOf(this.selectedSecurityCamera)]);
-        
-            // Render scene to main camera
+            this.render(this.securityCameras[this.camerasIDs.indexOf(this.selectedSecurityCamera)]);
             this.securityCamera.detachFrameBuffer();
+
+            // Render scene to main camera
             this.render(this.cameras[this.camerasIDs.indexOf(this.selectedView)]);
 
             this.gl.disable(this.gl.DEPTH_TEST);

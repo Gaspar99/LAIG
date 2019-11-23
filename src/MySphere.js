@@ -1,6 +1,6 @@
 /**
 * MySphere
-* @constructor
+* @constructor Constructs a sphere
 */
 class MySphere extends CGFobject {
   constructor(scene, radius, slices, stacks) {

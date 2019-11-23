@@ -9,13 +9,14 @@ uniform float timeFactor;
 varying vec2 vTextureCoord;
 
 void main() {
+    // Original texture
     vec4 originalColor = texture2D(uSampler, vTextureCoord);
     
     //Calculations to get a texture with darker corners
     float distX = (0.5 - vTextureCoord.x)*(0.5 - vTextureCoord.x);
     float distY = (0.5 - vTextureCoord.y)*(0.5 - vTextureCoord.y);
     float dist = sqrt(distX + distY); //Distance from Text Coord to center of texture
-
+    
     float maxDist = sqrt(0.5); //Max Distance possible
     float distPercentage = (maxDist - dist) / maxDist; //Value on range 0 to 1
     

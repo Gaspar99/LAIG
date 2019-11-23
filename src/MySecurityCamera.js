@@ -1,4 +1,11 @@
+/**
+* Security camera object located in bottom right corner of screen with shader effects
+*/
 class MySecurityCamera extends CGFobject {
+    /**
+     * Constructs security camera object applying render to texture technique
+     * @param scene XML Scene
+     */
     constructor(scene) {
         super(scene);
         
@@ -15,18 +22,32 @@ class MySecurityCamera extends CGFobject {
         this.cameraShader.setUniformsValues({ timeFactor: 0});
     }
 
+    /**
+     * Ataches RTT Texture to frame buffer
+     */
     attachFrameBuffer() {
         this.rttTexture.attachToFrameBuffer();
     }
 
+    /**
+     *  Detaches RTT Texture to frame buffer
+     */
     detachFrameBuffer() {
         this.rttTexture.detachFromFrameBuffer();
     }
 
+    /**
+     * Updates timeFactor uniform value used in shader for security camera
+     * @param time acumulates time received from scene
+     */
     updateTextureTime(time) {
         this.cameraShader.setUniformsValues({ timeFactor: time / 100 % 1000 });
     }   
 
+    /**
+     * Displays the security camera on the bottom right corner of the screen
+     * with shaders effects
+     */
     display() {
         this.rttTexture.bind(0);
         this.noiseTexture.bind(1);
