@@ -1,4 +1,15 @@
+/**
+ * MyTorus class, creates a torus using vertices
+ */
 class MyTorus extends CGFobject {
+    /**
+     * Creates sphere object
+     * @argument scene XML scene
+     * @argument inner Radius of the inner circle
+     * @argument outer Radius of the outer circle
+     * @argument slices Number of parts in the horizontal axis
+     * @argument loops Number of parts in the vertical axis
+     */
     constructor(scene, inner, outer, slices, loops) {
         super(scene);
 
@@ -72,6 +83,9 @@ class MyTorus extends CGFobject {
         this.initGLBuffers();
     }
 
+    /**
+    * Updates texture coords, with given length_s and length_t
+	*/
     updateTexCoords(length_s, length_t) {
     }
 }
