@@ -132,6 +132,8 @@
         <texture id="glassWindow" file="scenes/images/glassWindow.jpg" />
         <texture id="robotMetal" file="scenes/images/robot_metal.jpg" />
         <texture id="lamp" file="scenes/images/lamp.jpg" />
+        <texture id="red_metal" file="scenes/images/red_metal.jpg" />
+        <texture id="dark_metal" file="scenes/images/dark_metal.jpg" />
     </textures>
 
 
@@ -903,7 +905,7 @@
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="robotMetal" length_s="1.0" length_t="1.0" />
+            <texture id="dark_metal" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="robotBody" />
                 <componentref id="robotHead" />
@@ -915,43 +917,143 @@
                 <componentref id="jetpack2" />
             </children>
         </component>
+
         <component id="robotBody">
             <transformation>
                 <scale x="7.0" y="12.0" z="7.0" />
             </transformation>
             <materials>
+                <material id="metalMaterial" />
+                <material id="darkMetalMaterial" />
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="robotMetal" length_s="1.0" length_t="1.0"/>
             <children>
                 <componentref id="unitCube" />
             </children>
         </component>
+
         <component id="jetpack1">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="red_metal" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="jetpackcylinder1" />
+                <componentref id="jetpacktop1" />
+                <componentref id="jetpackbottom1" />
+            </children>
+        </component>
+
+        <component id="jetpackcylinder1">
             <transformation>
                 <translate x="-5.0" y="3.0" z="-2.0" />
                 <scale x="0.4" y="0.8" z="0.4" />
             </transformation>
             <materials>
+                <material id="metalMaterial" />
+                <material id="darkMetalMaterial" />
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="rubber" length_s="1.0" length_t="1.0" />
+            <texture id="inherit" />
             <children>
                 <primitiveref id="cylinder2" />
             </children>
         </component>
 
+        <component id="jetpacktop1">
+            <transformation>
+                <translate x="-5.0" y="11.0" z="-2.0" />
+                <scale x="2" y="0.2" z="2" />
+            </transformation>
+            <materials>
+                <material id="metalMaterial" />
+                <material id="darkMetalMaterial" />
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="unitSphere" />
+            </children>
+        </component>
+
+        <component id="jetpackbottom1">
+            <transformation>
+                <translate x="-5.0" y="3.0" z="-2.0" />
+                <scale x="2" y="0.2" z="2" />
+            </transformation>
+            <materials>
+                <material id="metalMaterial" />
+                <material id="darkMetalMaterial" />
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="unitSphere" />
+            </children>
+        </component>
+
         <component id="jetpack2">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="red_metal" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="jetpackcylinder2" />
+                <componentref id="jetpacktop2" />
+                <componentref id="jetpackbottom2" />
+            </children>
+        </component>
+
+        <component id="jetpackcylinder2">
             <transformation>
                 <translate x="-5.0" y="3.0" z="2.0" />
                 <scale x="0.4" y="0.8" z="0.4" />
             </transformation>
             <materials>
+                <material id="metalMaterial" />
+                <material id="darkMetalMaterial" />
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="rubber" length_s="1.0" length_t="1.0" />
+            <texture id="inherit" />
             <children>
                 <primitiveref id="cylinder2" />
+            </children>
+        </component>
+
+        <component id="jetpacktop2">
+            <transformation>
+                <translate x="-5.0" y="11.0" z="2.0" />
+                <scale x="2" y="0.2" z="2" />
+            </transformation>
+            <materials>
+                <material id="metalMaterial" />
+                <material id="darkMetalMaterial" />
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="unitSphere" />
+            </children>
+        </component>
+
+        <component id="jetpackbottom2">
+            <transformation>
+                <translate x="-5.0" y="3.0" z="2.0" />
+                <scale x="2" y="0.2" z="2" />
+            </transformation>
+            <materials>
+                <material id="metalMaterial" />
+                <material id="darkMetalMaterial" />
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="unitSphere" />
             </children>
         </component>
 
@@ -961,9 +1063,11 @@
                 <scale x="5.0" y="6.0" z="5.0" />
             </transformation>
             <materials>
+                <material id="metalMaterial" />
+                <material id="darkMetalMaterial" />
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="metal" length_s="1.0" length_t="1.0" />
+            <texture id="inherit" />
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -975,9 +1079,11 @@
                 <scale x="1.0" y="1.0" z="4.0" />
             </transformation>
             <materials>
+                <material id="metalMaterial" />
+                <material id="darkMetalMaterial" />
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="metal" length_s="1.0" length_t="1.0" />
+            <texture id="inherit" />
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -990,9 +1096,11 @@
                 <scale x="2.0" y="2.0" z="8.0" />
             </transformation>
             <materials>
+                <material id="metalMaterial" />
+                <material id="darkMetalMaterial" />
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="inherit"/>
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -1004,9 +1112,11 @@
                 <scale x="1.0" y="1.0" z="4.0" />
             </transformation>
             <materials>
+                <material id="metalMaterial" />
+                <material id="darkMetalMaterial" />
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="metal" length_s="1.0" length_t="1.0" />
+            <texture id="inherit" />
             <children>
                 <componentref id="unitCube" />
             </children>
@@ -1019,9 +1129,11 @@
                 <scale x="2.0" y="2.0" z="8.0" />
             </transformation>
             <materials>
+                <material id="metalMaterial" />
+                <material id="darkMetalMaterial" />
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="none"/>
+            <texture id="inherit"/>
             <children>
                 <componentref id="unitCube" />
             </children>
