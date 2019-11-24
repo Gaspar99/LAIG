@@ -812,7 +812,7 @@
                         x3="0.0" y3="1.0" z3="0.0"/>
         </primitive>
         <primitive id="tableLeg">
-            <cylinder2 base="0.3" top="1.1" height="8.0" slices="2.0" stacks="2.0" />
+            <cylinder2 base="0.3" top="1.1" height="8.0" slices="10.0" stacks="10.0" />
         </primitive>
         <primitive id="treeTrunk">
             <cylinder2 base="4.0" top="2.0" height="30.0" slices="10.0" stacks="10.0" />
