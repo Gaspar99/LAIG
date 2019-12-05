@@ -8,9 +8,8 @@ var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
 var MATERIALS_INDEX = 5;
 var TRANSFORMATIONS_INDEX = 6;
-var ANIMATIONS_INDEX = 7;
-var PRIMITIVES_INDEX = 8;
-var COMPONENTS_INDEX = 9;
+var PRIMITIVES_INDEX = 7;
+var COMPONENTS_INDEX = 8;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -169,18 +168,6 @@ class MySceneGraph {
 
             //Parse transformations block
             if ((error = this.parseTransformations(nodes[index])) != null)
-                return error;
-        }
-
-        // <animations>
-        if ((index = nodeNames.indexOf("animations")) == -1)
-            return "tag <animations> missing";
-        else {
-            if (index != ANIMATIONS_INDEX)
-                this.onXMLMinorError("tag <animations> out of order");
-
-            //Parse animations block
-            if ((error = this.parseAnimations(nodes[index])) != null)
                 return error;
         }
 
@@ -754,105 +741,6 @@ class MySceneGraph {
         this.log("Parsed transformations");
         return null;
     }
-    /**
-     * Parses the <animations> block
-     * @param {animations block element} animationsNode 
-     */
-    parseAnimations(animationsNode) {
-        var children = animationsNode.children;
-
-        this.animations = [];
-
-        var grandChildren = [];
-        var grandgrandChildren = [];
-
-        // Any number of animations
-        for (var i = 0; i < children.length; i++) {
-            
-            if (children[i].nodeName != "animation") {
-                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
-                continue;
-            }
-
-            // Get id of the current animation.
-            var animationID = this.reader.getString(children[i], 'id');
-            if (animationID == null)
-                return "no ID defined for animation";
-
-            // Checks for repeated IDs.
-            if (this.animations[animationID] != null)
-                return "ID must be unique for each animation (conflict: ID = " + animationID + ")";
-
-            grandChildren = children[i].children;
-
-            var keyFrames = [];
-
-            // Goes through key frames for current animation
-            for (var j = 0; j < grandChildren.length; j++) {
-
-                if (grandChildren[j].nodeName != "keyframe") {
-                    this.onXMLMinorError("unknown tag <" + grandChildren[j].nodeName + ">");
-                    continue;
-                }
-
-                // Get instant of the frame
-                var instant = this.reader.getFloat(grandChildren[j], "instant");
-                if (!(instant != null && !isNaN(instant)))
-                    return "unable to parse instant property of animation for ID = " + animationID;
-                
-                grandgrandChildren = grandChildren[j].children;
-
-                if (grandgrandChildren.length > 3) 
-                    return "Translate, rotation and scale transformations are mandatory. ID = " + animationID;
-
-                // Specifications for the current keyframe.
-                var transfCoords = [], angleCoords = [], scaleCoords = [];
-                
-                if (grandgrandChildren[0].nodeName == 'translate') {
-                    var transfCoords = this.parseCoordinates3D(grandgrandChildren[0], "translate animation for ID " + animationID);
-                    if (!Array.isArray(transfCoords))
-                        return transfCoords;   
-                }
-                else return "There must be a translate animation first for ID " + animationID;
-
-                if (grandgrandChildren[1].nodeName == 'rotate') {
-                    // Angle X Coord
-                    var angle_x = this.reader.getFloat(grandgrandChildren[1], "angle_x");
-                    if (!(angle_x != null && !isNaN(angle_x)))
-                        return "unable to parse angle_x property of scale animation for ID = " + animationID;
-                    
-                    // Angle Y Coord
-                    var angle_y = this.reader.getFloat(grandgrandChildren[1], "angle_y");
-                    if (!(angle_y != null && !isNaN(angle_y)))
-                        return "unable to parse angle_y property of scale animation for ID = " + animationID;
-
-                    // Angle Z Coord
-                    var angle_z = this.reader.getFloat(grandgrandChildren[1], "angle_z");
-                    if (!(angle_z != null && !isNaN(angle_z)))
-                        return "unable to parse angle_z property of scale animation for ID = " + animationID;
-
-                    angleCoords = [angle_x, angle_y, angle_z];
-                }
-                else return "There must be a scale animation second for ID " + animationID;
-
-                if (grandgrandChildren[2].nodeName == 'scale') {
-                    var scaleCoords = this.parseCoordinates3D(grandgrandChildren[2], "scale animation for ID " + animationID);
-                    if (!Array.isArray(scaleCoords))
-                         return scaleCoords;
-                }
-                else return "There must be a rotation animation third for ID " + animationID;
-
-                var keyFrame = new MyKeyFrame(instant, transfCoords, angleCoords, scaleCoords);
-                keyFrames.push(keyFrame);
-            }
-                        
-            var keyFrameAnimation = new MyKeyFrameAnimation(this.scene, keyFrames);
-            this.animations[animationID] = keyFrameAnimation;
-        }
-
-        this.log("Parsed animations");
-        return null;
-    }
 
     /**
      * Parses the <primitives> block.
@@ -1190,6 +1078,10 @@ class MySceneGraph {
             if (componentID == null)
                 return "no ID defined for componentID";
 
+            if (componentID == "gameboard") {
+                
+            }
+
             // Checks for repeated IDs.
             if (this.components[componentID] != null)
                 return "ID must be unique for each component (conflict: ID = " + componentID + ")";
@@ -1273,16 +1165,6 @@ class MySceneGraph {
                         }
                     }
                 }
-            }
-
-            // Animation
-            var animationID = null;
-            var animationIndex = nodeNames.indexOf("animationref");
-
-            if (animationIndex != -1) {
-                animationID = this.reader.getString(grandChildren[animationIndex], "id");
-                if (animationID == null)
-                    return "Error reading animation ID."
             }
 
             // Materials
@@ -1376,7 +1258,7 @@ class MySceneGraph {
                 }
             }
             
-            this.components[componentID] = new MyComponent(transfMatrix, animationID, componentMaterials, texture, componentChildren, primitiveChildren);
+            this.components[componentID] = new MyComponent(transfMatrix, componentMaterials, texture, componentChildren, primitiveChildren);
         }
     }
 
@@ -1604,9 +1486,6 @@ class MySceneGraph {
         var transfMatrix = mat4.create();
         transfMatrix = mat4.multiply(transfMatrix, parentTransfMatrix, component.transfMatrix);
 
-        // Animation 
-        var animationID = component.animationID;
-
         // Material
         var materialID = component.materials[component.activeMaterial];
         if (materialID == "inherit")
@@ -1640,18 +1519,14 @@ class MySceneGraph {
         this.scene.pushMatrix();
 
         this.scene.multMatrix(transfMatrix);
-        var ma = mat4.create();
-        if (animationID != null)
-            ma = this.animations[animationID].apply();
 
         var primitiveChildren = component.primitiveChildren;
         for (var i = 0; i < primitiveChildren.length; i++) {
             this.primitives[primitiveChildren[i]].updateTexCoords(length_s, length_t);
             this.primitives[primitiveChildren[i]].display();
         }
+        
         this.scene.popMatrix();
-
-        transfMatrix = mat4.multiply(transfMatrix, transfMatrix, ma);
 
         // Process of children that are components
         var componentChildren = component.componentChildren;
