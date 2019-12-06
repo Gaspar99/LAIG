@@ -10,6 +10,7 @@ class MyTile extends CGFobject {
 
     setPiece(piece) {
         this.piece = piece;
+        this.piece.setTile(this);
     }
 
     unsetPiece() {
