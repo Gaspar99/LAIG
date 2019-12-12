@@ -1078,10 +1078,6 @@ class MySceneGraph {
             if (componentID == null)
                 return "no ID defined for componentID";
 
-            if (componentID == "gameboard") {
-                
-            }
-
             // Checks for repeated IDs.
             if (this.components[componentID] != null)
                 return "ID must be unique for each component (conflict: ID = " + componentID + ")";
@@ -1257,8 +1253,34 @@ class MySceneGraph {
                         return "Invalid tag: <" + grandgrandChildren[j].nodeName + ">.";
                 }
             }
+
+            var newComponent = new MyComponent(transfMatrix, componentMaterials, texture, componentChildren, primitiveChildren);
+
+            switch(componentID) {
+                case 'gameboard': {
+                    var width = this.reader.getFloat(children[i], 'width');
+                    if (!(width != null && !isNaN(width)))
+                        return "Error reading width for gameboard";
+
+                    var height = this.reader.getFloat(children[i], 'height');
+                    if (!(height != null && !isNaN(height)))
+                        return "Error reading height for gameboard"; 
+
+                    this.scene.gameOrchestrator.setGameboard(newComponent, width, height);
+
+                    break;
+                }
+                case 'player1PiecesBoard': {
+                    
+
+                    break;
+                }
+                case '': {
+                    
+                } 
+            }
             
-            this.components[componentID] = new MyComponent(transfMatrix, componentMaterials, texture, componentChildren, primitiveChildren);
+            this.components[componentID] = newComponent;
         }
     }
 

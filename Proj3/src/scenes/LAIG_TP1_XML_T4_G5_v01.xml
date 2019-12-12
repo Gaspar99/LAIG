@@ -432,7 +432,7 @@
         </component>
 
         <!-- ========================= board ========================= -->
-        <component id="gameboard" length_x="40" length_z="40">
+        <component id="gameboard" width="40" height="40">
             <transformation>
             </transformation>
             <materials>
