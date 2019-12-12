@@ -2,24 +2,16 @@ class MyGameOrchestrator {
     constructor(scene) {
         this.scene = scene;
 
-        this.gameboard = [];
-        this.player1PiecesBoard = [];
-        this.player2PiecesBoard = [];
+        this.gameboards = new MyGameboards(scene);
+        
         this.theme = [];
         this.animator = [];
     }
 
-    setGameboard(component, width, height) {
-        this.gameboard = new MyGameboard(this.scene, component, width, height);
+    display() {
+        this.gameboards.display();
     }
 
-    setPlayer1PiecesBoard(component, width, height) {
-        this.player1PiecesBoard = new MyGameboard(this.scene, component, width, height);
-    }
-
-    setPlayer2PiecesBoard(component, width, height) {
-        this.player2PiecesBoard = new MyGameboard(this.scene, component, width, height);
-    }
 
 
 }

@@ -207,13 +207,38 @@ class XMLscene extends CGFscene {
      */
     display() {
 
+        // Clear image and depth buffer everytime we update the scene
+        this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
+        this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
+
+        this.pushMatrix();
+
         if (this.sceneInited) {
 
-            // Render scene to main camera
-            this.renderBackground(this.cameras[this.camerasIDs.indexOf(this.selectedView)]);
+            this.camera = this.cameras[this.camerasIDs.indexOf(this.selectedView)];
 
+            // Initialize Model-View matrix as identity (no transformation)
+            this.updateProjectionMatrix();
+            this.loadIdentity();
 
+            // Apply transformations corresponding to the camera position relative to the origin
+            this.applyViewMatrix();
+
+            // Updating of lights so that switching ON/OFF works
+            for (var i = 0; i < this.lights.length; i++) 
+                this.lights[i].update();              
+            
+            this.axis.display();
+
+            // Displays the Background scene (MySceneGraph function).
+            //this.graph.displayScene();
+
+            // Displays game
+            this.gameOrchestrator.display();
         }
+
+        this.popMatrix();
+        // ---- END Background, camera and axis setup
     }
 
 }

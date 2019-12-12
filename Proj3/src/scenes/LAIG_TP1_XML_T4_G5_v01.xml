@@ -418,8 +418,7 @@
             </materials>
             <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
             <children>
-                <componentref id="gameboard"/>
-
+                <componentref id="tree" />
                 <!-- <componentref id="ground" />
                 <componentref id="tableSet" />
                 <componentref id="tree" />
@@ -432,7 +431,31 @@
         </component>
 
         <!-- ========================= board ========================= -->
-        <component id="gameboard" width="40" height="40">
+        <component id="mainGameboard" width="40" height="40">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
+            <children>
+                <primitiveref id="boardPrimitive" />
+            </children>
+        </component>
+
+        <component id="player1PiecesBoard" width="20" height="40">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
+            <children>
+                <primitiveref id="boardPrimitive" />
+            </children>
+        </component>
+
+        <component id="player2PiecesBoard" width="20" height="40">
             <transformation>
             </transformation>
             <materials>

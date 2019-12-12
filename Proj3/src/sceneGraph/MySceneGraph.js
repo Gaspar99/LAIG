@@ -1257,7 +1257,8 @@ class MySceneGraph {
             var newComponent = new MyComponent(transfMatrix, componentMaterials, texture, componentChildren, primitiveChildren);
 
             switch(componentID) {
-                case 'gameboard': {
+                case 'mainGameboard': {
+
                     var width = this.reader.getFloat(children[i], 'width');
                     if (!(width != null && !isNaN(width)))
                         return "Error reading width for gameboard";
@@ -1266,21 +1267,43 @@ class MySceneGraph {
                     if (!(height != null && !isNaN(height)))
                         return "Error reading height for gameboard"; 
 
-                    this.scene.gameOrchestrator.setGameboard(newComponent, width, height);
+                    this.scene.gameOrchestrator.gameboards.setMainGameboard(componentID, width, height);
 
                     break;
                 }
                 case 'player1PiecesBoard': {
-                    
+
+                    var width = this.reader.getFloat(children[i], 'width');
+                    if (!(width != null && !isNaN(width)))
+                        return "Error reading width for gameboard";
+
+                    var height = this.reader.getFloat(children[i], 'height');
+                    if (!(height != null && !isNaN(height)))
+                        return "Error reading height for gameboard"; 
+
+                    this.scene.gameOrchestrator.gameboards.setPlayer1PiecesBoard(componentID, width, height);
 
                     break;
                 }
-                case '': {
-                    
-                } 
+                case 'player2PiecesBoard': {
+
+                    var width = this.reader.getFloat(children[i], 'width');
+                    if (!(width != null && !isNaN(width)))
+                        return "Error reading width for gameboard";
+
+                    var height = this.reader.getFloat(children[i], 'height');
+                    if (!(height != null && !isNaN(height)))
+                        return "Error reading height for gameboard"; 
+
+                    this.scene.gameOrchestrator.gameboards.setPlayer2PiecesBoard(componentID, width, height);
+                }
+                default: {
+                    break;
+                }
             }
-            
+
             this.components[componentID] = newComponent;
+            
         }
     }
 
