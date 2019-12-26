@@ -2,32 +2,15 @@
     <scene root="root" axis_length="5"/>
 
 
-    <views default="House Back (P)">
-        <perspective id="House Front (P)" near="0.1" far="500.0" angle="45.0">
-            <from x="0.0" y="90.0" z="230.0" />
-            <to x="0.0" y="0.0" z="-50.0" />
+    <views default="Player1">
+        <perspective id="Player1" near="0.1" far="500.0" angle="45.0">
+            <from x="-100.0" y="40.0" z="0.0" />
+            <to x="0.0" y="0.0" z="0.0" />
         </perspective>
-
-        <perspective id="House Back (P)" near="0.1" far="500.0" angle="45.0">
-            <from x="0.0" y="80.0" z="-230.0" />
-            <to x="0.0" y="0.0" z="50.0" />
+        <perspective id="Player2" near="0.1" far="500.0" angle="45.0">
+            <from x="100.0" y="40.0" z="0.0" />
+            <to x="0.0" y="0.0" z="0.0" />
         </perspective>
-
-        <perspective id="Tree (P)" near="0.1" far="500.0" angle="45.0">
-            <from x="150.0" y="35.0" z="-70.0" />
-            <to x="-100.0" y="5.0" z="-75.0" />
-        </perspective>
-
-        <perspective id="Football (P)" near="0.1" far="500.0" angle="45.0">
-            <from x="-35.0" y="5.0" z="-40.0" />
-            <to x="-20.0" y="0.0" z="-35.0" />
-        </perspective>
-
-        <ortho id="Pool (O)"  near="0.2" far="400.0" left="0.0" right="100.0" top="60.0" bottom="0.0" >
-            <from x="80.0" y="40.0" z="-220.0" />
-            <to x="50.0" y="0.0" z="-120.0" />
-            <up x="0.0" y="1.0" z="0.0" /> 
-        </ortho>
     </views>
 
 
@@ -38,7 +21,15 @@
 
 
     <lights>
-        <omni id="Sun" enabled="1">
+        <omni id="board" enabled="1">
+            <location x="0.0" y="20.0" z="0.0" w="0.0" />
+            <ambient r="0.4" g="0.4" b="0.2" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+            <attenuation constant="1.0" linear="0.0" quadratic="0.0" />  
+        </omni>
+
+        <omni id="Sun" enabled="0">
             <location x="0.0" y="60.0" z="100.0" w="0.0" />
             <ambient r="0.4" g="0.4" b="0.2" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
@@ -125,6 +116,7 @@
         <texture id="pool_floor" file="scenes/images/pool_floor.jpg" />
         <texture id="water" file="scenes/images/water.jpg" />
         <texture id="white_wood" file="scenes/images/white_wood.jpg" />
+        <texture id="brown_wood" file="scenes/images/brown_wood.jpg" />
         <texture id="skyBackground" file="scenes/images/sky.jpg" />
         <texture id="pool_float1" file="scenes/images/pool_float1.jpg" />
         <texture id="pool_float2" file="scenes/images/pool_float2.jpg" />
@@ -135,7 +127,6 @@
         <texture id="red_metal" file="scenes/images/red_metal.jpg" />
         <texture id="dark_metal" file="scenes/images/dark_metal.jpg" />
     </textures>
-
 
     <materials>
         <material id="defaultMaterial" shininess="5.0">
@@ -355,7 +346,7 @@
             <sphere radius="18.0" slices="5.0" stacks="5.0" />
         </primitive>
         <primitive id="unitSphere">
-            <sphere radius="1.0" slices="20.0" stacks="20.0" />
+            <sphere radius="0.5" slices="20.0" stacks="20.0" />
         </primitive>
         <primitive id="tirePrimitive">
             <torus inner="1.0" outer="5.0" slices="10.0" loops="10.0" />
@@ -397,10 +388,10 @@
             <plane npartsU="5" npartsV="5" />
         </primitive>
         <primitive id="cylinder2">
-            <cylinder2 base="5.0" top="5.0" height="10.0" slices="10.0" stacks="10.0" />
+            <cylinder2 base="0.5" top="0.5" height="1.0" slices="20.0" stacks="20.0" />
         </primitive>
         <primitive id="cone">
-            <cylinder2 base="5.0" top="0.0" height="10.0" slices="10.0" stacks="10.0" />
+            <cylinder2 base="0.5" top="0.0" height="1.0" slices="20.0" stacks="20.0" />
         </primitive>
         <primitive id="cylinder_light">
             <cylinder2 base="3.0" top="3.0" height="6.0" slices="10.0" stacks="10.0" />
@@ -467,50 +458,117 @@
             </children>
         </component>
 
-        <!-- ========================= pieces ========================= -->
-        <component id="spherePiece">
+        <!-- ========================= Player 1 Pieces ========================= -->
+        <component id="p1SpherePiece">
             <transformation>
+                <translate x="0.0" y="0.5" z="0.0" />
             </transformation>
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
+            <texture id="white_wood" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="unitSphere" />
             </children>
         </component>
 
-        <component id="cubePiece">
+        <component id="p1CubePiece">
             <transformation>
             </transformation>
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
+            <texture id="white_wood" length_s="1.0" length_t="1.0" />
             <children>
-                <primitiveref id="unitCube" />
+                <componentref id="unitCube" />
             </children>
         </component>
 
-        <component id="cylinderPiece">
+        <component id="p1CylinderPiece">
             <transformation>
             </transformation>
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
+            <texture id="white_wood" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="cylinder2" />
+                <componentref id="cylinderPieceTop" />
             </children>
         </component>
 
-        <component id="conePiece">
+        <component id="p1ConePiece">
             <transformation>
             </transformation>
             <materials>
                 <material id="defaultMaterial" />
             </materials>
-            <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
+            <texture id="white_wood" length_s="1.0" length_t="1.0" />
+            <children>
+                <primitiveref id="cone" />
+            </children>
+        </component>
+
+                <!-- ========================= PLayer 2 Pieces ========================= -->
+        <component id="p2SpherePiece">
+            <transformation>
+                <translate x="0.0" y="0.5" z="0.0" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="brown_wood" length_s="1.0" length_t="1.0" />
+            <children>
+                <primitiveref id="unitSphere" />
+            </children>
+        </component>
+
+        <component id="p2CubePiece">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="brown_wood" length_s="1.0" length_t="1.0" />
+            <children>
+                <componentref id="unitCube" />
+            </children>
+        </component>
+
+        <component id="p2CylinderPiece">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="brown_wood" length_s="1.0" length_t="1.0" />
+            <children>
+                <primitiveref id="cylinder2" />
+                <componentref id="cylinderPieceTop" />
+            </children>
+        </component>
+
+        <component id="cylinderPieceTop">
+            <transformation>
+                <translate x="0.0" y="1.0" z="0.0" />
+                <scale x="1.0" y="0.01" z="1.0" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="inherit"/>
+            <children>
+                <primitiveref id="unitSphere" />
+            </children>
+        </component>
+
+        <component id="p2ConePiece">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="brown_wood" length_s="1.0" length_t="1.0" />
             <children>
                 <primitiveref id="cone" />
             </children>
