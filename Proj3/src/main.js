@@ -29,6 +29,7 @@ serialInclude(['../lib/CGF.js',
                 'animations/MyKeyFrame.js',
                 'game/MyAnimator.js',
                 'game/MyGameboard.js',
+                'game/MyAuxiliaryBoard.js',
                 'game/MyGameboards.js',
                 'game/MyGameMove.js',
                 'game/MyGameOrchestrator.js',
@@ -42,7 +43,7 @@ main=function()
     var app = new CGFapplication(document.body);
     var myInterface = new MyInterface();
     var myScene = new XMLscene(myInterface);
-
+    
     app.init();
 
     app.setScene(myScene);

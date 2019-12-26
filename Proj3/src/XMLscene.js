@@ -230,9 +230,6 @@ class XMLscene extends CGFscene {
             
             this.axis.display();
 
-            // Displays the Background scene (MySceneGraph function).
-            //this.graph.displayScene();
-
             // Displays game
             this.gameOrchestrator.display();
         }
