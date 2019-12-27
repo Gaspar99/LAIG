@@ -19,6 +19,15 @@ class MyGameboards {
         this.player2PiecesBoard = new MyAuxiliaryBoard(this.scene, componentID, width, height, "p2");
     }
 
+    getPiece(id, player) {
+        var index = ((player == "p1") ? id - 20 : id - 30) - 1;
+        return (player == "p1") ? this.player1PiecesBoard.getPiece(index) : this.player2PiecesBoard.getPiece(index);
+    }
+
+    getTile(id) {
+        return this.mainGameboard.getTile(id - 1);
+    }
+
     display() {
         // Display main board in the center
         this.mainGameboard.display();

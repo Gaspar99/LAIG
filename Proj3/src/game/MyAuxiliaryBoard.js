@@ -39,6 +39,10 @@ class MyAuxiliaryBoard {
         this.tiles.push(new MyTile(this.scene, this, tileSize, new MyPiece(this.scene, id++, "sphere", this.player)));
     }
 
+    getPiece(index) {
+        return this.tiles[index].getPiece();
+    }
+
     display() {
         this.scene.pushMatrix();
         this.scene.scale(this.width, 1, this.height);
@@ -58,22 +62,17 @@ class MyAuxiliaryBoard {
                 var xPos = initialXPos + tileSize * col;
                 var zPos = initialYPos + tileSize * line;
                 
-                this.scene.pushMatrix();
-                this.scene.translate(xPos, 0, zPos);
-                tile.pickable = false;
+                tile.setPickable(false);
+                tile.setPosition(xPos, zPos);
                 tile.display();
 
                 // Piece
                 if (tile.piece != null) {
-                    tile.piece.pickable = true;
-
-                    this.scene.pushMatrix();
-                    this.scene.scale(tileSize / 2, tileSize / 2, tileSize / 2);
-                    tile.piece.display();            
-                    this.scene.popMatrix();
-                }
-
-                this.scene.popMatrix();
+                    tile.piece.setPickable(true);
+                    tile.piece.setPosition(xPos, zPos);
+                    tile.piece.setSize(tileSize / 2.0);
+                    tile.piece.display();              
+                }           
             }
         }
     }

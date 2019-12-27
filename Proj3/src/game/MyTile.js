@@ -3,12 +3,15 @@ class MyTile {
         this.scene = scene;
 
         this.board = board;
-        this.piece = piece;
+        this.setPiece(piece);
         this.size = size;
         this.pickable = false;
         this.line = line;
         this.column = column;
         this.id = line * 4 + column + 1;
+
+        this.xPos = [];
+        this.zPos = [];
 
         var info = {
             type: "tile",
@@ -24,25 +27,42 @@ class MyTile {
 
     setPiece(piece) {
         this.piece = piece;
-        this.piece.setTile(this);
+        (piece == null) ? null : this.piece.setTile(this);
+    }
+
+    getPiece() {
+        return this.piece;
     }
 
     unsetPiece() {
+        (this.piece == null) ? null : this.piece.unsetTile(); 
         this.piece = null;
     }
 
-    display() {
-        this.scene.pushMatrix();
-        this.scene.rotate(-Math.PI / 2.0, 1.0, 0.0, 0.0);
-        this.material.apply();
+    setPickable(pickable) {
+        this.pickable = pickable;
+    }
 
+    setPosition(xPos, zPos) {
+        this.xPos = xPos;
+        this.zPos = zPos;
+    }
+
+    display() {
         if (this.pickable) {
             this.scene.registerForPick(this.id, this.jsonString);
         }
 
+        this.material.apply();
+        
+        this.scene.pushMatrix();
+        this.scene.translate(this.xPos, 0.0, this.zPos);
+        this.scene.rotate(-Math.PI / 2.0, 1.0, 0.0, 0.0);
         this.square.display();
-        this.scene.clearPickRegistration();
-
         this.scene.popMatrix();
+
+        if (this.pickable) {
+            this.scene.clearPickRegistration();
+        }
     }
 }

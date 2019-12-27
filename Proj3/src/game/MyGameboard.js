@@ -25,6 +25,10 @@ class MyGameboard {
         }
     }
 
+    getTile(index) {
+        return this.tiles[index];
+    }
+
     display() {
         this.scene.pushMatrix();
         this.scene.scale(this.width, 1, this.height);
@@ -44,24 +48,17 @@ class MyGameboard {
                 var xPos = initialXPos + tileSize * col;
                 var zPos = initialYPos + tileSize * line;
 
-                this.scene.pushMatrix();
-                this.scene.translate(xPos, 0, zPos);
-
-                tile.pickable = true;
+                tile.setPosition(xPos, zPos);
+                tile.setPickable(true);
                 tile.display();
 
                 // Piece
-                if (tile.piece != null) {
-                    tile.piece.pickable = false;
-
-                    this.scene.pushMatrix();
-                    this.scene.scale(tileSize / 2, tileSize / 2, tileSize / 2);
-                    this.scene.clearPickRegistration(); 
+                if (tile.piece != null) {  
+                    tile.piece.setPickable(false);
+                    tile.piece.setPosition(xPos, zPos);
+                    tile.piece.setSize(tileSize / 2.0); 
                     tile.piece.display();
-                    this.scene.popMatrix();
                 }
-
-                this.scene.popMatrix();
             }
         }
 
