@@ -29,10 +29,10 @@ class MyGameboards {
         this.player1PiecesBoard.display();
         this.scene.popMatrix();
 
-        // Display player 2 pieces board on the left side of the main board
+        // Display player 2 pieces board on the right side of the main board
         this.scene.pushMatrix();
         this.scene.translate(+this.mainGameboard.width + 1, 0, 0);
         this.player2PiecesBoard.display();
-        this.scene.popMatrix();
+        this.scene.popMatrix();  
     }
 }

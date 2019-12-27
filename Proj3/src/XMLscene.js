@@ -27,6 +27,7 @@ class XMLscene extends CGFscene {
         this.sceneInited = false;
 
         this.enableTextures(true);
+        this.setPickEnabled(true);
 
         this.gl.clearDepth(100.0);
         this.gl.enable(this.gl.DEPTH_TEST);
@@ -65,9 +66,6 @@ class XMLscene extends CGFscene {
         }
 
         this.selectedView = this.graph.defaultViewID;
-
-        this.interface.gui.add(this, 'selectedView', this.camerasIDs).name('Selected View').onChange(this.updateActiveCamera.bind(this));
-        this.interface.setActiveCamera(this.cameras[this.camerasIDs.indexOf(this.graph.defaultViewID)]);
     }
     /**
      * Initializes the scene lights with the values read from the XML file.
@@ -143,13 +141,6 @@ class XMLscene extends CGFscene {
     }
 
     /**
-     * Updates the active camera of the scene
-     */
-    updateActiveCamera() {
-        this.interface.setActiveCamera(this.cameras[this.camerasIDs.indexOf(this.selectedView)]);
-    }
-
-    /**
      * Function called every x seconds, being x the set update period in the constructor
      * @argument t acumulated time
      */
@@ -164,42 +155,21 @@ class XMLscene extends CGFscene {
 
     }
 
-    /**
-     * Renders the scene to the camera received in its argument
-     * @argument camera The camera trough which the scene is going to be rendered
-     */
-    renderBackground(camera) {
-        // ---- BEGIN Background, camera and axis setup
-
-        this.camera = camera;
-
-        // Clear image and depth buffer everytime we update the scene
-        this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
-        this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
-
-        this.pushMatrix();
-
-        if (this.sceneInited) {
-
-            // Initialize Model-View matrix as identity (no transformation)
-            this.updateProjectionMatrix();
-            this.loadIdentity();
-
-            // Apply transformations corresponding to the camera position relative to the origin
-            this.applyViewMatrix();
-
-            // Updating of lights so that switching ON/OFF works
-            for (var i = 0; i < this.lights.length; i++) 
-                this.lights[i].update();              
-            
-            this.axis.display();
-
-            // Displays the scene (MySceneGraph function).
-            this.graph.displayScene();
+    registerPicking() {
+        if (this.pickMode == false) {
+            if (this.pickResults != null && this.pickResults.length > 0) {
+                for (var i = 0; i < this.pickResults.length; i++) {
+                    var obj = this.pickResults[i][0];
+                    if (obj) {
+                        var customId = this.pickResults[i][1];
+                        console.log("Picked object: " + obj + ", with pick id " + customId);
+                        
+                    }
+                }
+                this.pickResults.splice(0, this.pickResults.length);
+            }
         }
 
-        this.popMatrix();
-        // ---- END Background, camera and axis setup
     }
 
     /**
