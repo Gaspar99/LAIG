@@ -13,10 +13,12 @@ class MyGameboards {
 
     setPlayer1PiecesBoard(componentID, width, height) {
         this.player1PiecesBoard = new MyAuxiliaryBoard(this.scene, componentID, width, height, "p1");
+        this.player1PiecesBoard.setPosition(-this.mainGameboard.width, 0.0);
     }
 
     setPlayer2PiecesBoard(componentID, width, height) {
         this.player2PiecesBoard = new MyAuxiliaryBoard(this.scene, componentID, width, height, "p2");
+        this.player2PiecesBoard.setPosition(+this.mainGameboard.width, 0.0);
     }
 
     getPiece(id, player) {
@@ -33,15 +35,9 @@ class MyGameboards {
         this.mainGameboard.display();
 
         // Display player 1 pieces board on the left side of the main board
-        this.scene.pushMatrix();
-        this.scene.translate(-this.mainGameboard.width + 1, 0, 0);
         this.player1PiecesBoard.display();
-        this.scene.popMatrix();
 
         // Display player 2 pieces board on the right side of the main board
-        this.scene.pushMatrix();
-        this.scene.translate(+this.mainGameboard.width + 1, 0, 0);
         this.player2PiecesBoard.display();
-        this.scene.popMatrix();  
     }
 }

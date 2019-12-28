@@ -146,13 +146,10 @@ class XMLscene extends CGFscene {
      */
     update(t) {
 
-        if (this.gui.isKeyPressed("KeyM")) {
-            this.graph.updateActiveMaterials();
-        }
-
         var deltaT = t - this.last;
         this.last = t;
 
+        this.gameOrchestrator.update(deltaT);
     }
 
     registerPicking() {

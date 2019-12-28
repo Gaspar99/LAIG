@@ -12,6 +12,7 @@ class MyKeyFrameAnimation extends MyAnimation {
     constructor(scene, keyFrames) {
         super(scene);
         this.keyFrames = keyFrames;
+        this.finished = false;
 
         this.addInitialKeyFrame();
 
@@ -35,8 +36,10 @@ class MyKeyFrameAnimation extends MyAnimation {
     update(time) {
         this.sumT += time;
 
-        if (!this.checkTimeInterval())
+        if (!this.checkTimeInterval()) {
+            this.finished = true;
             return;
+        }
 
         var timeIntervalPercentage = this.sumT / this.timeIntervals[this.currentTimeInterval];
 
@@ -56,8 +59,6 @@ class MyKeyFrameAnimation extends MyAnimation {
         var ma = mat4.multiply(ma, ma, this.translateMatrix);
         var ma = mat4.multiply(ma, ma, this.rotationMatrix); 
         var ma = mat4.multiply(ma, ma, this.scaleMatrix);  
-
-        this.scene.multMatrix(ma);
 
         return ma;
     }

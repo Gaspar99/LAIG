@@ -8,6 +8,9 @@ class MyAuxiliaryBoard {
         this.player = player;
         this.tiles = [];
 
+        this.xPos = [];
+        this.zPos = [];
+
         this.setDefaultValues();
         this.buildTiles();
     }
@@ -16,6 +19,11 @@ class MyAuxiliaryBoard {
         this.transfMatrix = mat4.create();
         this.materialID = "defaultMaterial";
         this.textureID = "defaultTexture";
+    }
+
+    setPosition(xPos, zPos) {
+        this.xPos = xPos;
+        this.zPos = zPos;
     }
 
     buildTiles() {
@@ -49,6 +57,9 @@ class MyAuxiliaryBoard {
         //this.scene.graph.processNode(this.componentID, this.transfMatrix, this.materialID, this.textureID, 1.0, 1.0);
         this.scene.popMatrix();
 
+        this.scene.pushMatrix();
+        this.scene.translate(this.xPos, 0.0, this.zPos);
+
         var tileSize = this.width / 2.0;
 
         var initialXPos = - (this.width / 2.0) + (tileSize / 2.0);
@@ -75,5 +86,7 @@ class MyAuxiliaryBoard {
                 }           
             }
         }
+
+        this.scene.popMatrix();
     }
 }

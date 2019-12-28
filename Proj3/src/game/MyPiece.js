@@ -11,6 +11,7 @@ class MyPiece {
         this.xPos = [];
         this.zPos = [];
         this.size = [];
+        this.animationMatrix = mat4.create();
 
         var info = {
             type: "piece",
@@ -73,6 +74,10 @@ class MyPiece {
         this.tile = tile;
     }
 
+    setAnimationMatrix(ma) {
+        this.animationMatrix = ma;
+    }
+
     unsetTile() {
         this.tile = null;
     }
@@ -89,6 +94,7 @@ class MyPiece {
         this.scene.pushMatrix();
         this.scene.translate(this.xPos, 0.0, this.zPos);
         this.scene.scale(this.size, this.size, this.size);
+        this.scene.multMatrix(this.animationMatrix);
         this.scene.graph.processNode(this.componentID, this.transfMatrix, this.materialID, this.textureID, 1.0, 1.0);
         this.scene.popMatrix();
 

@@ -16,6 +16,11 @@ class MyGameMove {
 
     setDestTile(tile) {
         this.destinationTile = tile;
+        this.originTile.unsetPiece();
+    }
+
+    finishMove() {
+        this.destinationTile.setPiece(this.piece);
     }
 
     clear() {
@@ -23,11 +28,6 @@ class MyGameMove {
         this.destinationTile = null;
         this.originTile = null;
         this.gameBoard = null;
-    }
-
-    animate() {
-        this.originTile.unsetPiece();
-        this.destinationTile.setPiece(this.piece);
     }
 
 }

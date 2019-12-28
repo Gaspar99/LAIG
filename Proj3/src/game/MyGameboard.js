@@ -48,8 +48,8 @@ class MyGameboard {
                 var xPos = initialXPos + tileSize * col;
                 var zPos = initialYPos + tileSize * line;
 
-                tile.setPosition(xPos, zPos);
                 tile.setPickable(true);
+                tile.setPosition(xPos, zPos);
                 tile.display();
 
                 // Piece
