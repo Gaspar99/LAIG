@@ -38,6 +38,21 @@ class MyGameOrchestrator {
                     this.animator.setGameMoveAnimation(this.tempGameMove);
                     this.moveState = "inMoveAnimation";
                 }
+                else if (pickInfo.type == "piece" && pickInfo.player == this.currentPlayer) {
+                    var oldPiece = this.tempGameMove.piece;
+                    this.animator.setDeselectAnimation(oldPiece);
+
+                    var piece = this.gameboards.getPiece(id, pickInfo.player);
+
+                    
+                    if (oldPiece.id != piece.id) {
+                        this.tempGameMove.setPiece(piece);
+                        this.animator.setPickingAnimation(piece);
+                    }
+                    else {
+                        this.moveState = "pickPiece";
+                    }
+                }
             }  
         }
     }
@@ -57,7 +72,15 @@ class MyGameOrchestrator {
 
         if (this.gameState == "move") {
             if (this.moveState == "pickDestTile") {
-                this.animator.animateSelectedPiece();
+
+                if (this.animator.animations.hasOwnProperty("picking")) {
+                    this.animator.animateSelectedPiece();
+                }
+
+                if (this.animator.animations.hasOwnProperty("deselect")) {
+                    this.animator.animateDeselectedPiece();
+                }
+
             }
             else if (this.moveState == "inMoveAnimation") {
                 if (!this.animator.animateMove()) { // Animation ended

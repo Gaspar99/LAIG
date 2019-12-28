@@ -14,7 +14,9 @@ class MyKeyFrameAnimation extends MyAnimation {
         this.keyFrames = keyFrames;
         this.finished = false;
 
-        this.addInitialKeyFrame();
+        if (keyFrames[0].instant != 0) {
+            this.addInitialKeyFrame();
+        }
 
         this.currentTimeInterval = 0;
         this.timeIntervals = [];

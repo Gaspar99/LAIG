@@ -4,52 +4,79 @@ class MyAnimator {
 
         this.gameOrchestrator = gameOrchestrator;
 
-        this.currentAnimation = undefined;
-
-        this.gameSequence = [];
+        this.animations = [];
 
         this.animatedPiece = [];
+        this.deselectedPiece = [];
 
+        // Camera
         this.changingCamera = false;
-        this.changeCameraTime = 0.0;
         this.orbitedAngle = 0.0;
         this.lastAngle = 0.0;
+
+        this.gameSequence = [];
     }
 
     update(time) {
-        if (this.currentAnimation != undefined)
-            this.currentAnimation.update(time);
-
-        if (this.changingCamera) {
-            this.changeCameraTime += time;
-
-            var angle = Math.PI * (time / this.cameraChangeDuration);
-            this.orbitedAngle += angle;
-            
-            if (this.orbitedAngle >= Math.PI) {
-                angle = Math.PI - this.lastAngle;
-        
-                this.changingCamera = false;
-                this.orbitedAngle = 0.0;
+        for (var key in this.animations) {
+            if (this.animations.hasOwnProperty(key)) {
+                this.animations[key].update(time);
             }
-
-            this.scene.camera.orbit(CGFcameraAxis.Y, angle);
-            this.lastAngle = this.orbitedAngle;
         }
+
+        if (this.changingCamera)
+            this.updateCameraPosition(time);
+    }
+
+    updateCameraPosition(time) {
+        var angle = Math.PI * (time / this.cameraChangeDuration);
+        this.orbitedAngle += angle;
+
+        if (this.orbitedAngle >= Math.PI) {
+            angle = Math.PI - this.lastAngle;
+
+            this.changingCamera = false;
+            this.orbitedAngle = 0.0;
+        }
+
+        this.scene.camera.orbit(CGFcameraAxis.Y, angle);
+        this.lastAngle = this.orbitedAngle;
     }
 
     setPickingAnimation(piece) {
         this.animatedPiece = piece;
 
         //Key frame 1
-        var instant1 = 0.2;
+        var instant = 0.3;
         var transCoords = [0.0, 0.0, 0.0];
         var rotateCoords = [0.0, 0.0, 0.0];
         var scaleCoords = [1.2, 0.7, 1.2];
 
-        var keyframe1 = new MyKeyFrame(instant1, transCoords, rotateCoords, scaleCoords);
+        var keyframe1 = new MyKeyFrame(instant, transCoords, rotateCoords, scaleCoords);
 
-        this.currentAnimation = new MyKeyFrameAnimation(this.scene, [keyframe1]);
+        this.animations["picking"] = new MyKeyFrameAnimation(this.scene, [keyframe1]);
+    }
+
+    setDeselectAnimation(piece) {
+        this.deselectedPiece = piece;
+
+        //Key frame 1
+        var instant1 = 0.0;
+        var transCoords1 = [0.0, 0.0, 0.0];
+        var rotateCoords1 = [0.0, 0.0, 0.0];
+        var scaleCoords1 = [1.2, 0.7, 1.2];
+
+        var keyframe1 = new MyKeyFrame(instant1, transCoords1, rotateCoords1, scaleCoords1);
+
+        //Key frame 2
+        var instant2 = 0.3;
+        var transCoords2 = [0.0, 0.0, 0.0];
+        var rotateCoords2 = [0.0, 0.0, 0.0];
+        var scaleCoords2 = [1.0, 1.0, 1.0];
+
+        var keyframe2 = new MyKeyFrame(instant2, transCoords2, rotateCoords2, scaleCoords2);
+
+        this.animations["deselect"] = new MyKeyFrameAnimation(this.scene, [keyframe1, keyframe2]);
     }
 
     setGameMoveAnimation(gameMove) {
@@ -108,7 +135,7 @@ class MyAnimator {
 
         keyframes.push(new MyKeyFrame(instant5, transCoords5, rotateCoords5, scaleCoords5));
 
-        this.currentAnimation = new MyKeyFrameAnimation(this.scene, keyframes);
+        this.animations["movePiece"] = new MyKeyFrameAnimation(this.scene, keyframes);
     }
 
     setCameraChangeAnimation() {
@@ -117,32 +144,41 @@ class MyAnimator {
     }
 
     animateSelectedPiece() {
-        if (this.currentAnimation.finished) {
+        if (this.animations["picking"].finished) {
             return false;
         }
         else {
-            var ma = this.currentAnimation.apply();
+            var ma = this.animations["picking"].apply();
             this.animatedPiece.setAnimationMatrix(ma);
             return true;
         }
     }
 
+    animateDeselectedPiece() {
+        if (this.animations["deselect"].finished) {
+            return false;
+        }
+        else {
+            var ma = this.animations["deselect"].apply();
+            if (JSON.stringify(ma) != JSON.stringify(mat4.create())) {
+                this.deselectedPiece.setAnimationMatrix(ma);
+            }
+            return true;
+        }
+    }
+
     animateMove() {
-        var ma = this.currentAnimation.apply();
+        var ma = this.animations["movePiece"].apply();
         this.animatedPiece.setAnimationMatrix(ma);
         this.animatedPiece.display();
 
-        if (this.currentAnimation.finished) {
+        if (this.animations["movePiece"].finished) {
             this.animatedPiece.setAnimationMatrix(mat4.create());
             return false;
         }
         else {
             return true;
         }
-    }
-
-    animateCameraChange() {
-
     }
 
 
