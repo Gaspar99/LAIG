@@ -7,13 +7,35 @@ class MyAnimator {
         this.currentAnimation = undefined;
 
         this.gameSequence = [];
-        this.gameMove = [];
 
         this.animatedPiece = [];
+
+        this.changingCamera = false;
+        this.changeCameraTime = 0.0;
+        this.orbitedAngle = 0.0;
+        this.lastAngle = 0.0;
     }
 
     update(time) {
-        this.currentAnimation == undefined ? null : this.currentAnimation.update(time);
+        if (this.currentAnimation != undefined)
+            this.currentAnimation.update(time);
+
+        if (this.changingCamera) {
+            this.changeCameraTime += time;
+
+            var angle = Math.PI * (time / this.cameraChangeDuration);
+            this.orbitedAngle += angle;
+            
+            if (this.orbitedAngle >= Math.PI) {
+                angle = Math.PI - this.lastAngle;
+        
+                this.changingCamera = false;
+                this.orbitedAngle = 0.0;
+            }
+
+            this.scene.camera.orbit(CGFcameraAxis.Y, angle);
+            this.lastAngle = this.orbitedAngle;
+        }
     }
 
     setPickingAnimation(piece) {
@@ -31,7 +53,6 @@ class MyAnimator {
     }
 
     setGameMoveAnimation(gameMove) {
-        this.gameMove = gameMove;
         var piece = gameMove.piece;
 
         var board = [];
@@ -42,8 +63,8 @@ class MyAnimator {
 
         piece.xPos += board.xPos;
 
-        var finalXCoord = (gameMove.destinationTile.xPos - piece.xPos) / (gameMove.destinationTile.size / 2);
-        var finalZCoord = (gameMove.destinationTile.zPos - piece.zPos) / (gameMove.destinationTile.size / 2);
+        var finalXCoord = (gameMove.destinationTile.xPos - piece.xPos) / (piece.size);
+        var finalZCoord = (gameMove.destinationTile.zPos - piece.zPos) / (piece.size);
 
         var keyframes = [];
 
@@ -90,6 +111,11 @@ class MyAnimator {
         this.currentAnimation = new MyKeyFrameAnimation(this.scene, keyframes);
     }
 
+    setCameraChangeAnimation() {
+        this.changingCamera = true;
+        this.cameraChangeDuration = 1000 // milliseconds
+    }
+
     animateSelectedPiece() {
         if (this.currentAnimation.finished) {
             return false;
@@ -113,6 +139,10 @@ class MyAnimator {
         else {
             return true;
         }
+    }
+
+    animateCameraChange() {
+
     }
 
 
