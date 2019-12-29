@@ -104,12 +104,16 @@ print_header_line(_).
 % Require your Prolog Files here
 :- include('controller/game.pl').
 
-parse_input(init_boards, [Board, White_Pieces, Brown_Pieces]) :-
+parse_input(init_boards, [Board,White_Pieces,Brown_Pieces]) :-
 	init_boards(Board, White_Pieces, Brown_Pieces).
 
 parse_input(valid_move(Row,Column,Piece,Player,Board,White_Pieces,Brown_Pieces), valid) :-
 	valid_move(1, [Row, Column, Piece], Player, Board, White_Pieces, Brown_Pieces).
 
 parse_input(valid_move(_Row,_Column,_Piece,_Player,_Board,_White_Pieces,_Brown_Pieces), not_valid).
+
+parse_input(move(Row,Column,Piece,Player,Board,White_Pieces,Brown_Pieces), [New_Board,New_White_Pieces,New_Brown_Pieces]) :-
+	move_piece([Row, Column, Piece], Board, New_Board),
+    remove_piece([Row, Column, Piece], Player, White_Pieces, Brown_Pieces, New_White_Pieces, New_Brown_Pieces).
 
 

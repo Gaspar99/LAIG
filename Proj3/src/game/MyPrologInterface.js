@@ -79,6 +79,15 @@ class MyPrologInterface {
 
     playMove(gameMove) {
 
+        var destCol = gameMove.destinationTile.column + 1;
+        var destLine = gameMove.destinationTile.line + 1;
+        var piece = gameMove.piece.prologId;
+        var player = gameMove.piece.prologPlayer;
+        var boardsString = this.parseBoardsToString();
+
+        var requestString = "move("+destLine+","+destCol+","+piece+","+player+","+boardsString[0]+","+boardsString[1]+","+boardsString[2]+")";
+
+        this.sendPrologRequest(requestString, (data) => { this.getBoards.call(this, data) });
     }
 
     gameOver() {

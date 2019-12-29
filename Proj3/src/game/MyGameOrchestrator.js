@@ -47,9 +47,14 @@ class MyGameOrchestrator {
                     // Comunication with prolog to check if move is valid
                     this.prolog.isValidMove(this.tempGameMove).then( (valid) => {
                         if (valid) {
+                            console.log("Valid Move");
+                            this.tempGameMove.removeOriginTilePice();
                             this.animator.setGameMoveAnimation(this.tempGameMove);
                             this.moveState = "inMoveAnimation";
                             this.prolog.playMove(this.tempGameMove);
+                        }
+                        else {
+                            console.log("Invalid Move");
                         }
                     }); 
                 }
