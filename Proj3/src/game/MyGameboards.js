@@ -31,6 +31,9 @@ class MyGameboards {
     }
 
     display() {
+        this.scene.registerPicking();
+        this.scene.clearPickRegistration();
+        
         // Display main board in the center
         this.mainGameboard.display();
 

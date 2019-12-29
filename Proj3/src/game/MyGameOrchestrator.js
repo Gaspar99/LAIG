@@ -10,6 +10,7 @@ class MyGameOrchestrator {
         this.gameboards = new MyGameboards(scene);
         this.gameSequence = new MyGameSequence();
         this.animator = new MyAnimator(scene, this);
+        this.prolog = new MyPrologInterface();
         this.theme = [];
 
         this.tempGameMove = new MyGameMove();
@@ -34,9 +35,12 @@ class MyGameOrchestrator {
                 if (pickInfo.type == "tile") {
                     var tile = this.gameboards.getTile(id);
                     this.tempGameMove.setDestTile(tile);
-                    // TODO: comunication with prolog to check if move is valid
-                    this.animator.setGameMoveAnimation(this.tempGameMove);
-                    this.moveState = "inMoveAnimation";
+
+                    // Comunication with prolog to check if move is valid
+                    if (this.prolog.isValidMove(this.tempGameMove)) {
+                        this.animator.setGameMoveAnimation(this.tempGameMove);
+                        this.moveState = "inMoveAnimation";
+                    } 
                 }
                 else if (pickInfo.type == "piece" && pickInfo.player == this.currentPlayer) {
                     var oldPiece = this.tempGameMove.piece;
@@ -64,8 +68,6 @@ class MyGameOrchestrator {
     }
 
     display() {
-        this.scene.registerPicking();
-        this.scene.clearPickRegistration();
         this.gameboards.display();
 
         if (this.gameState == "move") {
@@ -81,7 +83,6 @@ class MyGameOrchestrator {
                     delete this.animator.animations["deselect"];
                 }
             }
-
 
             if (this.moveState == "inMoveAnimation") {
                 if (!this.animator.animateMove()) { // Animation ended

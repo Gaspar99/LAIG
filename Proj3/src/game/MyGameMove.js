@@ -3,7 +3,6 @@ class MyGameMove {
 
         this.piece = [];
         this.originTile = [];
-
         this.destinationTile = [];
 
         this.gameBoard = [];
