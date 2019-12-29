@@ -49,6 +49,7 @@ class MyGameOrchestrator {
                         if (valid) {
                             this.animator.setGameMoveAnimation(this.tempGameMove);
                             this.moveState = "inMoveAnimation";
+                            this.prolog.playMove(this.tempGameMove);
                         }
                     }); 
                 }

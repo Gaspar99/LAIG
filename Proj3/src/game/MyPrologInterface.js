@@ -37,15 +37,29 @@ class MyPrologInterface {
     }
 
     initBoards() {
-        this.sendPrologRequest("init_boards", (data) => { this.parseBoards.call(this, data) });
+        this.sendPrologRequest("init_boards", (data) => { this.getBoards.call(this, data) });
     }
 
-    parseBoards(data) {
-        var array = JSON.parse(data.target.response);
+    getBoards(data) {
+        this.parseBoardsFromString(data.target.response);
+    }
+
+    parseBoardsFromString(string) {
+        var array = JSON.parse(string);
         
         this.mainBoard = array[0];
         this.whitePieces = array[1];
         this.brownPieces = array[2];
+    }
+
+    parseBoardsToString() {
+        var boardsString = [];
+
+        boardsString[0] = "[[" + this.mainBoard[0] + "]," + "[" + this.mainBoard[1] + "]," + "[" + this.mainBoard[2] + "]," + "[" + this.mainBoard[3] + "]]";
+        boardsString[1] = "[" + this.whitePieces + "]";
+        boardsString[2] = "[" + this.brownPieces + "]";
+
+        return boardsString;
     }
 
     async isValidMove(gameMove) {
@@ -54,15 +68,17 @@ class MyPrologInterface {
         var destLine = gameMove.destinationTile.line + 1;
         var piece = gameMove.piece.prologId;
         var player = gameMove.piece.prologPlayer;
-        var mainBoard = "[[" + this.mainBoard[0] + "]," + "[" + this.mainBoard[1] + "]," + "[" + this.mainBoard[2] + "]," + "[" + this.mainBoard[3] + "]]";
-        var whitePieces = "[" + this.whitePieces + "]";
-        var brownPieces = "[" + this.brownPieces + "]";
+        var boardsString = this.parseBoardsToString();
 
-        var requestString = "valid_move("+destLine+","+destCol+","+piece+","+player+","+mainBoard+","+whitePieces+","+brownPieces+")";
+        var requestString = "valid_move("+destLine+","+destCol+","+piece+","+player+","+boardsString[0]+","+boardsString[1]+","+boardsString[2]+")";
 
         var response = await this.sendAsyncPrologRequest(requestString);
 
         return (response == "valid");
+    }
+
+    playMove(gameMove) {
+
     }
 
     gameOver() {
