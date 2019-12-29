@@ -4,7 +4,7 @@ class MyGameOrchestrator {
 
         this.gameState = "move";
 
-        this.currentPlayer = "p1"; 
+        this.currentPlayer = "p1";
         this.moveState = "pickPiece";
 
         this.gameboards = new MyGameboards(scene);
@@ -43,8 +43,6 @@ class MyGameOrchestrator {
                     this.animator.setDeselectAnimation(oldPiece);
 
                     var piece = this.gameboards.getPiece(id, pickInfo.player);
-
-                    
                     if (oldPiece.id != piece.id) {
                         this.tempGameMove.setPiece(piece);
                         this.animator.setPickingAnimation(piece);
@@ -53,7 +51,7 @@ class MyGameOrchestrator {
                         this.moveState = "pickPiece";
                     }
                 }
-            }  
+            }
         }
     }
 
@@ -71,30 +69,33 @@ class MyGameOrchestrator {
         this.gameboards.display();
 
         if (this.gameState == "move") {
-            if (this.moveState == "pickDestTile") {
 
-                if (this.animator.animations.hasOwnProperty("picking")) {
-                    this.animator.animateSelectedPiece();
+            if (this.animator.animations.hasOwnProperty("picking")) {
+                if (!this.animator.animateSelectedPiece()) {
+                    delete this.animator.animations["picking"];
                 }
-
-                if (this.animator.animations.hasOwnProperty("deselect")) {
-                    this.animator.animateDeselectedPiece();
-                }
-
             }
-            else if (this.moveState == "inMoveAnimation") {
+
+            if (this.animator.animations.hasOwnProperty("deselect")) {
+                if (!this.animator.animateDeselectedPiece()) {
+                    delete this.animator.animations["deselect"];
+                }
+            }
+
+
+            if (this.moveState == "inMoveAnimation") {
                 if (!this.animator.animateMove()) { // Animation ended
                     this.tempGameMove.finishMove();
-                    this.moveState = "pickPiece";
-                    this.changePlayer();
                     this.gameState = "changePlayer";
                     this.animator.setCameraChangeAnimation();
                 }
             }
         }
         else if (this.gameState == "changePlayer") {
-            if (!this.animator.changingCamera)  {
+            if (!this.animator.changingCamera) {
                 this.gameState = "move";
+                this.moveState = "pickPiece";
+                this.changePlayer();
             }
         }
     }

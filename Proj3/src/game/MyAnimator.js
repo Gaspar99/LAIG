@@ -60,13 +60,15 @@ class MyAnimator {
     setDeselectAnimation(piece) {
         this.deselectedPiece = piece;
 
+        var keyframes = [];
+
         //Key frame 1
         var instant1 = 0.0;
         var transCoords1 = [0.0, 0.0, 0.0];
         var rotateCoords1 = [0.0, 0.0, 0.0];
         var scaleCoords1 = [1.2, 0.7, 1.2];
 
-        var keyframe1 = new MyKeyFrame(instant1, transCoords1, rotateCoords1, scaleCoords1);
+        keyframes.push(new MyKeyFrame(instant1, transCoords1, rotateCoords1, scaleCoords1));
 
         //Key frame 2
         var instant2 = 0.3;
@@ -74,9 +76,9 @@ class MyAnimator {
         var rotateCoords2 = [0.0, 0.0, 0.0];
         var scaleCoords2 = [1.0, 1.0, 1.0];
 
-        var keyframe2 = new MyKeyFrame(instant2, transCoords2, rotateCoords2, scaleCoords2);
+        keyframes.push(new MyKeyFrame(instant2, transCoords2, rotateCoords2, scaleCoords2));
 
-        this.animations["deselect"] = new MyKeyFrameAnimation(this.scene, [keyframe1, keyframe2]);
+        this.animations["deselect"] = new MyKeyFrameAnimation(this.scene, keyframes);
     }
 
     setGameMoveAnimation(gameMove) {
@@ -156,10 +158,12 @@ class MyAnimator {
 
     animateDeselectedPiece() {
         if (this.animations["deselect"].finished) {
+            console.log("Finished Deselect Animation");
             return false;
         }
         else {
             var ma = this.animations["deselect"].apply();
+            console.log(ma);
             if (JSON.stringify(ma) != JSON.stringify(mat4.create())) {
                 this.deselectedPiece.setAnimationMatrix(ma);
             }
