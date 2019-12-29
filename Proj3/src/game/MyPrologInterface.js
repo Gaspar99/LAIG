@@ -1,6 +1,21 @@
 class MyPrologInterface {
     constructor() {
-        this.sendPrologRequest("start");
+
+        this.prologBoards = {
+            mainBoard: [],
+            whitePieces: [],
+            brownPieces: []
+        }
+    }
+
+    initBoards() {
+        this.sendPrologRequest("init_boards", this.getBoards);
+    }
+
+    getBoards(data) {
+        console.log(data.target.response);
+
+        //TODO parsing of response string to initialize boards
     }
 
     sendPrologRequest(requestString, onSuccess, onError, port) {
@@ -15,7 +30,7 @@ class MyPrologInterface {
         request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
         request.send();
     }
-    
+
     isValidMove(gameMove) {
         return true;
     }
@@ -26,6 +41,15 @@ class MyPrologInterface {
 
     getComputerPlay() {
 
+    }
+
+
+    parseGameMode(gameMode) {
+        switch (gameMode) {
+            case "PlayerVsPlayer" : {
+                return "1";
+            }
+        }
     }
 
 }

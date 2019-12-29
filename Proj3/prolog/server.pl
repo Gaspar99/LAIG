@@ -104,9 +104,6 @@ print_header_line(_).
 % Require your Prolog Files here
 :- include('controller/game.pl').
 
-parse_input('no', 'joao').
-parse_input('start', 'string').
-parse_input(start, 'No String').
-parse_input('valid_moveLine1Col2Cyl1', 'pila').
+parse_input(init_boards, [Board, White_Pieces, Brown_Pieces]) :-
+	init_boards(Board, White_Pieces, Brown_Pieces).
 
-parse_input(_, 'NADA').

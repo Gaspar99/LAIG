@@ -2,8 +2,14 @@ class MyGameOrchestrator {
     constructor(scene) {
         this.scene = scene;
 
-        this.gameState = "move";
+        this.gameInfo = {
+            gameMode: "PlayerVsPlayer",
+            difficultyLevel: 1,
+            player1Score: 0,
+            player2Score: 0
+        }
 
+        this.gameState = "move";
         this.currentPlayer = "p1";
         this.moveState = "pickPiece";
 
@@ -14,6 +20,8 @@ class MyGameOrchestrator {
         this.theme = [];
 
         this.tempGameMove = new MyGameMove();
+
+        this.prolog.initBoards();
     }
 
     processPick(id, obj) {
