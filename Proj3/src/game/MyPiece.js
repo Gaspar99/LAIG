@@ -22,6 +22,9 @@ class MyPiece {
 
         this.id = (this.player == "p1") ? id + 20 : id + 30;
 
+        this.prologPlayer = ((player == "p1") ? "1" : "2");
+        this.prologId = [];
+
         this.componentID = [];
         this.setComponentID();
         this.setDefaultValues();
@@ -50,18 +53,22 @@ class MyPiece {
         switch (this.pieceType) {
             case "cone": {
                 this.componentID = this.player + "ConePiece";
+                this.prologId = "1" + this.prologPlayer;
                 break;
             }
             case "cube": {
                 this.componentID = this.player + "CubePiece";
+                this.prologId = "5" + this.prologPlayer;
                 break;
             }
             case "cylinder": {
                 this.componentID = this.player + "CylinderPiece";
+                this.prologId = "7" + this.prologPlayer;
                 break;
             }
             case "sphere": {
                 this.componentID = this.player + "SpherePiece";
+                this.prologId = "9" + this.prologPlayer;
                 break;
             }
             default: {

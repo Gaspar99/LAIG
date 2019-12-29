@@ -158,12 +158,10 @@ class MyAnimator {
 
     animateDeselectedPiece() {
         if (this.animations["deselect"].finished) {
-            console.log("Finished Deselect Animation");
             return false;
         }
         else {
             var ma = this.animations["deselect"].apply();
-            console.log(ma);
             if (JSON.stringify(ma) != JSON.stringify(mat4.create())) {
                 this.deselectedPiece.setAnimationMatrix(ma);
             }

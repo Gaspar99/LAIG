@@ -28,13 +28,13 @@ server :-
 server_loop(Socket) :-
 	repeat,
 	socket_server_accept(Socket, _Client, Stream, [type(text)]),
-		% write('Accepted connection'), nl,
+		write('Accepted connection'), nl,
 	    % Parse Request
 		catch((
 			read_request(Stream, Request),
 			read_header(Stream)
 		),_Exception,(
-			% write('Error parsing request.'),nl,
+			write('Error parsing request.'), nl,
 			close_stream(Stream),
 			fail
 		)),
@@ -50,7 +50,7 @@ server_loop(Socket) :-
 		format(Stream, 'Content-Type: text/plain~n~n', []),
 		format(Stream, '~p', [MyReply]),
 	
-		% write('Finnished Connection'),nl,nl,
+		write('Finnished Connection'),nl,nl,
 		close_stream(Stream),
 	(Request = quit), !.
 	
@@ -74,8 +74,8 @@ read_request(Stream, Request) :-
 	atom_codes('GET /',Get),
 	append(Get,RL,LineCodes),
 	read_request_aux(RL,RL2),
-	
 	catch(read_from_codes(RL2, Request), error(syntax_error(_),_), fail), !.
+
 read_request(_,syntax_error).
 	
 read_request_aux([32|_],[46]) :- !.
@@ -94,7 +94,7 @@ check_end_of_header(end_of_file) :- !,fail.
 check_end_of_header(_).
 
 % Function to Output Request Lines (uncomment the line bellow to see more information on received HTTP Requests)
-% print_header_line(LineCodes) :- catch((atom_codes(Line,LineCodes),write(Line),nl),_,fail), !.
+print_header_line(LineCodes) :- catch((atom_codes(Line,LineCodes),write(Line),nl),_,fail), !.
 print_header_line(_).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -106,4 +106,10 @@ print_header_line(_).
 
 parse_input(init_boards, [Board, White_Pieces, Brown_Pieces]) :-
 	init_boards(Board, White_Pieces, Brown_Pieces).
+
+parse_input(valid_move(Row,Column,Piece,Player,Board,White_Pieces,Brown_Pieces), valid) :-
+	valid_move(1, [Row, Column, Piece], Player, Board, White_Pieces, Brown_Pieces).
+
+parse_input(valid_move(_Row,_Column,_Piece,_Player,_Board,_White_Pieces,_Brown_Pieces), not_valid).
+
 

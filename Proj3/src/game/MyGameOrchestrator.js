@@ -45,10 +45,12 @@ class MyGameOrchestrator {
                     this.tempGameMove.setDestTile(tile);
 
                     // Comunication with prolog to check if move is valid
-                    if (this.prolog.isValidMove(this.tempGameMove)) {
-                        this.animator.setGameMoveAnimation(this.tempGameMove);
-                        this.moveState = "inMoveAnimation";
-                    } 
+                    this.prolog.isValidMove(this.tempGameMove).then( (valid) => {
+                        if (valid) {
+                            this.animator.setGameMoveAnimation(this.tempGameMove);
+                            this.moveState = "inMoveAnimation";
+                        }
+                    }); 
                 }
                 else if (pickInfo.type == "piece" && pickInfo.player == this.currentPlayer) {
                     var oldPiece = this.tempGameMove.piece;
