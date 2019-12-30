@@ -104,19 +104,22 @@ print_header_line(_).
 % Require your Prolog Files here
 :- include('controller/game.pl').
 
-parse_input(init_board,Board) :-
-	init_board(Board).
+parse_input(init_boards,[Board,White_Pieces,Brown_Pieces]) :-
+	init_boards(Board, White_Pieces, Brown_Pieces).
 
 parse_input(valid_move(Row,Column,Piece,Board), true) :-
 	valid_play(0, Board, Row, Column, Piece).
 
 parse_input(valid_move(_Row,_Column,_Piece,_Board), false).
 
-parse_input(game_over(Row,Column,Piece,Board), [New_Board,true]) :-
+parse_input(game_over(Row,Column,Piece,Player,Board,White_Pieces,Brown_Pieces), [New_Board,New_White_Pieces,New_Brown_Pieces,true]) :-
 	move_piece([Row, Column, Piece], Board, New_Board),
-	\+ game_over(New_Board, Row, Column).
+	\+ game_over(New_Board, Row, Column),
+	remove_piece([Row, Column, Piece], Player, White_Pieces, Brown_Pieces, New_White_Pieces, New_Brown_Pieces).
 
-parse_input(game_over(Row,Column,Piece,Board), [New_Board,false]) :-
-	move_piece([Row, Column, Piece], Board, New_Board).
+parse_input(game_over(Row,Column,Piece,Player,Board,White_Pieces,Brown_Pieces), [New_Board,New_White_Pieces,New_Brown_Pieces,false]) :-
+	move_piece([Row, Column, Piece], Board, New_Board),
+	remove_piece([Row, Column, Piece], Player, White_Pieces, Brown_Pieces, New_White_Pieces, New_Brown_Pieces).
 
-
+parse_input(choose_move(Board,White_Pieces,Brown_Pieces,Level,Player), [Row,Column,Piece]) :-
+	choose_move(Board, White_Pieces, Brown_Pieces, Level, [Row,Column,Piece], Player).

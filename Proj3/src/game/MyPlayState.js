@@ -72,6 +72,17 @@ class MyPlayState extends MyGameState {
 
     update(time) {
         this.animator.update(time);
+
+        if (
+            (this.gameInfo.gameMode == "PlayerVsComputer" && this.currentPlayer == "p2") ||
+            (this.gameInfo.gameMode == "ComputerVsPlayer" && this.currentPlayer == "p1") ||
+            (this.gameInfo.gameMode == "ComputerVsComputer")
+        ) {
+            this.prolog.getComputerMove(this.gameInfo.difficultyLevel, this.currentPlayer).then( (gameMove) => {
+                this.animator.setGameMoveAnimation(gameMove);
+                this.moveState = "inMoveAnimation";
+            });
+        }
     }
 
     changePlayer() {
@@ -83,6 +94,8 @@ class MyPlayState extends MyGameState {
         if (this.gameState != "gameOver") {
             this.moveState = "changePlayer";
             this.animator.setCameraChangeAnimation();
+
+            this.changePlayer();
         }
     }
 
@@ -109,7 +122,6 @@ class MyPlayState extends MyGameState {
         if (this.moveState == "changePlayer") {
             if (!this.animator.changingCamera) {
                 this.moveState = "pickPiece";
-                this.changePlayer();
             }
         }
     }
