@@ -9,7 +9,7 @@ class MyPlayState extends MyGameState {
         this.moveState = "pickPiece";
 
         this.animator = new MyAnimator(scene, this);
-        this.prolog = new MyPrologInterface();
+        this.prolog = new MyPrologInterface(this.gameboards);
 
         this.tempGameMove = new MyGameMove();
     }
@@ -74,12 +74,14 @@ class MyPlayState extends MyGameState {
         this.animator.update(time);
 
         if (
-            (this.gameInfo.gameMode == "PlayerVsComputer" && this.currentPlayer == "p2") ||
+            ((this.gameInfo.gameMode == "PlayerVsComputer" && this.currentPlayer == "p2") ||
             (this.gameInfo.gameMode == "ComputerVsPlayer" && this.currentPlayer == "p1") ||
-            (this.gameInfo.gameMode == "ComputerVsComputer")
+            (this.gameInfo.gameMode == "ComputerVsComputer")) && this.moveState != "inMoveAnimation" && this.prolog.boardsInited
         ) {
             this.prolog.getComputerMove(this.gameInfo.difficultyLevel, this.currentPlayer).then( (gameMove) => {
-                this.animator.setGameMoveAnimation(gameMove);
+                this.tempGameMove = gameMove;
+                this.tempGameMove.removeOriginTilePiece();
+                this.animator.setGameMoveAnimation(this.tempGameMove);
                 this.moveState = "inMoveAnimation";
             });
         }
@@ -92,8 +94,13 @@ class MyPlayState extends MyGameState {
     finishMove() {
         this.tempGameMove.finishMove();
         if (this.gameState != "gameOver") {
-            this.moveState = "changePlayer";
-            this.animator.setCameraChangeAnimation();
+            if (this.gameInfo.gameMode == "PlayerVsPlayer") {
+                this.moveState = "changePlayer";
+                this.animator.setCameraChangeAnimation();
+            }
+            else {
+                this.moveState = "pickPiece";
+            }
 
             this.changePlayer();
         }

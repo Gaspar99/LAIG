@@ -22,7 +22,7 @@ class MyGameboards {
     }
 
     getPiece(id, player) {
-        var index = ((player == "p1") ? id - 20 : id - 30) - 1;
+        var index = ((player == "p1") ? (id - 20) : (id - 30)) - 1;
         return (player == "p1") ? this.player1PiecesBoard.getPiece(index) : this.player2PiecesBoard.getPiece(index);
     }
 

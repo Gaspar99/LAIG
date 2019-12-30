@@ -1,10 +1,12 @@
 class MyPrologInterface {
-    constructor() {
+    constructor(gameboards) {
+        this.gameboards = gameboards;
 
         // Prolog Board
         this.mainBoard = [];
         this.p1Pieces = [];
         this.p2Pieces = [];
+        this.boardsInited = false;
         
         this.initBoards();
     }
@@ -43,6 +45,8 @@ class MyPrologInterface {
 
     getBoards(data) {
         this.parseBoardsFromString(data.target.response);
+
+        this.boardsInited = true;
     }
 
     parseBoardsFromString(string) {    
@@ -109,11 +113,31 @@ class MyPrologInterface {
 
         var responseArray = JSON.parse(response);
 
-        console.log(responseArray);
-
         var line = responseArray[0] - 1;
-        var col = responseArray[1] - 1;
+        var column = responseArray[1] - 1;
         var prologPiece = responseArray[2];
 
+        var computerMove = new MyGameMove();
+
+        var pieceId;
+        if (player == "p1") {
+            pieceId = this.p1Pieces.indexOf(prologPiece) + 1 + 20;
+        }
+        else {
+            pieceId = this.p2Pieces.indexOf(prologPiece) + 1 + 30;
+        }
+
+        var piece = this.gameboards.getPiece(pieceId, player);
+        computerMove.setPiece(piece);
+
+        var tileId = line * 4 + column + 1;
+        var tile = this.gameboards.getTile(tileId);
+        computerMove.setDestTile(tile);
+
+        this.mainBoard = responseArray[3];
+        this.p1Pieces = responseArray[4];
+        this.p2Pieces = responseArray[5];
+
+        return computerMove;
     }
 }

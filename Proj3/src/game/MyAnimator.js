@@ -7,6 +7,7 @@ class MyAnimator {
         this.animations = [];
 
         this.animatedPiece = [];
+        this.selectedPiece = [];
         this.deselectedPiece = [];
 
         // Camera
@@ -44,7 +45,7 @@ class MyAnimator {
     }
 
     setPickingAnimation(piece) {
-        this.animatedPiece = piece;
+        this.selectedPiece = piece;
 
         //Key frame 1
         var instant = 0.3;
@@ -83,6 +84,7 @@ class MyAnimator {
 
     setGameMoveAnimation(gameMove) {
         var piece = gameMove.piece;
+        this.animatedPiece = piece;
 
         var board = [];
         if (piece.player == "p1")
@@ -98,23 +100,23 @@ class MyAnimator {
         var keyframes = [];
 
         //Key frame 1
-        var instant1 = 0.2;
+        var instant1 = 0.4;
         var transCoords1 = [0.0, 0.5, 0.0];
         var rotateCoords1 = [0.0, 0.0, 0.0];
-        var scaleCoords1 = [0.85, 1.15, 0.85];
+        var scaleCoords1 = [1.0, 1.0, 1.0];
 
         keyframes.push(new MyKeyFrame(instant1, transCoords1, rotateCoords1, scaleCoords1));
 
         //Key frame 2
-        var instant2 = 0.4;
-        var transCoords2 = [finalXCoord / 5.0, 2.0, finalZCoord / 5.0];
+        var instant2 = 0.65;
+        var transCoords2 = [finalXCoord / 5.0, 1.0, finalZCoord / 5.0];
         var rotateCoords2 = [0.0, 0.0, 0.0];
         var scaleCoords2 = [1.0, 1.0, 1.0];
 
         keyframes.push(new MyKeyFrame(instant2, transCoords2, rotateCoords2, scaleCoords2));
 
         //Key frame 3
-        var instant3 = 0.6;
+        var instant3 = 0.79;
         var transCoords3 = [finalXCoord / 2.0, 2.5, finalZCoord / 2.0];
         var rotateCoords3 = [0.0, 0.0, 0.0];
         var scaleCoords3 = [1.0, 1.0, 1.0];
@@ -122,7 +124,7 @@ class MyAnimator {
         keyframes.push(new MyKeyFrame(instant3, transCoords3, rotateCoords3, scaleCoords3));
 
         //Key frame 4
-        var instant4 = 0.8;
+        var instant4 = 0.92;
         var transCoords4 = [(4 * finalXCoord) / 5.0, 2.0, (4 * finalZCoord) / 5.0];
         var rotateCoords4 = [0.0, 0.0, 0.0];
         var scaleCoords4 = [1.0, 1.0, 1.0];
@@ -130,7 +132,7 @@ class MyAnimator {
         keyframes.push(new MyKeyFrame(instant4, transCoords4, rotateCoords4, scaleCoords4));
 
         //Key frame 5
-        var instant5 = 1.0;
+        var instant5 = 1.16;
         var transCoords5 = [finalXCoord, 0.0, finalZCoord];
         var rotateCoords5 = [0.0, 0.0, 0.0];
         var scaleCoords5 = [1.0, 1.0, 1.0];
@@ -147,17 +149,19 @@ class MyAnimator {
 
     animateSelectedPiece() {
         if (this.animations["picking"].finished) {
+            this.selectedPiece = [];
             return false;
         }
         else {
             var ma = this.animations["picking"].apply();
-            this.animatedPiece.setAnimationMatrix(ma);
+            this.selectedPiece.setAnimationMatrix(ma);
             return true;
         }
     }
 
     animateDeselectedPiece() {
         if (this.animations["deselect"].finished) {
+            this.deselectedPiece = [];
             return false;
         }
         else {
@@ -176,6 +180,7 @@ class MyAnimator {
 
         if (this.animations["movePiece"].finished) {
             this.animatedPiece.setAnimationMatrix(mat4.create());
+            this.animatedPiece = [];
             return false;
         }
         else {

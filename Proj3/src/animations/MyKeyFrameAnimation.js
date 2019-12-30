@@ -60,7 +60,11 @@ class MyKeyFrameAnimation extends MyAnimation {
 
         var ma = mat4.multiply(ma, ma, this.translateMatrix);
         var ma = mat4.multiply(ma, ma, this.rotationMatrix); 
-        var ma = mat4.multiply(ma, ma, this.scaleMatrix);  
+        var ma = mat4.multiply(ma, ma, this.scaleMatrix); 
+        
+        /* console.log(this.translateMatrix);
+        console.log(this.rotationMatrix);
+        console.log(this.scaleMatrix); */
 
         return ma;
     }
