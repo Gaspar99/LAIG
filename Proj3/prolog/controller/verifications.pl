@@ -56,8 +56,19 @@ piece_row(72, 3). % Brown Cylinder
 piece_row(92, 4). % Brown Sphere
 
 % ----------------------------------- GAME OVER ---------------------------------
+% Used in LAIG to imrprove efficency by removing unnecessary arguments
 % Sucsess if game is not over
-game_over(_Show_Message, Board, _Winner, [Row|[Column|_Piece]], _White_Pieces, _Brown_Pieces, _Mode, _Difficulty_Level, _Score1, _Score2) :-
+game_over(Board, Row, Column) :-
+    get_row_sum(Board, Row, Row_Sum),
+    Row_Sum =\= 22,
+    get_column_sum(Board, Column, 0, Col_Sum),
+    Col_Sum =\= 22,
+    get_square_num(Row, Column, Square_Num),
+    get_square_sum(Square_Num, Board, Square_Sum),
+    Square_Sum =\= 22.
+
+% Sucsess if game is not over
+game_over(_Show_Message, Board, _Winner, [Row,Column,_Piece], _White_Pieces, _Brown_Pieces, _Mode, _Difficulty_Level, _Score1, _Score2) :-
     get_row_sum(Board, Row, Row_Sum),
     Row_Sum =\= 22,
     get_column_sum(Board, Column, 0, Col_Sum),

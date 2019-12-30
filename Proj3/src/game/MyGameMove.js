@@ -17,7 +17,7 @@ class MyGameMove {
         this.destinationTile = tile;
     }
 
-    removeOriginTilePice() {
+    removeOriginTilePiece() {
         this.originTile.unsetPiece();
     }
 

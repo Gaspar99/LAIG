@@ -3,8 +3,6 @@ class MyPrologInterface {
 
         // Prolog Boards
         this.mainBoard = [];
-        this.whitePieces = [];
-        this.brownPieces = [];
         
     }
 
@@ -36,30 +34,20 @@ class MyPrologInterface {
             throw(new Error('Error getting data'))
     }
 
-    initBoards() {
-        this.sendPrologRequest("init_boards", (data) => { this.getBoards.call(this, data) });
+    initBoard() {
+        this.sendPrologRequest("init_board", (data) => { this.getBoard.call(this, data) });
     }
 
-    getBoards(data) {
-        this.parseBoardsFromString(data.target.response);
+    getBoard(data) {
+        this.parseBoardFromString(data.target.response);
     }
 
-    parseBoardsFromString(string) {
-        var array = JSON.parse(string);
-        
-        this.mainBoard = array[0];
-        this.whitePieces = array[1];
-        this.brownPieces = array[2];
+    parseBoardFromString(string) {    
+        this.mainBoard = JSON.parse(string);
     }
 
-    parseBoardsToString() {
-        var boardsString = [];
-
-        boardsString[0] = "[[" + this.mainBoard[0] + "]," + "[" + this.mainBoard[1] + "]," + "[" + this.mainBoard[2] + "]," + "[" + this.mainBoard[3] + "]]";
-        boardsString[1] = "[" + this.whitePieces + "]";
-        boardsString[2] = "[" + this.brownPieces + "]";
-
-        return boardsString;
+    parseBoardToString() {
+        return "[[" +this.mainBoard[0]+ "],[" +this.mainBoard[1]+ "],[" +this.mainBoard[2]+ "],[" +this.mainBoard[3]+ "]]";
     }
 
     async isValidMove(gameMove) {
@@ -67,43 +55,36 @@ class MyPrologInterface {
         var destCol = gameMove.destinationTile.column + 1;
         var destLine = gameMove.destinationTile.line + 1;
         var piece = gameMove.piece.prologId;
-        var player = gameMove.piece.prologPlayer;
-        var boardsString = this.parseBoardsToString();
+        var boardString = this.parseBoardToString();
 
-        var requestString = "valid_move("+destLine+","+destCol+","+piece+","+player+","+boardsString[0]+","+boardsString[1]+","+boardsString[2]+")";
+        var requestString = "valid_move("+destLine+","+destCol+","+piece+","+boardString+")";
 
         var response = await this.sendAsyncPrologRequest(requestString);
 
-        return (response == "valid");
+        return (response == "true");
     }
 
-    playMove(gameMove) {
-
+    async gameOver(gameMove) {
+        
         var destCol = gameMove.destinationTile.column + 1;
         var destLine = gameMove.destinationTile.line + 1;
         var piece = gameMove.piece.prologId;
-        var player = gameMove.piece.prologPlayer;
-        var boardsString = this.parseBoardsToString();
+        var boardString = this.parseBoardToString();
 
-        var requestString = "move("+destLine+","+destCol+","+piece+","+player+","+boardsString[0]+","+boardsString[1]+","+boardsString[2]+")";
+        var requestString = "game_over("+destLine+","+destCol+","+piece+","+boardString+")";
 
-        this.sendPrologRequest(requestString, (data) => { this.getBoards.call(this, data) });
-    }
+        var response = await this.sendAsyncPrologRequest(requestString);
 
-    gameOver() {
-        return false;
+        var responseArray = JSON.parse(response);
+
+        this.mainBoard = responseArray[0];
+
+        console.log(responseArray[1]);
+
+        return (responseArray[1]);
     }
 
     getComputerPlay() {
 
-    }
-
-
-    parseGameMode(gameMode) {
-        switch (gameMode) {
-            case "PlayerVsPlayer" : {
-                return "1";
-            }
-        }
     }
 }
