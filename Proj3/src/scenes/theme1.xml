@@ -1,18 +1,5 @@
 <lxs>
-    <scene root="root" axis_length="5"/>
-
-
-    <views default="Player1">
-        <perspective id="Player1" near="0.1" far="500.0" angle="45.0">
-            <from x="-100.0" y="40.0" z="0.0" />
-            <to x="0.0" y="0.0" z="0.0" />
-        </perspective>
-        <perspective id="Player2" near="0.1" far="500.0" angle="45.0">
-            <from x="100.0" y="40.0" z="0.0" />
-            <to x="0.0" y="0.0" z="0.0" />
-        </perspective>
-    </views>
-
+    <scene root="root"/>
 
     <globals>
         <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
@@ -403,6 +390,8 @@
     <components>
         <component id="root">
             <transformation>
+                <scale x="2.2" y="2.2" z="2.2" />
+                <translate x="-10.0" y="-8.0" z="3.4" />
             </transformation>
             <materials>
                 <material id="defaultMaterial" />
@@ -410,14 +399,13 @@
             <texture id="defaultTexture" length_s="1.0" length_t="1.0" />
             <children>
                 <componentref id="tree" />
-                <!-- <componentref id="ground" />
+                <componentref id="ground" />
                 <componentref id="tableSet" />
                 <componentref id="tree" />
                 <componentref id="football" />
                 <componentref id="poolSet" />
                 <componentref id="background" />
                 <componentref id="houseSet" /> 
-                <componentref id="robot" /> -->
             </children>
         </component>
 
@@ -623,7 +611,6 @@
                 <componentref id="tableLeg2" />
                 <componentref id="tableLeg3" />
                 <componentref id="tableLeg4" />
-                <componentref id="lamp" />
             </children>
         </component>
 

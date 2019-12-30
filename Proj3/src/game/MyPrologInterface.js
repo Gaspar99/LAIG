@@ -1,9 +1,10 @@
 class MyPrologInterface {
     constructor() {
 
-        // Prolog Boards
+        // Prolog Board
         this.mainBoard = [];
         
+        this.initBoard();
     }
 
     sendPrologRequest(requestString, onSuccess, onError) {
@@ -78,8 +79,6 @@ class MyPrologInterface {
         var responseArray = JSON.parse(response);
 
         this.mainBoard = responseArray[0];
-
-        console.log(responseArray[1]);
 
         return (responseArray[1]);
     }

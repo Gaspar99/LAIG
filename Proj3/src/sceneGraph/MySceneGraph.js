@@ -2,14 +2,13 @@ var DEGREE_TO_RAD = Math.PI / 180;
 
 // Order of the groups in the XML document.
 var SCENE_INDEX = 0;
-var VIEWS_INDEX = 1;
-var GLOBALS_INDEX = 2;
-var LIGHTS_INDEX = 3;
-var TEXTURES_INDEX = 4;
-var MATERIALS_INDEX = 5;
-var TRANSFORMATIONS_INDEX = 6;
-var PRIMITIVES_INDEX = 7;
-var COMPONENTS_INDEX = 8;
+var GLOBALS_INDEX = 1;
+var LIGHTS_INDEX = 2;
+var TEXTURES_INDEX = 3;
+var MATERIALS_INDEX = 4;
+var TRANSFORMATIONS_INDEX = 5;
+var PRIMITIVES_INDEX = 6;
+var COMPONENTS_INDEX = 7;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -18,21 +17,16 @@ class MySceneGraph {
     /**
      * @constructor
      */
-    constructor(filename, scene) {
+    constructor(filename, gameOrchestrator) {
         this.loadedOk = null;
 
-        // Establish bidirectional references between scene and graph.
-        this.scene = scene;
-        scene.graph = this;
+        this.gameOrchestrator = gameOrchestrator;
+        this.scene = gameOrchestrator.scene;
+        this.scene.graph = this;
 
         this.nodes = [];
 
-        this.idRoot = null;                    // The id of the root element.
-
-        this.axisCoords = [];
-        this.axisCoords['x'] = [1, 0, 0];
-        this.axisCoords['y'] = [0, 1, 0];
-        this.axisCoords['z'] = [0, 0, 1];
+        this.idRoot = null; // The id of the root element.
 
         // File reading 
         this.reader = new CGFXMLreader();
@@ -97,18 +91,6 @@ class MySceneGraph {
 
             //Parse scene block
             if ((error = this.parseScene(nodes[index])) != null)
-                return error;
-        }
-
-        // <views>
-        if ((index = nodeNames.indexOf("views")) == -1)
-            return "tag <views> missing";
-        else {
-            if (index != VIEWS_INDEX)
-                this.onXMLMinorError("tag <views> out of order");
-
-            //Parse views block
-            if ((error = this.parseView(nodes[index])) != null)
                 return error;
         }
 
@@ -210,160 +192,7 @@ class MySceneGraph {
 
         this.idRoot = root;
 
-        // Get axis length        
-        var axis_length = this.reader.getFloat(sceneNode, 'axis_length');
-        if (axis_length == null)
-            this.onXMLMinorError("no axis_length defined for scene; assuming 'length = 1'");
-
-        this.referenceLength = axis_length || 1;
-
         this.log("Parsed scene");
-
-        return null;
-    }
-
-    /**
-     * Parses the <views> block.
-     * @param {view block element} viewsNode
-     */
-    parseView(viewsNode) {
-
-        var children = viewsNode.children;
-
-        var defaultViewID = this.reader.getString(viewsNode, "default");
-        if (defaultViewID == null) 
-            return "no default view defined";
-
-        this.defaultViewID = defaultViewID;
-
-        this.views = [];
-        var numViews = 0;
-        
-        var grandChildren = [];
-
-        for (var i = 0; i < children.length; i++) {
-
-            var viewProperties = [];
-            
-            if (children[i].nodeName != "perspective" && children[i].nodeName != "ortho") {
-                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
-                continue;
-            }
-            
-            // Get id of the current view.
-            var viewId = this.reader.getString(children[i], 'id');
-            if (viewId == null)
-                return "no ID defined for view";
-
-            // Checks for repeated IDs.
-            if (this.views[viewId] != null)
-                return "ID must be unique for each view (conflict: ID = " + viewId + ")";
-
-            viewProperties.push(children[i].nodeName);
-            viewProperties.push(viewId);
-            
-            //Near property
-            var near = this.reader.getFloat(children[i], "near"); 
-            if (!(near != null && !isNaN(near)))
-                return "unable to parse near property of view for ID = " + viewId;
-            else viewProperties.push(near);
-
-            //Far property
-            var far = this.reader.getFloat(children[i], "far"); 
-            if (!(far != null && !isNaN(far)))
-                return "unable to parse far property of view for ID = " + viewId;
-            else viewProperties.push(far);
-
-            grandChildren = children[i].children;
-            // Specifications for the current view.
-
-            var nodeNames = [];
-            for (var j = 0; j < grandChildren.length; j++) {
-                nodeNames.push(grandChildren[j].nodeName);
-            }
-            
-            var fromPos = [];
-            var fromIndex = nodeNames.indexOf("from");            
-            if (fromIndex != -1) {
-                var aux = this.parseCoordinates3D(grandChildren[fromIndex], "from position of view for ID " + viewId);
-                if (!Array.isArray(aux))
-                    return aux;
-
-                fromPos = aux;
-            }
-            else
-                return "from position of view undefined for ID = " + viewId;
-
-            var toPos = [];
-            var toIndex = nodeNames.indexOf("to");            
-            if (toIndex != -1) {
-                var aux = this.parseCoordinates3D(grandChildren[toIndex], "to position of view for ID " + viewId);
-                if (!Array.isArray(aux))
-                    return aux;
-
-                toPos = aux;
-            }
-            else
-                return "to position of view undefined for ID = " + viewId;
-
-            viewProperties.push(...[fromPos, toPos]);
-            
-            if (children[i].nodeName == "perspective") {
-                //Angle property
-                var angle = this.reader.getFloat(children[i], "angle"); 
-                if (!(angle != null && !isNaN(angle)))
-                    return "unable to parse angle property of view for ID = " + viewId; 
-                else viewProperties.push(angle);
-            }           
-            else if (children[i].nodeName == "ortho") {
-
-                var upDirection = [];
-                var upIndex = nodeNames.indexOf("up");            
-                if (upIndex != -1) {
-                    var aux = this.parseCoordinates3D(grandChildren[upIndex], "up direction of view for ID " + viewId);
-                    if (!Array.isArray(aux))
-                        return aux;
-
-                    upDirection = aux;
-                }
-                else
-                    upDirection = [0,1,0];
-
-                viewProperties.push(upDirection);
-
-                //Left property
-                var left = this.reader.getFloat(children[i], "left")
-                if (!(left != null && !isNaN(left)))
-                    return "unable to parse left property of view for ID = " + viewId; 
-                else viewProperties.push(left);
-                
-                //Right property
-                var right = this.reader.getFloat(children[i], "right")
-                if (!(right != null && !isNaN(right)))
-                    return "unable to parse right property of view for ID = " + viewId; 
-                else viewProperties.push(right);
-                
-                //Top property
-                var top = this.reader.getFloat(children[i], "top")
-                if (!(top != null && !isNaN(top)))
-                    return "unable to parse top property of view for ID = " + viewId; 
-                else viewProperties.push(top);
-                
-                //Bottom property
-                var bottom = this.reader.getFloat(children[i], "bottom")
-                if (!(bottom != null && !isNaN(bottom)))
-                    return "unable to parse bottom property of view for ID = " + viewId; 
-                else viewProperties.push(bottom);
-            }
-
-            this.views[viewId] = viewProperties;
-            numViews++;
-        }
-
-        if (numViews == 0)
-            return "at least one view must be defined";
-        
-        this.log("Parsed views");
 
         return null;
     }
@@ -1267,7 +1096,7 @@ class MySceneGraph {
                     if (!(height != null && !isNaN(height)))
                         return "Error reading height for gameboard"; 
 
-                    this.scene.gameOrchestrator.gameboards.setMainGameboard(componentID, width, height);
+                    this.gameOrchestrator.gameboards.setMainGameboard(componentID, width, height);
 
                     break;
                 }
@@ -1281,7 +1110,7 @@ class MySceneGraph {
                     if (!(height != null && !isNaN(height)))
                         return "Error reading height for gameboard"; 
 
-                    this.scene.gameOrchestrator.gameboards.setPlayer1PiecesBoard(componentID, width, height);
+                    this.gameOrchestrator.gameboards.setPlayer1PiecesBoard(componentID, width, height);
 
                     break;
                 }
@@ -1295,7 +1124,7 @@ class MySceneGraph {
                     if (!(height != null && !isNaN(height)))
                         return "Error reading height for gameboard"; 
 
-                    this.scene.gameOrchestrator.gameboards.setPlayer2PiecesBoard(componentID, width, height);
+                    this.gameOrchestrator.gameboards.setPlayer2PiecesBoard(componentID, width, height);
                 }
                 default: {
                     break;

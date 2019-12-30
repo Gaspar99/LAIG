@@ -33,6 +33,8 @@ serialInclude(['../lib/CGF.js',
                 'game/MyGameboards.js',
                 'game/MyGameMove.js',
                 'game/MyGameOrchestrator.js',
+                'game/MyGameState.js',
+                'game/MyPlayState.js',
                 'game/MyGameSequence.js',
                 'game/MyPiece.js',
                 'game/MyTile.js',
@@ -49,15 +51,6 @@ main=function()
 
     app.setScene(myScene);
     app.setInterface(myInterface);
-
-	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
-	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
-	
-    var filename=getUrlVars()['file'] || "LAIG_TP1_XML_T4_G5_v01.xml";
-
-	// create and load graph, and associate it to scene. 
-	// Check console for loading errors
-	var myGraph = new MySceneGraph(filename, myScene);
 	
 	// start
     app.run();

@@ -36,36 +36,19 @@ class XMLscene extends CGFscene {
 
         this.axis = new CGFaxis(this);
         this.setUpdatePeriod(33.3);
+
+        this.initCamera();
     }
 
     /**
      * Initializes the scene cameras.
      */
-    initCameras() {
-        this.cameras = [];
-        this.camerasIDs = [];
+    initCamera() {
+        var position = [-100.0, 60.0, 0.0];
+        var target = [0.0, 0.0, 0.0];
 
-        //Reads the views from the scene graph.
-        for (var key in this.graph.views) {
-
-            if (this.graph.views.hasOwnProperty(key)) {
-                var view = this.graph.views[key];
-
-                this.camerasIDs.push(view[1]);
-
-                var newCamera;
-                if (view[0] == "perspective") {
-                    newCamera = new CGFcamera(view[6] * DEGREE_TO_RAD, view[2], view[3], view[4], view[5]);
-                }
-                else if (view[0] == "ortho") {
-                    newCamera = new CGFcameraOrtho(view[7], view[8], view[10], view[9], view[2], view[3], view[4], view[5], view[6]);
-                } 
-                    
-                this.cameras.push(newCamera);
-            }
-        }
-
-        this.selectedView = this.graph.defaultViewID;
+        this.camera = new CGFcamera(Math.PI / 4.0, 0.1, 5000, position, target);
+        //this.interface.setActiveCamera(this.camera);
     }
     /**
      * Initializes the scene lights with the values read from the XML file.
@@ -73,10 +56,6 @@ class XMLscene extends CGFscene {
     initLights() {
         var i = 0;
         // Lights index.
-
-        // Interface UI to turn on or off each scene light
-        var lightsGroup = this.interface.gui.addFolder("Lights (ON/OFF)");
-        lightsGroup.open();
 
         // Reads the lights from the scene graph.
         for (var key in this.graph.lights) {
@@ -97,18 +76,16 @@ class XMLscene extends CGFscene {
                 if (light[1] == "spot") {
                     this.lights[i].setSpotCutOff(light[7]);
                     this.lights[i].setSpotExponent(light[8]);
-                    this.lights[i].setSpotDirection(light[9][0]-light[2][0], light[9][1]-light[2][1], light[9][2]-light[2][2]);
+                    this.lights[i].setSpotDirection(light[9][0] - light[2][0], light[9][1] - light[2][1], light[9][2] - light[2][2]);
                 }
 
                 this.lights[i].setVisible(true);
-                if (light[0]) 
+                if (light[0])
                     this.lights[i].enable();
-                else 
+                else
                     this.lights[i].disable();
 
                 this.lights[i].update();
-
-                lightsGroup.add(this.lights[i], 'enabled').name(key);
 
                 i++;
             }
@@ -122,22 +99,13 @@ class XMLscene extends CGFscene {
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     }
-    /** Handler called when the graph is finally loaded. 
-     * As loading is asynchronous, this may be called already after the application has started the run loop
-     */
+
     onGraphLoaded() {
-
-        this.axis = new CGFaxis(this, this.graph.referenceLength);
-
         this.gl.clearColor(this.graph.background[0], this.graph.background[1], this.graph.background[2], this.graph.background[3]);
 
         this.setGlobalAmbientLight(this.graph.ambient[0], this.graph.ambient[1], this.graph.ambient[2], this.graph.ambient[3]);
 
-        this.initCameras();
-
         this.initLights();
-
-        this.sceneInited = true;
     }
 
     /**
@@ -180,26 +148,21 @@ class XMLscene extends CGFscene {
 
         this.pushMatrix();
 
-        if (this.sceneInited) {
+        // Initialize Model-View matrix as identity (no transformation)
+        this.updateProjectionMatrix();
+        this.loadIdentity();
 
-            this.camera = this.cameras[this.camerasIDs.indexOf(this.selectedView)];
+        // Apply transformations corresponding to the camera position relative to the origin
+        this.applyViewMatrix();
 
-            // Initialize Model-View matrix as identity (no transformation)
-            this.updateProjectionMatrix();
-            this.loadIdentity();
+        // Updating of lights so that switching ON/OFF works
+        for (var i = 0; i < this.lights.length; i++)
+            this.lights[i].update();
 
-            // Apply transformations corresponding to the camera position relative to the origin
-            this.applyViewMatrix();
+        //this.axis.display();
 
-            // Updating of lights so that switching ON/OFF works
-            for (var i = 0; i < this.lights.length; i++) 
-                this.lights[i].update();              
-            
-            this.axis.display();
-
-            // Displays game
-            this.gameOrchestrator.display();
-        }
+        // Displays game
+        this.gameOrchestrator.display();
 
         this.popMatrix();
         // ---- END Background, camera and axis setup
