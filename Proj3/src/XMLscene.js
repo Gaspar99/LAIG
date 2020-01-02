@@ -6,13 +6,9 @@ var DEGREE_TO_RAD = Math.PI / 180;
 class XMLscene extends CGFscene {
     /**
      * @constructor
-     * @param {MyInterface} myinterface 
      */
-    constructor(myinterface) {
+    constructor() {
         super();
-
-        this.interface = myinterface;
-        this.gameOrchestrator = new MyGameOrchestrator(this);
 
         this.last = 0;
     }
@@ -38,13 +34,15 @@ class XMLscene extends CGFscene {
         this.setUpdatePeriod(33.3);
 
         this.initCamera();
+
+        this.gameOrchestrator = new MyGameOrchestrator(this);
     }
 
     /**
      * Initializes the scene cameras.
      */
     initCamera() {
-        var position = [-100.0, 60.0, 0.0];
+        var position = [0.0, 60.0, -100.0];
         var target = [0.0, 0.0, 0.0];
 
         this.camera = new CGFcamera(Math.PI / 4.0, 0.1, 5000, position, target);
@@ -79,7 +77,7 @@ class XMLscene extends CGFscene {
                     this.lights[i].setSpotDirection(light[9][0] - light[2][0], light[9][1] - light[2][1], light[9][2] - light[2][2]);
                 }
 
-                this.lights[i].setVisible(true);
+                this.lights[i].setVisible(false);
                 if (light[0])
                     this.lights[i].enable();
                 else

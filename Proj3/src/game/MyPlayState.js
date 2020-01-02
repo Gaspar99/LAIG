@@ -11,6 +11,8 @@ class MyPlayState extends MyGameState {
         this.animator = new MyAnimator(scene, this);
         this.prolog = new MyPrologInterface(this.gameboards);
 
+        this.setUpInitialCameraPosition();
+
         this.tempGameMove = new MyGameMove();
     }
 
@@ -83,6 +85,28 @@ class MyPlayState extends MyGameState {
         }
     }
 
+    setUpInitialCameraPosition() {
+        var angle = 0.0;
+
+        switch (this.gameInfo.gameMode) {
+            case "PlayerVsPlayer":
+            case "PlayerVsComputer": {
+                angle = Math.PI / 2.0;
+                break;
+            }
+            case "ComputerVsPlayer" : {
+                angle = - Math.PI / 2.0;
+                console.log("GAYY");
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+
+        this.scene.camera.orbit(CGFcameraAxis.Y, angle);
+    }
+
     changePlayer() {
         this.currentPlayer = ((this.currentPlayer == "p1") ? "p2" : "p1");
     }
@@ -115,7 +139,6 @@ class MyPlayState extends MyGameState {
     display() {
         this.animator.animate();
 
-    
         if (this.moveState == "changePlayer") {
             if (!this.animator.changingCamera) {
                 this.moveState = "pickPiece";
