@@ -34,20 +34,10 @@ class MyPlayState extends MyGameState {
                 // Comunication with prolog to check if move is valid
                 this.prolog.isValidMove(this.tempGameMove).then((valid) => {
                     if (valid) {
-                        console.log("Valid Move");
                         this.tempGameMove.removeOriginTilePiece();
                         this.animator.setGameMoveAnimation(this.tempGameMove);
                         this.moveState = "inMoveAnimation";
-
-                        this.prolog.gameOver(this.tempGameMove).then((gameOver) => {
-                            if (gameOver) {
-                                console.log("Game Over");
-                                this.gameState = "gameOver";
-                            }
-                            else {
-                                console.log("Not Game Over");
-                            }
-                        })
+                        this.checkGameOver();
                     }
                     else {
                         console.log("Invalid Move");
@@ -75,14 +65,20 @@ class MyPlayState extends MyGameState {
 
         if (
             ((this.gameInfo.gameMode == "PlayerVsComputer" && this.currentPlayer == "p2") ||
-            (this.gameInfo.gameMode == "ComputerVsPlayer" && this.currentPlayer == "p1") ||
-            (this.gameInfo.gameMode == "ComputerVsComputer")) && this.moveState != "inMoveAnimation" && this.prolog.boardsInited
+                (this.gameInfo.gameMode == "ComputerVsPlayer" && this.currentPlayer == "p1") ||
+                (this.gameInfo.gameMode == "ComputerVsComputer")) && this.moveState != "inMoveAnimation" && this.prolog.boardsInited
         ) {
-            this.prolog.getComputerMove(this.gameInfo.difficultyLevel, this.currentPlayer).then( (gameMove) => {
-                this.tempGameMove = gameMove;
-                this.tempGameMove.removeOriginTilePiece();
-                this.animator.setGameMoveAnimation(this.tempGameMove);
-                this.moveState = "inMoveAnimation";
+            this.moveState = "inMoveAnimation";
+            this.prolog.getComputerMove(this.gameInfo.difficultyLevel, this.currentPlayer).then((gameMove) => {
+                if (gameMove) {
+                    this.tempGameMove = gameMove;
+                    this.tempGameMove.removeOriginTilePiece();
+                    this.animator.setGameMoveAnimation(this.tempGameMove);
+                    this.checkGameOver();
+                }
+                else {
+                    console.log("No more valid moves");
+                }
             });
         }
     }
@@ -93,6 +89,7 @@ class MyPlayState extends MyGameState {
 
     finishMove() {
         this.tempGameMove.finishMove();
+
         if (this.gameState != "gameOver") {
             if (this.gameInfo.gameMode == "PlayerVsPlayer") {
                 this.moveState = "changePlayer";
@@ -106,26 +103,19 @@ class MyPlayState extends MyGameState {
         }
     }
 
+    checkGameOver() {
+        this.prolog.gameOver(this.tempGameMove).then((gameOver) => {
+            if (gameOver) {
+                console.log("Game Over");
+                this.gameState = "gameOver";
+            }
+        });
+    }
+
     display() {
-        if (this.animator.animations.hasOwnProperty("picking")) {
-            if (!this.animator.animateSelectedPiece()) {
-                delete this.animator.animations["picking"];
-            }
-        }
+        this.animator.animate();
 
-        if (this.animator.animations.hasOwnProperty("deselect")) {
-            if (!this.animator.animateDeselectedPiece()) {
-                delete this.animator.animations["deselect"];
-            }
-        }
-
-        if (this.animator.animations.hasOwnProperty("movePiece")) {
-            if (!this.animator.animateMove()) {
-                delete this.animator.animations["movePiece"];
-                this.finishMove();
-            }
-        }
-
+    
         if (this.moveState == "changePlayer") {
             if (!this.animator.changingCamera) {
                 this.moveState = "pickPiece";

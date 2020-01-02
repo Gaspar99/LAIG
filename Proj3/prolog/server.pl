@@ -121,7 +121,7 @@ parse_input(game_over(Row,Column,Piece,Player,Board,White_Pieces,Brown_Pieces), 
 	move_piece([Row, Column, Piece], Board, New_Board),
 	remove_piece([Row, Column, Piece], Player, White_Pieces, Brown_Pieces, New_White_Pieces, New_Brown_Pieces).
 
-parse_input(choose_move(Board,White_Pieces,Brown_Pieces,Level,Player), [Row,Column,Piece,New_Board,New_White_Pieces,New_Brown_Pieces]) :-
-	choose_move(Board, White_Pieces, Brown_Pieces, Level, [Row,Column,Piece], Player),
-	move_piece([Row, Column, Piece], Board, New_Board),
-	remove_piece([Row, Column, Piece], Player, White_Pieces, Brown_Pieces, New_White_Pieces, New_Brown_Pieces).
+parse_input(choose_move(Board,White_Pieces,Brown_Pieces,Level,Player), [Row,Column,Piece]) :-
+	choose_move(Board, White_Pieces, Brown_Pieces, Level, [Row,Column,Piece], Player).
+
+parse_input(choose_move(_Board,_White_Pieces,_Brown_Pieces,_Level,_Player), false).

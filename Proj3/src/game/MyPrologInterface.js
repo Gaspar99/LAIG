@@ -13,7 +13,7 @@ class MyPrologInterface {
 
     sendPrologRequest(requestString, onSuccess, onError) {
     
-        var requestPort = 8081
+        var requestPort = 8081;
         var request = new XMLHttpRequest();
         request.open('GET', 'http://localhost:' + requestPort + '/' + requestString, true);
     
@@ -26,7 +26,7 @@ class MyPrologInterface {
 
     async sendAsyncPrologRequest(requestString) {
     
-        var requestPort = 8081
+        var requestPort = 8081;
         var request = new XMLHttpRequest();
         request.open('GET', 'http://localhost:' + requestPort + '/' + requestString, false);
     
@@ -111,6 +111,9 @@ class MyPrologInterface {
 
         var response = await this.sendAsyncPrologRequest(requestString);
 
+        if (response == false)
+            return false;
+
         var responseArray = JSON.parse(response);
 
         var line = responseArray[0] - 1;
@@ -133,10 +136,8 @@ class MyPrologInterface {
         var tileId = line * 4 + column + 1;
         var tile = this.gameboards.getTile(tileId);
         computerMove.setDestTile(tile);
-
-        this.mainBoard = responseArray[3];
-        this.p1Pieces = responseArray[4];
-        this.p2Pieces = responseArray[5];
+        
+        await new Promise(r => setTimeout(r, 1000));
 
         return computerMove;
     }

@@ -1,8 +1,8 @@
 class MyAnimator {
-    constructor(scene, gameOrchestrator) {
+    constructor(scene, playState) {
         this.scene = scene;
 
-        this.gameOrchestrator = gameOrchestrator;
+        this.playState = playState;
 
         this.animations = [];
 
@@ -88,9 +88,9 @@ class MyAnimator {
 
         var board = [];
         if (piece.player == "p1")
-            board = this.gameOrchestrator.gameboards.player1PiecesBoard;
+            board = this.playState.gameboards.player1PiecesBoard;
         else
-            board = this.gameOrchestrator.gameboards.player2PiecesBoard;
+            board = this.playState.gameboards.player2PiecesBoard;
 
         piece.xPos += board.xPos;
 
@@ -185,6 +185,28 @@ class MyAnimator {
         }
         else {
             return true;
+        }
+    }
+
+    animate() {
+
+        if (this.animations.hasOwnProperty("picking")) {
+            if (!this.animateSelectedPiece()) {
+                delete this.animations["picking"];
+            }
+        }
+
+        if (this.animations.hasOwnProperty("deselect")) {
+            if (!this.animateDeselectedPiece()) {
+                delete this.animations["deselect"];
+            }
+        }
+
+        if (this.animations.hasOwnProperty("movePiece")) {
+            if (!this.animateMove()) {
+                delete this.animations["movePiece"];
+                this.playState.finishMove();
+            }
         }
     }
 
