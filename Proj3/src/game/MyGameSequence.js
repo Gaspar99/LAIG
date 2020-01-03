@@ -10,23 +10,23 @@ class MyGameSequence {
 
     popPlayerGameMove(player) {
         var tempStack = [];
-        
-        do {
-            var lastGameMove = this.gameMoves.pop();
+
+        var lastGameMove = this.gameMoves.pop();
+        while (lastGameMove != undefined && lastGameMove.player != player) {
 
             tempStack.push(lastGameMove);
 
-        } while(lastGameMove.player != player && this.gameMoves.length > 0);
+            lastGameMove = this.gameMoves.pop();
+        }        
 
-        if (lastGameMove.player != player) {
+        if (lastGameMove == undefined) {
             this.gameMoves.push(...tempStack);
             return null;
         }
 
-        var playerGameMove = tempStack.pop();
         this.gameMoves.push(...tempStack);
 
-        return playerGameMove;
+        return lastGameMove;
     }
 
     getLastMoveBy(player) {

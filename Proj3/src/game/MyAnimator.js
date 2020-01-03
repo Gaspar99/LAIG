@@ -11,6 +11,7 @@ class MyAnimator {
         this.deselectedPiece = [];
 
         // Camera
+        this.rotationAngle = Math.PI;
         this.changingCamera = false;
         this.orbitedAngle = 0.0;
         this.lastAngle = 0.0;
@@ -30,11 +31,11 @@ class MyAnimator {
     }
 
     updateCameraPosition(time) {
-        var angle = Math.PI * (time / this.cameraChangeDuration);
+        var angle = this.rotationAngle * (time / this.cameraChangeDuration);
         this.orbitedAngle += angle;
 
-        if (this.orbitedAngle >= Math.PI) {
-            angle = Math.PI - this.lastAngle;
+        if (this.orbitedAngle >= this.rotationAngle) {
+            angle = this.rotationAngle - this.lastAngle;
 
             this.changingCamera = false;
             this.orbitedAngle = 0.0;
@@ -204,9 +205,10 @@ class MyAnimator {
 
     }
 
-    setCameraChangeAnimation() {
+    setCameraChangeAnimation(angle, duration) {
+        this.rotationAngle = angle;
         this.changingCamera = true;
-        this.cameraChangeDuration = 1000 // milliseconds
+        this.cameraChangeDuration = duration // milliseconds
     }
 
     animateSelectedPiece() {
