@@ -4,11 +4,12 @@ class MyGameSequence {
         this.gameMoves = [];
     }
 
-    addGameMove(gameMove) {
-        this.gameMoves.push(gameMove);
+    pushGameMove(gameMove) {
+        var newGameMove = { ...gameMove };
+        this.gameMoves.push(newGameMove);
     }
 
-    undoGameMove() {
-        this.gameMoves.pop();
+    popGameMove() {
+        return this.gameMoves.pop();
     }
 }

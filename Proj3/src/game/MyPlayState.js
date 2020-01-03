@@ -12,13 +12,14 @@ class MyPlayState extends MyGameState {
         this.prolog = new MyPrologInterface(this.gameboards);
 
         this.setUpInitialCameraPosition();
+        this.createOptionsSection();
 
-        this.tempGameMove = new MyGameMove();
+        this.tempGameMove = new MyGameMove(this);
     }
 
     processPick(id, pickInfo) {
 
-        if (this.moveState == "pickPiece") {
+        if (this.moveState == "pickPiece" && this.gameInfo.gameMode != "ComputerVsComputer") {
             if (pickInfo.type == "piece") {
                 if (pickInfo.player == this.currentPlayer) {
                     var piece = this.gameboards.getPiece(id, pickInfo.player);
@@ -36,7 +37,8 @@ class MyPlayState extends MyGameState {
                 // Comunication with prolog to check if move is valid
                 this.prolog.isValidMove(this.tempGameMove).then((valid) => {
                     if (valid) {
-                        this.tempGameMove.removeOriginTilePiece();
+                        this.tempGameMove.playMove();
+                        this.gameOrchestrator.pushGameMove(this.tempGameMove);
                         this.animator.setGameMoveAnimation(this.tempGameMove);
                         this.moveState = "inMoveAnimation";
                         this.checkGameOver();
@@ -58,6 +60,14 @@ class MyPlayState extends MyGameState {
                 else {
                     this.moveState = "pickPiece";
                 }
+            }
+        }
+
+        if (pickInfo.type == "option") {
+            if (pickInfo.option == "undo") {
+                var gameMove = this.gameOrchestrator.popGameMove();
+                this.animator.setReverseGameMoveAnimation(gameMove);
+                this.prolog.setMainBoard(gameMove.getMainBoardState());
             }
         }
     }
@@ -94,7 +104,7 @@ class MyPlayState extends MyGameState {
                 angle = Math.PI / 2.0;
                 break;
             }
-            case "ComputerVsPlayer" : {
+            case "ComputerVsPlayer": {
                 angle = - Math.PI / 2.0;
                 console.log("GAYY");
                 break;
@@ -105,6 +115,32 @@ class MyPlayState extends MyGameState {
         }
 
         this.scene.camera.orbit(CGFcameraAxis.Y, angle);
+    }
+
+    createOptionsSection() {
+        this.options = [];
+        this.optionsPosition = [0.0, 0.0, 0];
+
+        this.undoTexture = new CGFtexture(this.scene, "scenes/images/undo.png");
+        this.options["undo"] = new MyRectangle(this.scene, 5, 10, 5, 10);
+    }
+
+    displayOptionsSection() {
+        this.scene.registerPicking();
+        this.scene.clearPickRegistration();
+
+        this.scene.pushMatrix();
+
+        this.undoTexture.bind(0);
+        this.scene.registerForPick(50, '{"type":"option","option":"undo"}');
+        this.scene.translate(-7.5, 0.0, 20.0);
+        this.scene.rotate(- Math.PI / 2, 0.0, 1.0, 0.0);
+        this.scene.rotate(-Math.PI / 2.0, 1.0, 0.0, 0.0);
+        this.options["undo"].display();
+        this.scene.clearPickRegistration();
+        this.undoTexture.unbind(0);   
+        
+        this.scene.popMatrix();
     }
 
     changePlayer() {
@@ -144,6 +180,8 @@ class MyPlayState extends MyGameState {
                 this.moveState = "pickPiece";
             }
         }
+
+        this.displayOptionsSection();
     }
 
 

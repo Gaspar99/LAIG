@@ -43,6 +43,12 @@ class MyPrologInterface {
         this.sendPrologRequest("init_boards", (data) => { this.getBoards.call(this, data) });
     }
 
+    setBoards(mainBoard, p1Pieces, p2Pieces) {
+        this.mainBoard = mainBoard;
+        this.p1Pieces = p1Pieces;
+        this.p2Pieces = p2Pieces;
+    }
+
     getBoards(data) {
         this.parseBoardsFromString(data.target.response);
 

@@ -7,8 +7,10 @@ class XMLscene extends CGFscene {
     /**
      * @constructor
      */
-    constructor() {
+    constructor(myinterface) {
         super();
+
+        this.interface = myinterface;
 
         this.last = 0;
     }

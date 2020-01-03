@@ -1,11 +1,15 @@
 class MyGameMove {
-    constructor() {
+    constructor(gameOrchestrator) {
+
+        this.gameOrchestrator = gameOrchestrator;
 
         this.piece = [];
         this.originTile = [];
         this.destinationTile = [];
 
         this.gameBoard = [];
+        this.p1Pieces = [];
+        this.p2Pieces = [];
     }
 
     setPiece(piece) {
@@ -17,8 +21,13 @@ class MyGameMove {
         this.destinationTile = tile;
     }
 
-    removeOriginTilePiece() {
+    playMove() {
         this.originTile.unsetPiece();
+        this.gameBoard = [...this.gameOrchestrator.prolog.mainBoard];
+    }
+
+    getMainBoardState() {
+        return this.gameBoard;
     }
 
     finishMove() {

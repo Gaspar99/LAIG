@@ -4,6 +4,8 @@ class MyMenuState extends MyGameState {
 
         this.gameInfo = gameOrchestrator.gameInfo;
         this.theme = gameOrchestrator.theme;
+
+        this.background = new MyRectangle(scene, -10, 10, -10, 10);
     }
 
     processPick(id, pickInfo) {

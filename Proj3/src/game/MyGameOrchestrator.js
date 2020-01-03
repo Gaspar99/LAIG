@@ -3,7 +3,7 @@ class MyGameOrchestrator {
         this.scene = scene;
 
         this.gameInfo = {
-            gameMode: "ComputerVsComputer",
+            gameMode: "PlayerVsPlayer",
             difficultyLevel: 1,
             player1Score: 0,
             player2Score: 0,
@@ -25,6 +25,14 @@ class MyGameOrchestrator {
 
     update(time) {
         this.gameState.update(time);
+    }
+
+    pushGameMove(gameMove) {
+        this.gameSequence.pushGameMove(gameMove);
+    }
+
+    popGameMove() {
+        return this.gameSequence.popGameMove();
     }
 
     display() {
