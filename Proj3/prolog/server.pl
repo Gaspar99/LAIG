@@ -112,6 +112,10 @@ parse_input(valid_move(Row,Column,Piece,Board), true) :-
 
 parse_input(valid_move(_Row,_Column,_Piece,_Board), false).
 
+parse_input(play_move(Row,Column,Piece,Player,Board,White_Pieces,Brown_Pieces), [New_Board,New_White_Pieces,New_Brown_Pieces]) :-
+	move_piece([Row, Column, Piece], Board, New_Board),
+	remove_piece([Row, Column, Piece], Player, White_Pieces, Brown_Pieces, New_White_Pieces, New_Brown_Pieces).
+
 parse_input(game_over(Row,Column,Piece,Player,Board,White_Pieces,Brown_Pieces), [New_Board,New_White_Pieces,New_Brown_Pieces,true]) :-
 	move_piece([Row, Column, Piece], Board, New_Board),
 	\+ game_over(New_Board, Row, Column),

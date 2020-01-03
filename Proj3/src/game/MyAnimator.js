@@ -94,8 +94,8 @@ class MyAnimator {
 
         piece.xPos += board.xPos;
 
-        var finalXCoord = (gameMove.destinationTile.xPos - piece.xPos) / (piece.size);
-        var finalZCoord = (gameMove.destinationTile.zPos - piece.zPos) / (piece.size);
+        var xMovement = (gameMove.destinationTile.xPos - piece.xPos) / piece.size;
+        var zMovement = (gameMove.destinationTile.zPos - piece.zPos) / piece.size;
 
         var keyframes = [];
 
@@ -109,7 +109,7 @@ class MyAnimator {
 
         //Key frame 2
         var instant2 = 0.65;
-        var transCoords2 = [finalXCoord / 5.0, 1.0, finalZCoord / 5.0];
+        var transCoords2 = [xMovement / 5.0, 1.0, zMovement / 5.0];
         var rotateCoords2 = [0.0, 0.0, 0.0];
         var scaleCoords2 = [1.0, 1.0, 1.0];
 
@@ -117,7 +117,7 @@ class MyAnimator {
 
         //Key frame 3
         var instant3 = 0.79;
-        var transCoords3 = [finalXCoord / 2.0, 2.5, finalZCoord / 2.0];
+        var transCoords3 = [xMovement / 2.0, 2.5, zMovement / 2.0];
         var rotateCoords3 = [0.0, 0.0, 0.0];
         var scaleCoords3 = [1.0, 1.0, 1.0];
 
@@ -125,7 +125,7 @@ class MyAnimator {
 
         //Key frame 4
         var instant4 = 0.92;
-        var transCoords4 = [(4 * finalXCoord) / 5.0, 2.0, (4 * finalZCoord) / 5.0];
+        var transCoords4 = [(4 * xMovement) / 5.0, 2.0, (4 * zMovement) / 5.0];
         var rotateCoords4 = [0.0, 0.0, 0.0];
         var scaleCoords4 = [1.0, 1.0, 1.0];
 
@@ -133,13 +133,75 @@ class MyAnimator {
 
         //Key frame 5
         var instant5 = 1.16;
-        var transCoords5 = [finalXCoord, 0.0, finalZCoord];
+        var transCoords5 = [xMovement, 0.0, zMovement];
         var rotateCoords5 = [0.0, 0.0, 0.0];
         var scaleCoords5 = [1.0, 1.0, 1.0];
 
         keyframes.push(new MyKeyFrame(instant5, transCoords5, rotateCoords5, scaleCoords5));
 
         this.animations["movePiece"] = new MyKeyFrameAnimation(this.scene, keyframes);
+    }
+
+    setReverseGameMoveAnimation(gameMove) {
+        var piece = gameMove.piece;
+        this.reverseMovePiece = piece;
+
+        var board = [];
+        if (piece.player == "p1")
+            board = this.playState.gameboards.player1PiecesBoard;
+        else
+            board = this.playState.gameboards.player2PiecesBoard;
+
+        var finalXCoord = gameMove.originTile.xPos + board.xPos;
+        var finalZCoord = gameMove.originTile.zPos + board.zPos;
+
+        var xMovement = (finalXCoord - piece.xPos) / piece.size;
+        var zMovement = (finalZCoord - piece.zPos) / piece.size;
+
+        var keyframes = [];
+
+        //Key frame 1
+        var instant1 = 0.4;
+        var transCoords1 = [0.0, 0.5, 0.0];
+        var rotateCoords1 = [0.0, 0.0, 0.0];
+        var scaleCoords1 = [1.0, 1.0, 1.0];
+
+        keyframes.push(new MyKeyFrame(instant1, transCoords1, rotateCoords1, scaleCoords1));
+
+        //Key frame 2
+        var instant2 = 0.65;
+        var transCoords2 = [xMovement / 5.0, 1.0, zMovement / 5.0];
+        var rotateCoords2 = [0.0, 0.0, 0.0];
+        var scaleCoords2 = [1.0, 1.0, 1.0];
+
+        keyframes.push(new MyKeyFrame(instant2, transCoords2, rotateCoords2, scaleCoords2));
+
+        //Key frame 3
+        var instant3 = 0.79;
+        var transCoords3 = [xMovement / 2.0, 2.5, zMovement / 2.0];
+        var rotateCoords3 = [0.0, 0.0, 0.0];
+        var scaleCoords3 = [1.0, 1.0, 1.0];
+
+        keyframes.push(new MyKeyFrame(instant3, transCoords3, rotateCoords3, scaleCoords3));
+
+        //Key frame 4
+        var instant4 = 0.92;
+        var transCoords4 = [(4 * xMovement) / 5.0, 2.0, (4 * zMovement) / 5.0];
+        var rotateCoords4 = [0.0, 0.0, 0.0];
+        var scaleCoords4 = [1.0, 1.0, 1.0];
+
+        keyframes.push(new MyKeyFrame(instant4, transCoords4, rotateCoords4, scaleCoords4));
+
+        //Key frame 5
+        var instant5 = 1.16;
+        var transCoords5 = [xMovement, 0.0, zMovement];
+        var rotateCoords5 = [0.0, 0.0, 0.0];
+        var scaleCoords5 = [1.0, 1.0, 1.0];
+
+        keyframes.push(new MyKeyFrame(instant5, transCoords5, rotateCoords5, scaleCoords5));
+
+        this.animations["reverseMove"] = new MyKeyFrameAnimation(this.scene, keyframes);
+
     }
 
     setCameraChangeAnimation() {
@@ -188,6 +250,21 @@ class MyAnimator {
         }
     }
 
+    animateReverseMovePiece() {
+        var ma = this.animations["reverseMove"].apply();
+        this.reverseMovePiece.setAnimationMatrix(ma);
+        this.reverseMovePiece.display();
+
+        if (this.animations["reverseMove"].finished) {
+            this.reverseMovePiece.setAnimationMatrix(mat4.create());
+            this.reverseMovePiece = [];
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+
     animate() {
 
         if (this.animations.hasOwnProperty("picking")) {
@@ -206,6 +283,13 @@ class MyAnimator {
             if (!this.animateMove()) {
                 delete this.animations["movePiece"];
                 this.playState.finishMove();
+            }
+        }
+
+        if (this.animations.hasOwnProperty("reverseMove")) {
+            if (!this.animateReverseMovePiece()) {
+                delete this.animations["reverseMove"];
+                this.playState.resetMove();
             }
         }
     }

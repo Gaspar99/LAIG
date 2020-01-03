@@ -38,7 +38,11 @@ class MyPlayState extends MyGameState {
                 this.prolog.isValidMove(this.tempGameMove).then((valid) => {
                     if (valid) {
                         this.tempGameMove.playMove();
-                        this.gameOrchestrator.pushGameMove(this.tempGameMove);
+
+                        var newGameMove = new MyGameMove(this);
+                        newGameMove.clone(this.tempGameMove);
+                        this.gameOrchestrator.pushGameMove(newGameMove);
+                
                         this.animator.setGameMoveAnimation(this.tempGameMove);
                         this.moveState = "inMoveAnimation";
                         this.checkGameOver();
@@ -65,9 +69,20 @@ class MyPlayState extends MyGameState {
 
         if (pickInfo.type == "option") {
             if (pickInfo.option == "undo") {
-                var gameMove = this.gameOrchestrator.popGameMove();
-                this.animator.setReverseGameMoveAnimation(gameMove);
-                this.prolog.setMainBoard(gameMove.getMainBoardState());
+                var playerGameMove = this.gameOrchestrator.popPlayerGameMove(this.currentPlayer);
+
+                if (playerGameMove == null)
+                    return;
+
+                playerGameMove.removeMove();
+                this.animator.setReverseGameMoveAnimation(playerGameMove);
+                this.tempGameMove = playerGameMove;
+                this.prolog.setBoards(playerGameMove.getBoardsState());
+
+                var adversaryPlayer = ((this.currentPlayer == "p1") ? "p2" : "p1");
+                var adversaryGameMove = this.gameOrchestrator.getLastMoveBy(adversaryPlayer);
+                if (adversaryGameMove != undefined) 
+                    this.prolog.playMove(adversaryGameMove);
             }
         }
     }
@@ -161,6 +176,10 @@ class MyPlayState extends MyGameState {
 
             this.changePlayer();
         }
+    }
+
+    resetMove() {
+        this.tempGameMove.resetMove();
     }
 
     checkGameOver() {

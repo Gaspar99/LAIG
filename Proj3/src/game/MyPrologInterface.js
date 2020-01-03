@@ -43,10 +43,10 @@ class MyPrologInterface {
         this.sendPrologRequest("init_boards", (data) => { this.getBoards.call(this, data) });
     }
 
-    setBoards(mainBoard, p1Pieces, p2Pieces) {
-        this.mainBoard = mainBoard;
-        this.p1Pieces = p1Pieces;
-        this.p2Pieces = p2Pieces;
+    setBoards(boards) {
+        this.mainBoard = boards[0];
+        this.p1Pieces = boards[1];
+        this.p2Pieces = boards[2];
     }
 
     getBoards(data) {
@@ -85,6 +85,18 @@ class MyPrologInterface {
         var response = await this.sendAsyncPrologRequest(requestString);
 
         return (response == "true");
+    }
+
+    playMove(gameMove) {
+        var destCol = gameMove.destinationTile.column + 1;
+        var destLine = gameMove.destinationTile.line + 1;
+        var piece = gameMove.piece.prologId;
+        var player = gameMove.piece.prologPlayer;
+        var boardsString = this.parseBoardsToString();
+
+        var requestString = "play_move("+destLine+","+destCol+","+piece+","+player+","+boardsString[0]+","+boardsString[1]+","+boardsString[2]+")";
+
+        this.sendPrologRequest(requestString, (data) => { this.getBoards.call(this, data) });
     }
 
     async gameOver(gameMove) {
