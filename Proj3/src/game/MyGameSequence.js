@@ -5,11 +5,34 @@ class MyGameSequence {
     }
 
     pushGameMove(gameMove) {
-        var newGameMove = { ...gameMove };
-        this.gameMoves.push(newGameMove);
+        this.gameMoves.push(gameMove);
     }
 
-    popGameMove() {
-        return this.gameMoves.pop();
+    popPlayerGameMove(player) {
+        var tempStack = [];
+
+        var lastGameMove = this.gameMoves.pop();
+        while (lastGameMove != undefined && lastGameMove.player != player) {
+
+            tempStack.push(lastGameMove);
+
+            lastGameMove = this.gameMoves.pop();
+        }        
+
+        if (lastGameMove == undefined) {
+            this.gameMoves.push(...tempStack);
+            return null;
+        }
+
+        this.gameMoves.push(...tempStack);
+
+        return lastGameMove;
+    }
+
+    getLastMoveBy(player) {
+        for (var i = this.gameMoves.length - 1; i >= 0; i++) {
+            if (this.gameMoves[i].player == player)
+                return this.gameMoves[i];
+        }
     }
 }

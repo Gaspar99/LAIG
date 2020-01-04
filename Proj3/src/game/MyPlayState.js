@@ -38,7 +38,11 @@ class MyPlayState extends MyGameState {
                 this.prolog.isValidMove(this.tempGameMove).then((valid) => {
                     if (valid) {
                         this.tempGameMove.playMove();
-                        this.gameOrchestrator.pushGameMove(this.tempGameMove);
+
+                        var newGameMove = new MyGameMove(this);
+                        newGameMove.clone(this.tempGameMove);
+                        this.gameOrchestrator.pushGameMove(newGameMove);
+                
                         this.animator.setGameMoveAnimation(this.tempGameMove);
                         this.moveState = "inMoveAnimation";
                         this.checkGameOver();
@@ -65,9 +69,23 @@ class MyPlayState extends MyGameState {
 
         if (pickInfo.type == "option") {
             if (pickInfo.option == "undo") {
-                var gameMove = this.gameOrchestrator.popGameMove();
-                this.animator.setReverseGameMoveAnimation(gameMove);
-                this.prolog.setMainBoard(gameMove.getMainBoardState());
+                var playerGameMove = this.gameOrchestrator.popPlayerGameMove(this.currentPlayer);
+
+                if (playerGameMove == null)
+                    return;
+
+                playerGameMove.removeMove();
+                this.animator.setReverseGameMoveAnimation(playerGameMove);
+                this.tempGameMove = playerGameMove;
+                this.prolog.setBoards(playerGameMove.getBoardsState());
+
+                var adversaryPlayer = ((this.currentPlayer == "p1") ? "p2" : "p1");
+                var adversaryGameMove = this.gameOrchestrator.getLastMoveBy(adversaryPlayer);
+                if (adversaryGameMove != undefined) 
+                    this.prolog.playMove(adversaryGameMove);
+            }
+            else if (pickInfo.option == "rotateCamera") {
+                this.animator.setCameraChangeAnimation(Math.PI / 2.0, 500);
             }
         }
     }
@@ -119,10 +137,12 @@ class MyPlayState extends MyGameState {
 
     createOptionsSection() {
         this.options = [];
-        this.optionsPosition = [0.0, 0.0, 0];
 
         this.undoTexture = new CGFtexture(this.scene, "scenes/images/undo.png");
-        this.options["undo"] = new MyRectangle(this.scene, 5, 10, 5, 10);
+        this.options["undo"] = new MyRectangle(this.scene, -5.0, 5.0, -5.0, 5.0);
+
+        this.rotateCameraTexture = new CGFtexture(this.scene, "scenes/images/rotate_camera.png");
+        this.options["rotateCamera"] = new MyRectangle(this.scene, -5.0, 5.0, -5.0, 5.0);
     }
 
     displayOptionsSection() {
@@ -130,16 +150,25 @@ class MyPlayState extends MyGameState {
         this.scene.clearPickRegistration();
 
         this.scene.pushMatrix();
-
         this.undoTexture.bind(0);
         this.scene.registerForPick(50, '{"type":"option","option":"undo"}');
-        this.scene.translate(-7.5, 0.0, 20.0);
+        this.scene.translate(-35.0, 0.0, 27.0);
         this.scene.rotate(- Math.PI / 2, 0.0, 1.0, 0.0);
         this.scene.rotate(-Math.PI / 2.0, 1.0, 0.0, 0.0);
         this.options["undo"].display();
         this.scene.clearPickRegistration();
         this.undoTexture.unbind(0);   
-        
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.rotateCameraTexture.bind(0);
+        this.scene.registerForPick(51, '{"type":"option","option":"rotateCamera"}');
+        this.scene.translate(-45.0, 0.0, 27.0);
+        this.scene.rotate(- Math.PI / 2, 0.0, 1.0, 0.0);
+        this.scene.rotate(-Math.PI / 2.0, 1.0, 0.0, 0.0);
+        this.options["rotateCamera"].display();
+        this.scene.clearPickRegistration();
+        this.rotateCameraTexture.unbind(0);   
         this.scene.popMatrix();
     }
 
@@ -153,7 +182,7 @@ class MyPlayState extends MyGameState {
         if (this.gameState != "gameOver") {
             if (this.gameInfo.gameMode == "PlayerVsPlayer") {
                 this.moveState = "changePlayer";
-                this.animator.setCameraChangeAnimation();
+                this.animator.setCameraChangeAnimation(Math.PI, 1000);
             }
             else {
                 this.moveState = "pickPiece";
@@ -161,6 +190,10 @@ class MyPlayState extends MyGameState {
 
             this.changePlayer();
         }
+    }
+
+    resetMove() {
+        this.tempGameMove.resetMove();
     }
 
     checkGameOver() {

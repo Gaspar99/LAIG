@@ -1,9 +1,10 @@
 class MyGameMove {
-    constructor(gameOrchestrator) {
+    constructor(playState) {
 
-        this.gameOrchestrator = gameOrchestrator;
+        this.playState = playState;
 
         this.piece = [];
+        this.player = [];
         this.originTile = [];
         this.destinationTile = [];
 
@@ -14,6 +15,7 @@ class MyGameMove {
 
     setPiece(piece) {
         this.piece = piece;
+        this.player = piece.player;
         this.originTile = piece.getTile();
     }
 
@@ -23,15 +25,36 @@ class MyGameMove {
 
     playMove() {
         this.originTile.unsetPiece();
-        this.gameBoard = [...this.gameOrchestrator.prolog.mainBoard];
+        this.gameBoard = [...this.playState.prolog.mainBoard];
+        this.p1Pieces = [...this.playState.prolog.p1Pieces];
+        this.p2Pieces = [...this.playState.prolog.p2Pieces];
     }
 
-    getMainBoardState() {
-        return this.gameBoard;
+    removeMove() {
+        this.destinationTile.unsetPiece();
+    }
+
+    getBoardsState() {
+        return [this.gameBoard, this.p1Pieces, this.p2Pieces];
     }
 
     finishMove() {
         this.destinationTile.setPiece(this.piece);
+    }
+
+    resetMove() {
+        this.originTile.setPiece(this.piece);
+    }
+
+    clone(gameMove) {
+        this.piece = gameMove.piece;
+        this.player = gameMove.player;
+        this.originTile = gameMove.originTile;
+        this.destinationTile = gameMove.destinationTile;
+
+        this.gameBoard = gameMove.gameBoard;
+        this.p1Pieces = gameMove.p1Pieces;
+        this.p2Pieces = gameMove.p2Pieces;
     }
 
     clear() {

@@ -31,8 +31,12 @@ class MyGameOrchestrator {
         this.gameSequence.pushGameMove(gameMove);
     }
 
-    popGameMove() {
-        return this.gameSequence.popGameMove();
+    popPlayerGameMove(player) {
+        return this.gameSequence.popPlayerGameMove(player);
+    }
+
+    getLastMoveBy(player) {
+        return this.gameSequence.getLastMoveBy(player);
     }
 
     display() {
