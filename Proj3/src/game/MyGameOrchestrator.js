@@ -4,7 +4,9 @@ class MyGameOrchestrator {
 
         this.gameInfo = {
             gameMode: "ComputerVsComputer",
-            difficultyLevel: 1,
+            difficultyLevelP1: 3,
+            difficultyLevelP2: 1,
+            playTime: 10, 
             player1Score: 0,
             player2Score: 0,
             theme: "theme1"

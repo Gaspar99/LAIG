@@ -137,7 +137,8 @@ class MyPlayState extends MyGameState {
             && this.prolog.boardsInited
         ) {
             this.moveState = "computerPlaying";
-            this.prolog.getComputerMove(this.gameInfo.difficultyLevel, this.currentPlayer).then((gameMove) => {
+            var difficultyLevel = ((this.currentPlayer == "p1") ? this.gameInfo.difficultyLevelP1 : this.gameInfo.difficultyLevelP2);
+            this.prolog.getComputerMove(difficultyLevel, this.currentPlayer).then((gameMove) => {
                 if (gameMove) {
                     this.tempGameMove = gameMove;
                     this.tempGameMove.playMove();
@@ -202,30 +203,30 @@ class MyPlayState extends MyGameState {
 
         switch (this.cameraPosition) {
             case "p1View": {
-                undoPos = [0.0, 0.0, 27.0];
-                rotateLeftPos = [-40.0, 0.0, -27.0];
-                rotateRightPos = [-40.0, 0.0, 27.0];
+                undoPos = [-25.0, 40.0, 0.0];
+                rotateLeftPos = [-25.0, 40.0, -12.5];
+                rotateRightPos = [-25.0, 40.0, 12.5];
                 rotationAngle = - Math.PI / 2;
                 break;
             }
             case "p2View": {
-                undoPos = [0.0, 0.0, -27.0];
-                rotateLeftPos = [40.0, 0.0, 27.0];
-                rotateRightPos = [40.0, 0.0, -27.0];
+                undoPos = [25.0, 40.0, 0.0];
+                rotateLeftPos = [25.0, 40.0, 12.5];
+                rotateRightPos = [25.0, 40.0, -12.5];
                 rotationAngle = Math.PI / 2;
                 break;
             }
             case "frontView": {
-                undoPos = [0.0, 0.0, 27.0];
-                rotateLeftPos = [-12.5, 0.0, 27.0];
-                rotateRightPos = [12.5, 0.0, 27.0];
+                undoPos = [0.0, 40.0, 25.0];
+                rotateLeftPos = [-12.5, 40.0, 25.0];
+                rotateRightPos = [12.5, 40.0, 25.0];
                 rotationAngle = 0.0;
                 break;
             }
             case "backView": {
-                undoPos = [0.0, 0.0, -27.0];
-                rotateLeftPos = [12.5, 0.0, -27.0];
-                rotateRightPos = [-12.5, 0.0, -27.0];
+                undoPos = [0.0, 40.0, -25.0];
+                rotateLeftPos = [12.5, 40.0, -25.0];
+                rotateRightPos = [-12.5, 40.0, -25.0];
                 rotationAngle = Math.PI;
                 break;
             }
@@ -240,7 +241,7 @@ class MyPlayState extends MyGameState {
             this.scene.registerForPick(50, '{"type":"option","option":"undo"}');
             this.scene.translate(undoPos[0], undoPos[1], undoPos[2]);
             this.scene.rotate(rotationAngle, 0.0, 1.0, 0.0);
-            this.scene.rotate(-Math.PI / 2.0, 1.0, 0.0, 0.0);
+            this.scene.rotate(-0.5, 1, 0, 0); 
             this.options["undo"].display();
             this.scene.clearPickRegistration();
             this.undoTexture.unbind(0);
@@ -252,7 +253,7 @@ class MyPlayState extends MyGameState {
         this.scene.registerForPick(52, '{"type":"option","option":"rotateCamera","direction":"left"}');
         this.scene.translate(rotateLeftPos[0], rotateLeftPos[1], rotateLeftPos[2]);
         this.scene.rotate(rotationAngle, 0.0, 1.0, 0.0);
-        this.scene.rotate(-Math.PI / 2.0, 1.0, 0.0, 0.0);
+        this.scene.rotate(-0.5, 1, 0, 0); 
         this.options["rotateCameraLeft"].display();
         this.scene.clearPickRegistration();
         this.rotateCameraLeftTexture.unbind(0);
@@ -263,7 +264,7 @@ class MyPlayState extends MyGameState {
         this.scene.registerForPick(51, '{"type":"option","option":"rotateCamera","direction":"right"}');
         this.scene.translate(rotateRightPos[0], rotateRightPos[1], rotateRightPos[2]);
         this.scene.rotate(rotationAngle, 0.0, 1.0, 0.0);
-        this.scene.rotate(-Math.PI / 2.0, 1.0, 0.0, 0.0);
+        this.scene.rotate(-0.5, 1, 0, 0); 
         this.options["rotateCameraRight"].display();
         this.scene.clearPickRegistration();
         this.rotateCameraRightTexture.unbind(0);
