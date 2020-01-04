@@ -1,6 +1,8 @@
 class MyPrologInterface {
-    constructor(gameboards) {
-        this.gameboards = gameboards;
+    constructor(playState) {
+
+        this.playState = playState
+        this.gameboards = playState.gameboards;
 
         // Prolog Board
         this.mainBoard = [];
@@ -128,8 +130,9 @@ class MyPrologInterface {
         var requestString = "choose_move("+boardsString[0]+","+boardsString[1]+","+boardsString[2]+","+level+","+prologPlayer+")";
 
         var response = await this.sendAsyncPrologRequest(requestString);
+        console.log(response);
 
-        if (response == false)
+        if (!response)
             return false;
 
         var responseArray = JSON.parse(response);
@@ -138,7 +141,7 @@ class MyPrologInterface {
         var column = responseArray[1] - 1;
         var prologPiece = responseArray[2];
 
-        var computerMove = new MyGameMove();
+        var computerMove = new MyGameMove(this.playState);
 
         var pieceId;
         if (player == "p1") {

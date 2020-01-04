@@ -3,7 +3,7 @@ class MyGameOrchestrator {
         this.scene = scene;
 
         this.gameInfo = {
-            gameMode: "PlayerVsPlayer",
+            gameMode: "ComputerVsComputer",
             difficultyLevel: 1,
             player1Score: 0,
             player2Score: 0,
@@ -14,8 +14,9 @@ class MyGameOrchestrator {
         this.gameboards = new MyGameboards(scene);
         this.theme = new MySceneGraph(this.gameInfo.theme + ".xml", this);
 
-        this.gameState = new MyMenuState(scene, this);
-        //this.gameState = new MyPlayState(scene, this);
+        //this.gameState = new MyMenuState(scene, this);
+        this.gameState = new MyPlayState(scene, this);
+        //this.gameState = new MyGameOverState(scene, this);
     }
 
     processPick(id, obj) {
@@ -42,7 +43,7 @@ class MyGameOrchestrator {
     display() {
         if (this.theme.loadedOk) {
             this.gameboards.display();
-            this.theme.displayScene();
+            //this.theme.displayScene();
         }
 
         this.gameState.display();

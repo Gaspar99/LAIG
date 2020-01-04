@@ -24,9 +24,8 @@ class MyMenuState extends MyGameState {
 
     display() {
         this.scene.pushMatrix();
-        this.scene.translate(0, 35, -60);
-        this.scene.rotate(0.5, 1, 0, 0);
-        this.scene.rotate(Math.PI, 0, 1, 0);
+        this.scene.translate(0, 35, 60);
+        this.scene.rotate(-0.5, 1, 0, 0);
         this.background.display();
         this.scene.popMatrix();
 

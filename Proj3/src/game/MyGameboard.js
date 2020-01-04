@@ -29,6 +29,12 @@ class MyGameboard {
         return this.tiles[index];
     }
 
+    resetBoard() {
+        for (var i = 0; i < this.tiles.length; i++) {
+            this.tiles[i].reset();
+        }
+    }
+
     display() {
         this.scene.pushMatrix();
         this.scene.scale(this.width, 1, this.height);
