@@ -68,7 +68,7 @@ class MyPlayState extends MyGameState {
         }
 
         if (pickInfo.type == "option") {
-            if (pickInfo.option == "undo") {
+            if (pickInfo.option == "undo" && this.moveState != "computerPlaying" && this.moveState != "undoingMove") {
                 var playerGameMove = this.gameOrchestrator.popPlayerGameMove(this.currentPlayer);
 
                 if (playerGameMove == null)
@@ -76,16 +76,51 @@ class MyPlayState extends MyGameState {
 
                 playerGameMove.removeMove();
                 this.animator.setReverseGameMoveAnimation(playerGameMove);
+                this.moveState = "undoingMove";
                 this.tempGameMove = playerGameMove;
                 this.prolog.setBoards(playerGameMove.getBoardsState());
 
-                var adversaryPlayer = ((this.currentPlayer == "p1") ? "p2" : "p1");
-                var adversaryGameMove = this.gameOrchestrator.getLastMoveBy(adversaryPlayer);
+                var adversaryGameMove = this.gameOrchestrator.getLastMoveBy(this.getOpponentPlayer());
                 if (adversaryGameMove != undefined) 
                     this.prolog.playMove(adversaryGameMove);
             }
             else if (pickInfo.option == "rotateCamera") {
-                this.animator.setCameraChangeAnimation(Math.PI / 2.0, 500);
+                var direction = ((pickInfo.direction == "left") ? -1 : 1);
+
+                switch (this.cameraPosition) {
+                    case "p1View": {
+                        var newCameraPosition = ((direction == -1) ? "backView" : "frontView");
+                        this.animator.setCameraChangeAnimation(this.cameraPosition, newCameraPosition, 800);
+                        this.cameraPosition = newCameraPosition;
+                        break;
+                    }
+                    case "p2View" : {
+                        var newCameraPosition = ((direction == -1) ? "frontView" : "backView");
+                        this.animator.setCameraChangeAnimation(this.cameraPosition, newCameraPosition, 800);
+                        this.cameraPosition = newCameraPosition;
+                        break;
+                    }
+                    case "frontView": {
+                        var allowedPlayer = ((direction == -1) ? "p1" : "p2");
+                        var newCameraPosition = allowedPlayer + "View";
+
+                        if (this.currentPlayer == allowedPlayer || (this.moveState == "computerPlaying" && this.getOpponentPlayer() == allowedPlayer) || this.gameInfo.gameMode == "ComputerVsComputer") {
+                            this.animator.setCameraChangeAnimation(this.cameraPosition, newCameraPosition, 800);
+                            this.cameraPosition = newCameraPosition;
+                        }
+                        break;
+                    }
+                    case "backView": {
+                        var allowedPlayer = ((direction == -1) ? "p2" : "p1");
+                        var newCameraPosition = allowedPlayer + "View";
+
+                        if (this.currentPlayer == allowedPlayer || (this.moveState == "computerPlaying" && this.getOpponentPlayer() == allowedPlayer) || this.gameInfo.gameMode == "ComputerVsComputer") {
+                            this.animator.setCameraChangeAnimation(this.cameraPosition, newCameraPosition, 800);
+                            this.cameraPosition = newCameraPosition;
+                        }
+                        break;
+                    }
+                }
             }
         }
     }
@@ -98,7 +133,7 @@ class MyPlayState extends MyGameState {
                 (this.gameInfo.gameMode == "ComputerVsPlayer" && this.currentPlayer == "p1") ||
                 (this.gameInfo.gameMode == "ComputerVsComputer")) && this.moveState != "inMoveAnimation" && this.prolog.boardsInited
         ) {
-            this.moveState = "inMoveAnimation";
+            this.moveState = "computerPlaying";
             this.prolog.getComputerMove(this.gameInfo.difficultyLevel, this.currentPlayer).then((gameMove) => {
                 if (gameMove) {
                     this.tempGameMove = gameMove;
@@ -120,14 +155,17 @@ class MyPlayState extends MyGameState {
             case "PlayerVsPlayer":
             case "PlayerVsComputer": {
                 angle = Math.PI / 2.0;
+                this.cameraPosition = "p1View";
+                console.log("GAYY");
                 break;
             }
             case "ComputerVsPlayer": {
                 angle = - Math.PI / 2.0;
-                console.log("GAYY");
+                this.cameraPosition = "p2View";
                 break;
             }
             default: {
+                this.cameraPosition = "frontView";
                 break;
             }
         }
@@ -141,19 +179,59 @@ class MyPlayState extends MyGameState {
         this.undoTexture = new CGFtexture(this.scene, "scenes/images/undo.png");
         this.options["undo"] = new MyRectangle(this.scene, -5.0, 5.0, -5.0, 5.0);
 
-        this.rotateCameraTexture = new CGFtexture(this.scene, "scenes/images/rotate_camera.png");
-        this.options["rotateCamera"] = new MyRectangle(this.scene, -5.0, 5.0, -5.0, 5.0);
+        this.rotateCameraLeftTexture = new CGFtexture(this.scene, "scenes/images/rotate_camera_left.png");
+        this.options["rotateCameraLeft"] = new MyRectangle(this.scene, -5.0, 5.0, -5.0, 5.0);
+
+        this.rotateCameraRightTexture = new CGFtexture(this.scene, "scenes/images/rotate_camera_right.png");
+        this.options["rotateCameraRight"] = new MyRectangle(this.scene, -5.0, 5.0, -5.0, 5.0);
     }
 
     displayOptionsSection() {
+
+        var undoPos = [];
+        var rotateLeftPos = [];
+        var rotateRightPos = [];
+        var rotationAngle = 0.0;
+
+        switch (this.cameraPosition) {
+            case "p1View": {
+                undoPos = [0.0, 0.0, 27.0];
+                rotateLeftPos = [-40.0, 0.0, -27.0];
+                rotateRightPos = [-40.0, 0.0, 27.0];
+                rotationAngle = - Math.PI / 2;
+                break;
+            }
+            case "p2View": {
+                undoPos = [0.0, 0.0, -27.0];
+                rotateLeftPos = [40.0, 0.0, 27.0];
+                rotateRightPos = [40.0, 0.0, -27.0];
+                rotationAngle = Math.PI / 2;
+                break;
+            }
+            case "frontView": {
+                undoPos = [0.0, 0.0, 27.0];
+                rotateLeftPos = [-12.5, 0.0, 27.0];
+                rotateRightPos = [12.5, 0.0, 27.0];
+                rotationAngle = 0.0;
+                break;
+            }
+            case "backView": {
+                undoPos = [0.0, 0.0, -27.0];
+                rotateLeftPos = [12.5, 0.0, -27.0];
+                rotateRightPos = [-12.5, 0.0, -27.0];
+                rotationAngle = Math.PI;
+                break;
+            }
+        }
+
         this.scene.registerPicking();
         this.scene.clearPickRegistration();
 
         this.scene.pushMatrix();
         this.undoTexture.bind(0);
         this.scene.registerForPick(50, '{"type":"option","option":"undo"}');
-        this.scene.translate(-35.0, 0.0, 27.0);
-        this.scene.rotate(- Math.PI / 2, 0.0, 1.0, 0.0);
+        this.scene.translate(undoPos[0], undoPos[1], undoPos[2]);
+        this.scene.rotate(rotationAngle, 0.0, 1.0, 0.0);
         this.scene.rotate(-Math.PI / 2.0, 1.0, 0.0, 0.0);
         this.options["undo"].display();
         this.scene.clearPickRegistration();
@@ -161,19 +239,35 @@ class MyPlayState extends MyGameState {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.rotateCameraTexture.bind(0);
-        this.scene.registerForPick(51, '{"type":"option","option":"rotateCamera"}');
-        this.scene.translate(-45.0, 0.0, 27.0);
-        this.scene.rotate(- Math.PI / 2, 0.0, 1.0, 0.0);
+        this.rotateCameraLeftTexture.bind(0);
+        this.scene.registerForPick(52, '{"type":"option","option":"rotateCamera","direction":"left"}');
+        this.scene.translate(rotateLeftPos[0], rotateLeftPos[1], rotateLeftPos[2]);
+        this.scene.rotate(rotationAngle, 0.0, 1.0, 0.0);
         this.scene.rotate(-Math.PI / 2.0, 1.0, 0.0, 0.0);
-        this.options["rotateCamera"].display();
+        this.options["rotateCameraLeft"].display();
         this.scene.clearPickRegistration();
-        this.rotateCameraTexture.unbind(0);   
+        this.rotateCameraLeftTexture.unbind(0);   
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.rotateCameraRightTexture.bind(0);
+        this.scene.registerForPick(51, '{"type":"option","option":"rotateCamera","direction":"right"}');
+        this.scene.translate(rotateRightPos[0], rotateRightPos[1], rotateRightPos[2]);
+        this.scene.rotate(rotationAngle, 0.0, 1.0, 0.0);
+        this.scene.rotate(-Math.PI / 2.0, 1.0, 0.0, 0.0);
+        this.options["rotateCameraRight"].display();
+        this.scene.clearPickRegistration();
+        this.rotateCameraRightTexture.unbind(0);   
         this.scene.popMatrix();
     }
 
     changePlayer() {
-        this.currentPlayer = ((this.currentPlayer == "p1") ? "p2" : "p1");
+        this.currentPlayer = this.getOpponentPlayer();
+        this.cameraPosition = this.currentPlayer + "View";
+    }
+
+    getOpponentPlayer() {
+        return ((this.currentPlayer == "p1") ? "p2" : "p1");
     }
 
     finishMove() {
@@ -182,7 +276,9 @@ class MyPlayState extends MyGameState {
         if (this.gameState != "gameOver") {
             if (this.gameInfo.gameMode == "PlayerVsPlayer") {
                 this.moveState = "changePlayer";
-                this.animator.setCameraChangeAnimation(Math.PI, 1000);
+                var newCameraPosition = this.getOpponentPlayer() + "View"
+                this.animator.setCameraChangeAnimation(this.cameraPosition, newCameraPosition, 1000);
+                this.cameraPosition = newCameraPosition;
             }
             else {
                 this.moveState = "pickPiece";
@@ -194,6 +290,7 @@ class MyPlayState extends MyGameState {
 
     resetMove() {
         this.tempGameMove.resetMove();
+        this.moveState = "pickPiece";
     }
 
     checkGameOver() {

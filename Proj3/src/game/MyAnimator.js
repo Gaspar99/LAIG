@@ -34,7 +34,7 @@ class MyAnimator {
         var angle = this.rotationAngle * (time / this.cameraChangeDuration);
         this.orbitedAngle += angle;
 
-        if (this.orbitedAngle >= this.rotationAngle) {
+        if (Math.abs(this.orbitedAngle) >= Math.abs(this.rotationAngle)) {
             angle = this.rotationAngle - this.lastAngle;
 
             this.changingCamera = false;
@@ -205,10 +205,37 @@ class MyAnimator {
 
     }
 
-    setCameraChangeAnimation(angle, duration) {
-        this.rotationAngle = angle;
-        this.changingCamera = true;
+    setCameraChangeAnimation(oldCameraPosition, newCameraPosition, duration) {
+
+        switch(oldCameraPosition) {
+            case "p1View": {
+                if (newCameraPosition == "frontView") this.rotationAngle = Math.PI / 2;
+                else if (newCameraPosition == "backView") this.rotationAngle = - Math.PI / 2;
+                else if (newCameraPosition == "p2View") this.rotationAngle = Math.PI;
+                break;
+            }
+            case "p2View": {
+                if (newCameraPosition == "frontView") this.rotationAngle = - Math.PI / 2;
+                else if (newCameraPosition == "backView") this.rotationAngle = Math.PI / 2;
+                else if (newCameraPosition == "p1View") this.rotationAngle = Math.PI;
+                break;
+            }
+            case "frontView": {
+                if (newCameraPosition == "p1View") this.rotationAngle = - Math.PI / 2;
+                else if (newCameraPosition == "p2View") this.rotationAngle = Math.PI / 2;
+                break;
+            }
+            case "backView": {
+                if (newCameraPosition == "p1View") this.rotationAngle = Math.PI / 2;
+                else if (newCameraPosition == "p2View") this.rotationAngle = - Math.PI / 2;
+                break;
+            }
+        }
+
+
+
         this.cameraChangeDuration = duration // milliseconds
+        this.changingCamera = true;
     }
 
     animateSelectedPiece() {
