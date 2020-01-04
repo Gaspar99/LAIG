@@ -14,8 +14,8 @@ class MyGameOrchestrator {
         this.gameboards = new MyGameboards(scene);
         this.theme = new MySceneGraph(this.gameInfo.theme + ".xml", this);
 
-        //this.gameState = new MyMenuState(scene, this);
-        this.gameState = new MyPlayState(scene, this);
+        this.gameState = new MyMenuState(scene, this);
+        //this.gameState = new MyPlayState(scene, this);
     }
 
     processPick(id, obj) {
