@@ -5,7 +5,7 @@ class MyMenuState extends MyGameState {
         this.gameInfo = gameOrchestrator.gameInfo;
         this.theme = gameOrchestrator.theme;
 
-        this.background = new MyRectangle(scene, -10, 10, -10, 10);
+        this.background = new MyRectangle(scene, -20, 20, -13, 13);
     }
 
     processPick(id, pickInfo) {
@@ -17,6 +17,11 @@ class MyMenuState extends MyGameState {
     }
 
     display() {
-
+        this.scene.pushMatrix();
+        this.scene.translate(0, 35, -60);
+        this.scene.rotate(0.5, 1, 0, 0);
+        this.scene.rotate(Math.PI, 0, 1, 0);
+        this.background.display();
+        this.scene.popMatrix();
     }
 }
