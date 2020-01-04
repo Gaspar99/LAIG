@@ -1,7 +1,7 @@
 class MyGameMove {
-    constructor(playState) {
+    constructor(gameState) {
 
-        this.playState = playState;
+        this.gameState = gameState;
 
         this.piece = [];
         this.player = [];
@@ -25,9 +25,9 @@ class MyGameMove {
 
     playMove() {
         this.originTile.unsetPiece();
-        this.gameBoard = [...this.playState.prolog.mainBoard];
-        this.p1Pieces = [...this.playState.prolog.p1Pieces];
-        this.p2Pieces = [...this.playState.prolog.p2Pieces];
+        this.gameBoard = [...this.gameState.prolog.mainBoard];
+        this.p1Pieces = [...this.gameState.prolog.p1Pieces];
+        this.p2Pieces = [...this.gameState.prolog.p2Pieces];
     }
 
     removeMove() {
@@ -36,6 +36,10 @@ class MyGameMove {
 
     getBoardsState() {
         return [this.gameBoard, this.p1Pieces, this.p2Pieces];
+    }
+
+    startMove() {
+        this.originTile.unsetPiece();
     }
 
     finishMove() {

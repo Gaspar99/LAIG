@@ -51,6 +51,12 @@ class MyAuxiliaryBoard {
         return this.tiles[index].getPiece();
     }
 
+    resetBoard() {
+        for (var i = 0; i < this.tiles.length; i++) {
+            this.tiles[i].reset();
+        }
+    }
+
     display() {
         this.scene.pushMatrix();
         this.scene.scale(this.width, 1, this.height);

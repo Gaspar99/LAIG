@@ -21,6 +21,12 @@ class MyGameboards {
         this.player2PiecesBoard.setPosition(+this.mainGameboard.width, 0.0);
     }
 
+    resetBoards() {
+        this.mainGameboard.resetBoard();
+        this.player1PiecesBoard.resetBoard();
+        this.player2PiecesBoard.resetBoard();
+    }
+
     getPiece(id, player) {
         var index = ((player == "p1") ? (id - 20) : (id - 30)) - 1;
         return (player == "p1") ? this.player1PiecesBoard.getPiece(index) : this.player2PiecesBoard.getPiece(index);

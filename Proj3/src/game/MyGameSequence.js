@@ -4,6 +4,10 @@ class MyGameSequence {
         this.gameMoves = [];
     }
 
+    getMove(index) {
+        return this.gameMoves[index];
+    }
+
     pushGameMove(gameMove) {
         this.gameMoves.push(gameMove);
     }
@@ -34,5 +38,9 @@ class MyGameSequence {
             if (this.gameMoves[i].player == player)
                 return this.gameMoves[i];
         }
+    }
+
+    reset() {
+        this.gameMoves.splice(0, this.gameMoves.length);
     }
 }

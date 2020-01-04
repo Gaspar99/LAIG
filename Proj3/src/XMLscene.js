@@ -44,11 +44,11 @@ class XMLscene extends CGFscene {
      * Initializes the scene cameras.
      */
     initCamera() {
-        var position = [0.0, 60.0, -100.0];
+        var position = [0.0, 60.0, 100.0];
         var target = [0.0, 0.0, 0.0];
 
         this.camera = new CGFcamera(Math.PI / 4.0, 0.1, 5000, position, target);
-        //this.interface.setActiveCamera(this.camera);
+        this.interface.setActiveCamera(this.camera);
     }
     /**
      * Initializes the scene lights with the values read from the XML file.

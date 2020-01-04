@@ -3,6 +3,7 @@ class MyTile {
         this.scene = scene;
 
         this.board = board;
+        this.originalpiece = piece;
         this.setPiece(piece);
         this.size = size;
         this.pickable = false;
@@ -46,6 +47,10 @@ class MyTile {
     setPosition(xPos, zPos) {
         this.xPos = xPos;
         this.zPos = zPos;
+    }
+
+    reset() {
+        this.setPiece(this.originalpiece); 
     }
 
     display() {

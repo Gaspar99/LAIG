@@ -1,8 +1,8 @@
 class MyAnimator {
-    constructor(scene, playState) {
+    constructor(scene, gameState) {
         this.scene = scene;
 
-        this.playState = playState;
+        this.gameState = gameState;
 
         this.animations = [];
 
@@ -89,9 +89,9 @@ class MyAnimator {
 
         var board = [];
         if (piece.player == "p1")
-            board = this.playState.gameboards.player1PiecesBoard;
+            board = this.gameState.gameOrchestrator.gameboards.player1PiecesBoard;
         else
-            board = this.playState.gameboards.player2PiecesBoard;
+            board = this.gameState.gameOrchestrator.gameboards.player2PiecesBoard;
 
         piece.xPos += board.xPos;
 
@@ -149,9 +149,9 @@ class MyAnimator {
 
         var board = [];
         if (piece.player == "p1")
-            board = this.playState.gameboards.player1PiecesBoard;
+            board = this.gameState.gameOrchestrator.gameboards.player1PiecesBoard;
         else
-            board = this.playState.gameboards.player2PiecesBoard;
+            board = this.gameState.gameOrchestrator.gameboards.player2PiecesBoard;
 
         var finalXCoord = gameMove.originTile.xPos + board.xPos;
         var finalZCoord = gameMove.originTile.zPos + board.zPos;
@@ -311,14 +311,14 @@ class MyAnimator {
         if (this.animations.hasOwnProperty("movePiece")) {
             if (!this.animateMove()) {
                 delete this.animations["movePiece"];
-                this.playState.finishMove();
+                this.gameState.finishMove();
             }
         }
 
         if (this.animations.hasOwnProperty("reverseMove")) {
             if (!this.animateReverseMovePiece()) {
                 delete this.animations["reverseMove"];
-                this.playState.resetMove();
+                this.gameState.resetMove();
             }
         }
     }
