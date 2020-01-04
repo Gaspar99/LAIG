@@ -38,7 +38,7 @@ class MyGameOrchestrator {
     display() {
         if (this.theme.loadedOk) {
             this.gameboards.display();
-            //this.theme.displayScene();
+            this.theme.displayScene();
         }
 
         this.gameState.display();
