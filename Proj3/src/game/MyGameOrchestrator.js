@@ -18,7 +18,6 @@ class MyGameOrchestrator {
 
         //this.gameState = new MyMenuState(scene, this);
         this.gameState = new MyPlayState(scene, this);
-        //this.gameState = new MyGameOverState(scene, this);
     }
 
     processPick(id, obj) {

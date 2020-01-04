@@ -128,6 +128,8 @@ class MyPlayState extends MyGameState {
     update(time) {
         this.animator.update(time);
 
+
+
         if (
             (   (this.gameInfo.gameMode == "PlayerVsComputer" && this.currentPlayer == "p2") ||
                 (this.gameInfo.gameMode == "ComputerVsPlayer" && this.currentPlayer == "p1") ||
@@ -308,12 +310,16 @@ class MyPlayState extends MyGameState {
     checkGameOver() {
         this.prolog.gameOver(this.tempGameMove).then((gameOver) => {
             if (gameOver) {
-                console.log("Game Over");
                 this.gameState = "gameOver";
                 if (this.cameraPosition != "frontView") {
                     this.animator.setCameraChangeAnimation(this.cameraPosition, "frontView", 1000);
                     this.cameraPosition = "frontView";
                 }
+
+                if (this.currentPlayer == "p1") 
+                    this.gameInfo.player1Score++;
+                else 
+                    this.gameInfo.player2Score++;
             }
         });
     }
