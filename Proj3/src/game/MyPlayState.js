@@ -148,6 +148,9 @@ class MyPlayState extends MyGameState {
             this.gui.errors["exceededTime"] = true;
         }
 
+        if (this.moveState == "computerPlaying")
+            this.currentPlayTime = this.maxPlayTime;
+
         if (
             ((this.gameInfo.gameMode == "PlayerVsComputer" && this.currentPlayer == "p2") ||
                 (this.gameInfo.gameMode == "ComputerVsPlayer" && this.currentPlayer == "p1") ||
@@ -220,7 +223,7 @@ class MyPlayState extends MyGameState {
             }
             else {
                 this.moveState = "pickPiece";
-                this.currentPlayTime = 0.0;
+                this.currentPlayTime = this.maxPlayTime;
             }
 
             this.changePlayer();

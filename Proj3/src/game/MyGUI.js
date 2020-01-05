@@ -37,6 +37,7 @@ class MyGUI {
         this.errorRectangle = new MyRectangle(this.scene, -7.5, 7.5, -2.5, 2.5);
         this.errorPos = [];
         this.errorTime = 0.0;
+        this.errorDuration = 3000;
 
         this.errors["invalidMove"] = false;
         this.errorsTextures["invalidMove"] = new CGFtexture(this.scene, "scenes/images/UI/invalid_move.png");
@@ -85,7 +86,15 @@ class MyGUI {
     }
 
     updateErrorMessage(time) {
+        if (this.errors["invalidMove"] || this.errors["exceededTime"]) {
+            this.errorTime += time;
 
+            if (this.errorTime >= this.errorDuration) {
+                this.errors["invalidMove"] = false;
+                this.errors["exceededTime"] = false;
+                this.errorTime = 0.0;
+            }
+        }
     }
 
     calculateUIPos() {
@@ -224,7 +233,7 @@ class MyGUI {
     display() {
         this.material.apply();
         this.calculateUIPos();
-        this.displayTimeLeft();
+        if (this.gameState.moveState != "computerPlaying" && this.gameInfo.gameMode != "ComputerVsComputer") this.displayTimeLeft();
         this.displayOptionsSection();
         this.displayError();
     }
