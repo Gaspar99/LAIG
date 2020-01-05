@@ -3,10 +3,10 @@ class MyGameOverState extends MyGameState {
         super(scene, gameOrchestrator);
 
         this.width = 30;
-        this.height = 20;
+        this.height = 30;
 
-        this.buttonWidth = this.width / 2.5;
-        this.buttonHeight = this.height / 4.5;
+        this.buttonWidth = this.width / 1.5;
+        this.buttonHeight = this.height / 8;
 
         this.options = [];
         this.optionsPos = [];
@@ -15,10 +15,29 @@ class MyGameOverState extends MyGameState {
         this.showingGameMovie = false;
         this.currentMove = 0;
         this.gameSequence = this.gameOrchestrator.gameSequence;
-        console.log(this.gameSequence.gameMoves);
         this.animator = new MyAnimator(scene, this);
 
-        this.background = new MyRectangle(scene, -this.width/2.0, this.width/2.0, -this.height/2.0, this.height/2.0);
+        // background
+        this.background = new MyRectangle(scene, -this.width / 2.0, this.width / 2.0, -this.height / 2.0, this.height / 2.0);
+        this.backgroundTexture = new CGFtexture(scene, "scenes/images/UI/game_over.png");
+        this.material = new CGFappearance(scene);
+        this.material.setTexture(this.backgroundTexture);
+        this.material.setEmission(1, 1, 1, 1);
+
+        // winner banner
+        this.winnerBanner = new MyRectangle(this.scene, -this.buttonWidth / 2.5, this.buttonWidth / 2.5, -this.buttonHeight / 5.0, this.buttonHeight / 5.0);
+        this.winnerTexture = new CGFtexture(scene, "scenes/images/UI/winner_banner_" + this.gameInfo.winner + ".png");
+        this.winnerBannerPos = [0.0, this.height / 2.0 - this.buttonHeight * 1.5];
+
+        // Player 1 Score
+        this.player1Score = new MyRectangle(this.scene, -this.width / 15.0, this.width / 15.0, -this.buttonHeight / 2.0, this.buttonHeight / 2.0);
+        this.player1ScoreTexture = new CGFtexture(scene, "scenes/images/UI/nums/" + this.gameInfo.player1Score + ".png");
+        this.player1ScorePos = [-this.width / 8.0, this.height / 7.0];
+
+        // Player 2 Score
+        this.player2Score = new MyRectangle(this.scene, -this.width / 15.0, this.width / 15.0, -this.buttonHeight / 2.0, this.buttonHeight / 2.0);
+        this.player2ScoreTexture = new CGFtexture(scene, "scenes/images/UI/nums/" + this.gameInfo.player2Score + ".png");
+        this.player2ScorePos = [this.width / 8.0, this.height / 7.0];
 
         this.createOptions();
 
@@ -74,37 +93,61 @@ class MyGameOverState extends MyGameState {
     createOptions() {
 
         // Main Menu Option
-        this.options["mainMenu"] = new MyRectangle(this.scene, -this.buttonWidth/2.0, this.buttonWidth/2.0, -this.buttonHeight/2.0, this.buttonHeight/2.0);
-        this.optionsPos["mainMenu"] = [0.0, this.height / 3.5];
-        this.optionsTextures["mainMenu"] = new CGFtexture(this.scene, "scenes/images/main_menu_option.png");
+        this.options["mainMenu"] = new MyRectangle(this.scene, -this.buttonWidth / 2.0, this.buttonWidth / 2.0, -this.buttonHeight / 2.0, this.buttonHeight / 2.0);
+        this.optionsPos["mainMenu"] = [0.0, 0.0];
+        this.optionsTextures["mainMenu"] = new CGFtexture(this.scene, "scenes/images/UI/main_menu_option.png");
 
         // Game Movie Option
-        this.options["gameMovie"] = new MyRectangle(this.scene, -this.buttonWidth/2.0, this.buttonWidth/2.0, -this.buttonHeight/2.0, this.buttonHeight/2.0);
-        this.optionsPos["gameMovie"] = [0.0, 0.0];
-        this.optionsTextures["gameMovie"] = new CGFtexture(this.scene, "scenes/images/game_movie.png");
+        this.options["gameMovie"] = new MyRectangle(this.scene, -this.buttonWidth / 2.0, this.buttonWidth / 2.0, -this.buttonHeight / 2.0, this.buttonHeight / 2.0);
+        this.optionsPos["gameMovie"] = [0.0, - this.buttonHeight * 1.2];
+        this.optionsTextures["gameMovie"] = new CGFtexture(this.scene, "scenes/images/UI/game_movie.png");
 
         // Play Again Option
-        this.options["playAgain"] = new MyRectangle(this.scene, -this.buttonWidth/2.0, this.buttonWidth/2.0, -this.buttonHeight/2.0, this.buttonHeight/2.0);
-        this.optionsPos["playAgain"] = [0.0, -this.height / 3.5];
-        this.optionsTextures["playAgain"] = new CGFtexture(this.scene, "scenes/images/play_again.png");
+        this.options["playAgain"] = new MyRectangle(this.scene, -this.buttonWidth / 2.0, this.buttonWidth / 2.0, -this.buttonHeight / 2.0, this.buttonHeight / 2.0);
+        this.optionsPos["playAgain"] = [0.0, -this.buttonHeight * 2.4];
+        this.optionsTextures["playAgain"] = new CGFtexture(this.scene, "scenes/images/UI/play_again.png");
     }
 
     display() {
         this.scene.registerPicking();
         this.scene.clearPickRegistration();
 
-        this.scene.pushMatrix();
-
         if (this.showingGameMovie) {
             this.animator.animate();
             return;
         }
 
+        this.scene.pushMatrix();
 
         // Background
         this.scene.translate(0, 35, 60);
-        this.scene.rotate(-0.5, 1, 0, 0); 
+        this.scene.rotate(-0.5, 1, 0, 0);
+        this.material.apply();
         this.background.display();
+
+        // Winner Banner
+        this.scene.pushMatrix();
+        this.scene.translate(this.winnerBannerPos[0], this.winnerBannerPos[1], 1.0);
+        this.winnerTexture.bind(0);
+        this.winnerBanner.display();
+        this.winnerTexture.unbind(0);
+        this.scene.popMatrix();
+
+        // Player 1 Score
+        this.scene.pushMatrix();
+        this.scene.translate(this.player1ScorePos[0], this.player1ScorePos[1], 1.0);
+        this.player1ScoreTexture.bind(0);
+        this.player1Score.display();
+        this.player1ScoreTexture.unbind(0);
+        this.scene.popMatrix();
+
+        // Player 2 Score
+        this.scene.pushMatrix();
+        this.scene.translate(this.player2ScorePos[0], this.player2ScorePos[1], 1.0);
+        this.player2ScoreTexture.bind(0);
+        this.player2Score.display();
+        this.player2ScoreTexture.unbind(0);
+        this.scene.popMatrix();
 
         // Main Menu Option
         this.scene.pushMatrix();

@@ -2,7 +2,6 @@ class MyPlayState extends MyGameState {
     constructor(scene, gameOrchestrator) {
         super(scene, gameOrchestrator);
 
-        this.gameInfo = gameOrchestrator.gameInfo;
         this.gameboards = gameOrchestrator.gameboards;
 
         this.currentPlayer = "p1";
@@ -166,7 +165,6 @@ class MyPlayState extends MyGameState {
             case "PlayerVsComputer": {
                 angle = -Math.PI / 2.0;
                 this.cameraPosition = "p1View";
-                console.log("GAYY");
                 break;
             }
             case "ComputerVsPlayer": {
@@ -186,13 +184,13 @@ class MyPlayState extends MyGameState {
     createOptionsSection() {
         this.options = [];
 
-        this.undoTexture = new CGFtexture(this.scene, "scenes/images/undo.png");
+        this.undoTexture = new CGFtexture(this.scene, "scenes/images/UI/undo.png");
         this.options["undo"] = new MyRectangle(this.scene, -5.0, 5.0, -5.0, 5.0);
 
-        this.rotateCameraLeftTexture = new CGFtexture(this.scene, "scenes/images/rotate_camera_left.png");
+        this.rotateCameraLeftTexture = new CGFtexture(this.scene, "scenes/images/UI/rotate_camera_left.png");
         this.options["rotateCameraLeft"] = new MyRectangle(this.scene, -5.0, 5.0, -5.0, 5.0);
 
-        this.rotateCameraRightTexture = new CGFtexture(this.scene, "scenes/images/rotate_camera_right.png");
+        this.rotateCameraRightTexture = new CGFtexture(this.scene, "scenes/images/UI/rotate_camera_right.png");
         this.options["rotateCameraRight"] = new MyRectangle(this.scene, -5.0, 5.0, -5.0, 5.0);
     }
 
@@ -316,7 +314,8 @@ class MyPlayState extends MyGameState {
                     this.cameraPosition = "frontView";
                 }
 
-                if (this.currentPlayer == "p1") 
+                this.gameInfo.winner = this.currentPlayer;
+                if (this.currentPlayer == "p1")
                     this.gameInfo.player1Score++;
                 else 
                     this.gameInfo.player2Score++;

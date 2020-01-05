@@ -2,7 +2,6 @@ class MyMenuState extends MyGameState {
     constructor(scene, gameOrchestrator) {
         super(scene, gameOrchestrator);
 
-        this.gameInfo = gameOrchestrator.gameInfo;
         this.gameInfo.player1Score = 0;
         this.gameInfo.player2Score = 0;
         this.theme = gameOrchestrator.theme;
