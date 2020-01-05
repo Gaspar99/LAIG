@@ -8,12 +8,33 @@ class MyMenuState extends MyGameState {
 
         this.width = 50;
         this.height = 35;
-        this.firstOptionsHeight = this.height/3.0;
+
+        this.buttonWidth = this.width / 15.0;
+
+        this.gameModeHeight = 8.0;
+        this.gameMoveButtonWidth = this.width / 5.0;
+        this.gameMoveButtonHeight = this.height / 15.0;
+
+        this.pcDifficultyHeight = 3.0;
+        this.pcDifficultyButtonWidth = this.width / 12.0
+        this.pcDifficultyButtonHeight = this.height / 20.0
+
+        this.maxPlayTimeHeight = -2.0;
+        this.maxPlayTimeButtonWidth = this.width / 20.0;
+        this.maxPlayTimeButtonHeight = this.height / 20.0;
+
+        this.themeHeight = -7.0;
+        this.themeButtonWidth = this.width / 10.0;
+        this.themeButtonHeight = this.height / 15.0;
 
         this.options = [];
         this.optionsPos = [];
         this.optionsTextures = [];
         this.background = new MyRectangle(scene, -this.width/2.0, this.width/2.0, -this.height/2.0, this.height/2.0);
+        this.backgroundTexture = new CGFtexture(scene, "scenes/images/UI/menu.png");
+        this.material = new CGFappearance(scene);
+        this.material.setTexture(this.backgroundTexture);
+        this.material.setEmission(1, 1, 1, 1);
 
         this.createOptions();
     }
@@ -22,64 +43,27 @@ class MyMenuState extends MyGameState {
         if (pickInfo.type == "option") {
 
             switch (pickInfo.option) {
-                case "PlayerVsPlayer": {
-                    this.gameInfo.gameMode = "PlayerVsPlayer";
-                    break;
-                }
-                case "PlayerVsComputer": {
-                    this.gameInfo.gameMode = "PlayerVsComputer";
-                    break;
-                }
-                case "ComputerVsComputer": {
-                    this.gameInfo.gameMode = "ComputerVsComputer";
-                    break;
-                }
-                case "Bot1Easy": {
-                    this.gameInfo.difficultyLevelP1 = 1;
-                    break;
-                }
-                case "Bot1Medium": {
-                    this.gameInfo.difficultyLevelP1 = 2;
-                    break;
-                }
-                case "Bot1Hard": {
-                    this.gameInfo.difficultyLevelP1 = 3;
-                    break;
-                }
-                case "Bot2Easy": {
-                    this.gameInfo.difficultyLevelP2 = 1;
-                    break;
-                }
-                case "Bot2Medium": {
-                    this.gameInfo.difficultyLevelP2 = 2;
-                    break;
-                }
-                case "Bot2Hard": {
-                    this.gameInfo.difficultyLevelP2 = 3;
-                    break;
-                }
-                case "StartGame": {
+                case "startGame": {
                     this.gameOrchestrator.gameState = new MyPlayState(this.scene, this.gameOrchestrator);
                     break;
                 }
-                case "5s": {
-                    this.gameInfo.playTime = 5;
+                case "gameMode": {
+                    this.gameInfo.gameMode = pickInfo.value;
                     break;
                 }
-                case "10s": {
-                    this.gameInfo.playTime = 10;
+                case "difficulty": {
+                    if (pickInfo.pc == 1)
+                        this.gameInfo.difficultyLevelP1 = pickInfo.level;
+                    else
+                        this.gameInfo.difficultyLevelP2 = pickInfo.level;
                     break;
                 }
-                case "15s": {
-                    this.gameInfo.playTime = 15;
+                case "playTime": {
+                    this.gameInfo.playTime = pickInfo.value;
                     break;
                 }
-                case "Theme1": {
-                    this.gameInfo.theme = "theme1";
-                    break;
-                }
-                case "Theme2": {
-                    this.gameInfo.theme = "theme2";
+                case "theme": {
+                    this.gameInfo.theme = pickInfo.value;
                     break;
                 }
             }
@@ -93,99 +77,126 @@ class MyMenuState extends MyGameState {
     createOptions() {
 
         // Game Mode Options
-        this.options["PlayerVsPlayer"] = new MyRectangle(this.scene, -this.width/8.0, this.width/8.0, -this.firstOptionsHeight /10.0, this.firstOptionsHeight /10.0);
-        this.optionsPos["PlayerVsPlayer"] = [-this.width / 4.0, this.firstOptionsHeight  / 3.0];
+        this.options["PlayerVsPlayer"] = new MyRectangle(this.scene, -this.gameMoveButtonWidth/2.0, this.gameMoveButtonWidth/2.0, -this.gameMoveButtonHeight/2.0, this.gameMoveButtonHeight/2.0);
+        this.optionsPos["PlayerVsPlayer"] = -this.width / 3.0;
+        this.optionsTextures["PlayerVsPlayer"] = new CGFtexture(this.scene, "scenes/images/UI/player_vs_player.png");
 
-        this.options["PlayerVsComputer"] = new MyRectangle(this.scene, -this.width/8.0, this.width/8.0, -this.firstOptionsHeight /10.0, this.firstOptionsHeight /10.0);
-        this.optionsPos["PlayerVsComputer"] = [-this.width / 4.0, 0];
+        this.options["PlayerVsComputer"] = new MyRectangle(this.scene, -this.gameMoveButtonWidth/2.0, this.gameMoveButtonWidth/2.0, -this.gameMoveButtonHeight/2.0, this.gameMoveButtonHeight/2.0);
+        this.optionsPos["PlayerVsComputer"] = -this.width / 10.0;
+        this.optionsTextures["PlayerVsComputer"] = new CGFtexture(this.scene, "scenes/images/UI/player_vs_pc.png");
 
-        this.options["ComputerVsComputer"] = new MyRectangle(this.scene, -this.width/8.0, this.width/8.0, -this.firstOptionsHeight /10.0, this.firstOptionsHeight /10.0);
-        this.optionsPos["ComputerVsComputer"] = [-this.width / 4.0, -this.firstOptionsHeight  / 3.0];
+        this.options["ComputerVsPlayer"] = new MyRectangle(this.scene, -this.gameMoveButtonWidth/2.0, this.gameMoveButtonWidth/2.0, -this.gameMoveButtonHeight/2.0, this.gameMoveButtonHeight/2.0);
+        this.optionsPos["ComputerVsPlayer"] = this.width / 10.0;
+        this.optionsTextures["ComputerVsPlayer"] = new CGFtexture(this.scene, "scenes/images/UI/pc_vs_player.png");
+
+        this.options["ComputerVsComputer"] = new MyRectangle(this.scene, -this.gameMoveButtonWidth/2.0, this.gameMoveButtonWidth/2.0, -this.gameMoveButtonHeight/2.0, this.gameMoveButtonHeight/2.0);
+        this.optionsPos["ComputerVsComputer"] = this.width / 3.0;
+        this.optionsTextures["ComputerVsComputer"] = new CGFtexture(this.scene, "scenes/images/UI/pc_vs_pc.png");
 
         // Computer 1 Dificulty
-        this.options["Bot1Easy"] = new MyRectangle(this.scene, -this.width/10.0, this.width/10.0, -this.firstOptionsHeight /10.0, this.firstOptionsHeight /10.0);
-        this.optionsPos["Bot1Easy"] = [0.0, this.firstOptionsHeight  / 3.0];
+        this.options["Bot1Easy"] = new MyRectangle(this.scene, -this.pcDifficultyButtonWidth/2.0, this.pcDifficultyButtonWidth/2.0, -this.pcDifficultyButtonHeight/2.0, this.pcDifficultyButtonHeight/2.0);
+        this.optionsPos["Bot1Easy"] = - 7.5 * this.width / 20.0;
+        this.optionsTextures["Bot1Easy"] = new CGFtexture(this.scene, "scenes/images/UI/easy.png");
 
-        this.options["Bot1Medium"] = new MyRectangle(this.scene, -this.width/10.0, this.width/10.0, -this.firstOptionsHeight /10.0, this.firstOptionsHeight /10.0);
-        this.optionsPos["Bot1Medium"] = [0.0, 0.0];
+        this.options["Bot1Medium"] = new MyRectangle(this.scene, -this.pcDifficultyButtonWidth/2.0, this.pcDifficultyButtonWidth/2.0, -this.pcDifficultyButtonHeight/2.0, this.pcDifficultyButtonHeight/2.0);
+        this.optionsPos["Bot1Medium"] = - 5 * this.width / 20.0;
+        this.optionsTextures["Bot1Medium"] = new CGFtexture(this.scene, "scenes/images/UI/medium.png");
 
-        this.options["Bot1Hard"] = new MyRectangle(this.scene, -this.width/10.0, this.width/10.0, -this.firstOptionsHeight /10.0, this.firstOptionsHeight /10.0);
-        this.optionsPos["Bot1Hard"] = [0.0, -this.firstOptionsHeight  / 3.0];
+        this.options["Bot1Hard"] = new MyRectangle(this.scene, -this.pcDifficultyButtonWidth/2.0, this.pcDifficultyButtonWidth/2.0, -this.pcDifficultyButtonHeight/2.0, this.pcDifficultyButtonHeight/2.0);
+        this.optionsPos["Bot1Hard"] = - 2.5 * this.width / 20.0;
+        this.optionsTextures["Bot1Hard"] = new CGFtexture(this.scene, "scenes/images/UI/hard.png");
 
         // Computer 2 Dificulty
-        this.options["Bot2Easy"] = new MyRectangle(this.scene, -this.width/10.0, this.width/10.0, -this.firstOptionsHeight /10.0, this.firstOptionsHeight /10.0);
-        this.optionsPos["Bot2Easy"] = [0.0, this.firstOptionsHeight  / 3.0];
+        this.options["Bot2Easy"] = new MyRectangle(this.scene, -this.pcDifficultyButtonWidth/2.0, this.pcDifficultyButtonWidth/2.0, -this.pcDifficultyButtonHeight/2.0, this.pcDifficultyButtonHeight/2.0);
+        this.optionsPos["Bot2Easy"] = 2.5 * this.width / 20.0;
+        this.optionsTextures["Bot2Easy"] = new CGFtexture(this.scene, "scenes/images/UI/easy.png");
 
-        this.options["Bot2Medium"] = new MyRectangle(this.scene, -this.width/10.0, this.width/10.0, -this.firstOptionsHeight /10.0, this.firstOptionsHeight /10.0);
-        this.optionsPos["Bot2Medium"] = [0.0, 0.0];
+        this.options["Bot2Medium"] = new MyRectangle(this.scene, -this.pcDifficultyButtonWidth/2.0, this.pcDifficultyButtonWidth/2.0, -this.pcDifficultyButtonHeight/2.0, this.pcDifficultyButtonHeight/2.0);
+        this.optionsPos["Bot2Medium"] = 5 * this.width / 20.0;
+        this.optionsTextures["Bot2Medium"] = new CGFtexture(this.scene, "scenes/images/UI/medium.png");
 
-        this.options["Bot2Hard"] = new MyRectangle(this.scene, -this.width/10.0, this.width/10.0, -this.firstOptionsHeight /10.0, this.firstOptionsHeight /10.0);
-        this.optionsPos["Bot2Hard"] = [0.0, -this.firstOptionsHeight  / 3.0];
+        this.options["Bot2Hard"] = new MyRectangle(this.scene, -this.pcDifficultyButtonWidth/2.0, this.pcDifficultyButtonWidth/2.0, -this.pcDifficultyButtonHeight/2.0, this.pcDifficultyButtonHeight/2.0);
+        this.optionsPos["Bot2Hard"] = 7.5 * this.width / 20.0;
+        this.optionsTextures["Bot2Hard"] = new CGFtexture(this.scene, "scenes/images/UI/hard.png");
 
-        // Start Game
-        this.options["StartGame"] = new MyRectangle(this.scene, -this.width/3.0, this.width/3.0, -this.height /10.0, this.height /10.0);
-        this.optionsPos["StartGame"] = [0.0, -5.0];
+        // Max Play Time
+        this.options["5s"] = new MyRectangle(this.scene, -this.maxPlayTimeButtonWidth/2.0, this.maxPlayTimeButtonWidth/2.0, -this.maxPlayTimeButtonHeight/2.0, this.maxPlayTimeButtonHeight/2.0);
+        this.optionsPos["5s"] = -6.0;
+        this.optionsTextures["5s"] = new CGFtexture(this.scene, "scenes/images/UI/5s.png");
 
-        // Move Time
-        this.options["5s"] = new MyRectangle(this.scene, -this.width/25.0, this.width/25.0, -this.height /30.0, this.height /30.0);
-        this.optionsPos["5s"] = [-5.0, 0.0];
+        this.options["10s"] = new MyRectangle(this.scene, -this.maxPlayTimeButtonWidth/2.0, this.maxPlayTimeButtonWidth/2.0, -this.maxPlayTimeButtonHeight/2.0, this.maxPlayTimeButtonHeight/2.0);
+        this.optionsPos["10s"] = -2;
+        this.optionsTextures["10s"] = new CGFtexture(this.scene, "scenes/images/UI/10s.png");
 
-        this.options["10s"] = new MyRectangle(this.scene, -this.width/25.0, this.width/25.0, -this.height /30.0, this.height /30.0);
-        this.optionsPos["10s"] = [0.0, 0.0];
+        this.options["15s"] = new MyRectangle(this.scene, -this.maxPlayTimeButtonWidth/2.0, this.maxPlayTimeButtonWidth/2.0, -this.maxPlayTimeButtonHeight/2.0, this.maxPlayTimeButtonHeight/2.0);
+        this.optionsPos["15s"] = 2;
+        this.optionsTextures["15s"] = new CGFtexture(this.scene, "scenes/images/UI/15s.png");
 
-        this.options["15s"] = new MyRectangle(this.scene, -this.width/25.0, this.width/25.0, -this.height /30.0, this.height /30.0);
-        this.optionsPos["15s"] = [5.0, 0.0];
+        this.options["20s"] = new MyRectangle(this.scene, -this.maxPlayTimeButtonWidth/2.0, this.maxPlayTimeButtonWidth/2.0, -this.maxPlayTimeButtonHeight/2.0, this.maxPlayTimeButtonHeight/2.0);
+        this.optionsPos["20s"] = 6.0;
+        this.optionsTextures["20s"] = new CGFtexture(this.scene, "scenes/images/UI/20s.png");
 
         // Theme
-        this.options["Theme1"] = new MyRectangle(this.scene, -this.width/15.0, this.width/15.0, -this.height /30.0, this.height /30.0);
-        this.optionsPos["Theme1"] = [-4.5, 0.0];
+        this.options["theme1"] = new MyRectangle(this.scene, -this.themeButtonWidth/2.0, this.themeButtonWidth/2.0, -this.themeButtonHeight/2.0, this.themeButtonHeight/2.0);
+        this.optionsPos["theme1"] = -5.0;
+        this.optionsTextures["theme1"] = new CGFtexture(this.scene, "scenes/images/UI/theme1.png");
 
-        this.options["Theme2"] = new MyRectangle(this.scene, -this.width/15.0, this.width/15.0, -this.height /30.0, this.height /30.0);
-        this.optionsPos["Theme2"] = [4.5, 0.0];
+        this.options["theme2"] = new MyRectangle(this.scene, -this.themeButtonWidth/2.0, this.themeButtonWidth/2.0, -this.themeButtonHeight/2.0, this.themeButtonHeight/2.0);
+        this.optionsPos["theme2"] = 3.0;
+        this.optionsTextures["theme2"] = new CGFtexture(this.scene, "scenes/images/UI/theme2.png");
+
+        // Start Game
+        this.options["startGame"] = new MyRectangle(this.scene, -this.width/5.0, this.width/5.0, -this.height /20.0, this.height /20.0);
+        this.optionsTextures["startGame"] = new CGFtexture(this.scene, "scenes/images/UI/start_game.png");
     }
 
     display() {
+        var id = 60;
+
         this.scene.registerPicking();
         this.scene.clearPickRegistration();
 
         this.scene.pushMatrix();
 
-        if (this.showingGameMovie) {
-            this.animator.animate();
-            return;
-        }
-
-
         // Background
         this.scene.translate(0, 35.5, 60);
         this.scene.rotate(-0.5, 1, 0, 0); 
+        this.material.apply();
         this.background.display();
 
         // Game Mode Options
         this.scene.pushMatrix();
-        this.scene.translate(-2, 10, 0);
+        this.scene.translate(0.0, this.gameModeHeight, 0.0);
 
+        this.scene.registerForPick(id++, '{"type":"option","option":"gameMode","value":"PlayerVsPlayer"}');
         this.scene.pushMatrix();
-        this.scene.translate(this.optionsPos["PlayerVsPlayer"][0], this.optionsPos["PlayerVsPlayer"][1], 1.0);
-        if (this.gameInfo.gameMode == "PlayerVsPlayer")
-            this.scene.scale(1.1, 1.1, 1);
-        this.scene.registerForPick(63, '{"type":"option","option":"PlayerVsPlayer"}');
+        this.scene.translate(this.optionsPos["PlayerVsPlayer"], 0.0, 1.0);
+        if (this.gameInfo.gameMode == "PlayerVsPlayer") this.scene.scale(1.2, 1.2, 1.0);
+        this.optionsTextures["PlayerVsPlayer"].bind();
         this.options["PlayerVsPlayer"].display();
         this.scene.popMatrix();
 
+        this.scene.registerForPick(id++, '{"type":"option","option":"gameMode","value":"PlayerVsComputer"}');
         this.scene.pushMatrix();
-        this.scene.translate(this.optionsPos["PlayerVsComputer"][0], this.optionsPos["PlayerVsComputer"][1], 1.0);
-        if (this.gameInfo.gameMode == "PlayerVsComputer")
-            this.scene.scale(1.1, 1.1, 1);
-        this.scene.registerForPick(64, '{"type":"option","option":"PlayerVsComputer"}');
+        this.scene.translate(this.optionsPos["PlayerVsComputer"], 0.0, 1.0);
+        if (this.gameInfo.gameMode == "PlayerVsComputer") this.scene.scale(1.2, 1.2, 1);
+        this.optionsTextures["PlayerVsComputer"].bind();
         this.options["PlayerVsComputer"].display();
         this.scene.popMatrix();
 
+        this.scene.registerForPick(id++, '{"type":"option","option":"gameMode","value":"ComputerVsPlayer"}');
         this.scene.pushMatrix();
-        this.scene.translate(this.optionsPos["ComputerVsComputer"][0], this.optionsPos["ComputerVsComputer"][1], 1.0);
-        if (this.gameInfo.gameMode == "ComputerVsComputer")
-            this.scene.scale(1.1, 1.1, 1);
-        this.scene.registerForPick(65, '{"type":"option","option":"ComputerVsComputer"}');
+        this.scene.translate(this.optionsPos["ComputerVsPlayer"], 0.0, 1.0);
+        if (this.gameInfo.gameMode == "ComputerVsPlayer") this.scene.scale(1.2, 1.2, 1);
+        this.optionsTextures["ComputerVsPlayer"].bind();
+        this.options["ComputerVsPlayer"].display();
+        this.scene.popMatrix();
+
+        this.scene.registerForPick(id++, '{"type":"option","option":"gameMode","value":"ComputerVsComputer"}');
+        this.scene.pushMatrix();
+        this.scene.translate(this.optionsPos["ComputerVsComputer"], 0.0, 1.0);
+        if (this.gameInfo.gameMode == "ComputerVsComputer") this.scene.scale(1.2, 1.2, 1);
+        this.optionsTextures["ComputerVsComputer"].bind();
         this.options["ComputerVsComputer"].display();
         this.scene.popMatrix();
 
@@ -193,121 +204,125 @@ class MyMenuState extends MyGameState {
 
         // Computer 1 Dificulty
         this.scene.pushMatrix();
-        this.scene.translate(2.5, 10, 0);
+        this.scene.translate(0.0, this.pcDifficultyHeight, 0.0);
 
+        this.scene.registerForPick(id++, '{"type":"option","option":"difficulty","pc":1,"level":1}');
         this.scene.pushMatrix();
-        this.scene.translate(this.optionsPos["Bot1Easy"][0], this.optionsPos["Bot1Easy"][1], 1.0);
-        if (this.gameInfo.difficultyLevelP1 == 1)
-            this.scene.scale(1.1, 1.1, 1);
-        this.scene.registerForPick(66, '{"type":"option","option":"Bot1Easy"}');
+        this.scene.translate(this.optionsPos["Bot1Easy"], 0.0, 1.0);
+        if (this.gameInfo.difficultyLevelP1 == 1) this.scene.scale(1.2, 1.2, 1);
+        this.optionsTextures["Bot1Easy"].bind();
         this.options["Bot1Easy"].display();
         this.scene.popMatrix();
 
+        this.scene.registerForPick(id++, '{"type":"option","option":"difficulty","pc":1,"level":2}');
         this.scene.pushMatrix();
-        this.scene.translate(this.optionsPos["Bot1Medium"][0], this.optionsPos["Bot1Medium"][1], 1.0);
-        if (this.gameInfo.difficultyLevelP1 == 2)
-            this.scene.scale(1.1, 1.1, 1);
-        this.scene.registerForPick(67, '{"type":"option","option":"Bot1Medium"}');
+        this.scene.translate(this.optionsPos["Bot1Medium"], 0.0, 1.0);
+        if (this.gameInfo.difficultyLevelP1 == 2) this.scene.scale(1.2, 1.2, 1);
+        this.optionsTextures["Bot1Medium"].bind();
         this.options["Bot1Medium"].display();
         this.scene.popMatrix();
 
+        this.scene.registerForPick(id++, '{"type":"option","option":"difficulty","pc":1,"level":3}');
         this.scene.pushMatrix();
-        this.scene.translate(this.optionsPos["Bot1Hard"][0], this.optionsPos["Bot1Hard"][1], 1.0);
-        if (this.gameInfo.difficultyLevelP1 == 3)
-            this.scene.scale(1.1, 1.1, 1);
-        this.scene.registerForPick(68, '{"type":"option","option":"Bot1Hard"}');
+        this.scene.translate(this.optionsPos["Bot1Hard"], 0.0, 1.0);
+        if (this.gameInfo.difficultyLevelP1 == 3) this.scene.scale(1.2, 1.2, 1);
+        this.optionsTextures["Bot1Hard"].bind();
         this.options["Bot1Hard"].display();
         this.scene.popMatrix();
 
-        this.scene.popMatrix();
-
         // Computer 2 Dificulty
+        this.scene.registerForPick(id++, '{"type":"option","option":"difficulty","pc":2,"level":1}');
         this.scene.pushMatrix();
-        this.scene.translate(16, 10, 0);
-
-        this.scene.pushMatrix();
-        this.scene.translate(this.optionsPos["Bot2Easy"][0], this.optionsPos["Bot2Easy"][1], 1.0);
-        if (this.gameInfo.difficultyLevelP2 == 1)
-            this.scene.scale(1.1, 1.1, 1);
-        this.scene.registerForPick(69, '{"type":"option","option":"Bot2Easy"}');
+        this.scene.translate(this.optionsPos["Bot2Easy"], 0.0, 1.0);
+        if (this.gameInfo.difficultyLevelP2 == 1) this.scene.scale(1.2, 1.2, 1);
+        this.optionsTextures["Bot2Easy"].bind();
         this.options["Bot2Easy"].display();
         this.scene.popMatrix();
 
+        this.scene.registerForPick(id++, '{"type":"option","option":"difficulty","pc":2,"level":2}');
         this.scene.pushMatrix();
-        this.scene.translate(this.optionsPos["Bot2Medium"][0], this.optionsPos["Bot2Medium"][1], 1.0);
-        if (this.gameInfo.difficultyLevelP2 == 2)
-            this.scene.scale(1.1, 1.1, 1);
-        this.scene.registerForPick(70, '{"type":"option","option":"Bot2Medium"}');
+        this.scene.translate(this.optionsPos["Bot2Medium"], 0.0, 1.0);
+        if (this.gameInfo.difficultyLevelP2 == 2) this.scene.scale(1.2, 1.2, 1);
+        this.optionsTextures["Bot2Medium"].bind();
         this.options["Bot2Medium"].display();
         this.scene.popMatrix();
 
+        this.scene.registerForPick(id++, '{"type":"option","option":"difficulty","pc":2,"level":3}');
         this.scene.pushMatrix();
-        this.scene.translate(this.optionsPos["Bot2Hard"][0], this.optionsPos["Bot2Hard"][1], 1.0);
-        if (this.gameInfo.difficultyLevelP2 == 3)
-            this.scene.scale(1.1, 1.1, 1);
-        this.scene.registerForPick(71, '{"type":"option","option":"Bot2Hard"}');
+        this.scene.translate(this.optionsPos["Bot2Hard"], 0.0, 1.0);
+        if (this.gameInfo.difficultyLevelP2 == 3) this.scene.scale(1.2, 1.2, 1);
+        this.optionsTextures["Bot2Hard"].bind();
         this.options["Bot2Hard"].display();
         this.scene.popMatrix();
 
         this.scene.popMatrix();
 
-        // Start Game
+        // Max Play Time
         this.scene.pushMatrix();
-        this.scene.translate(this.optionsPos["StartGame"][0], this.optionsPos["StartGame"][1], 1.0);
-        this.scene.registerForPick(72, '{"type":"option","option":"StartGame"}');
-        this.options["StartGame"].display();
-        this.scene.popMatrix();
+        this.scene.translate(0.0, this.maxPlayTimeHeight, 0.0);
 
-        // Move Time
+        this.scene.registerForPick(id++, '{"type":"option","option":"playTime","value":5}');
         this.scene.pushMatrix();
-        this.scene.translate(-15, -14, 0);
-
-        this.scene.pushMatrix();
-        this.scene.translate(this.optionsPos["5s"][0], this.optionsPos["5s"][1], 1.0);
-        if (this.gameInfo.playTime == 5)
-            this.scene.scale(1.1, 1.1, 1);
-        this.scene.registerForPick(73, '{"type":"option","option":"5s"}');
+        this.scene.translate(this.optionsPos["5s"], 0.0, 1.0);
+        if (this.gameInfo.playTime == 5) this.scene.scale(1.2, 1.2, 1);
+        this.optionsTextures["5s"].bind();
         this.options["5s"].display();
         this.scene.popMatrix();
 
+        this.scene.registerForPick(id++, '{"type":"option","option":"playTime","value":10}');
         this.scene.pushMatrix();
-        this.scene.translate(this.optionsPos["10s"][0], this.optionsPos["10s"][1], 1.0);
-        if (this.gameInfo.playTime == 10)
-            this.scene.scale(1.1, 1.1, 1);
-        this.scene.registerForPick(74, '{"type":"option","option":"10s"}');
+        this.scene.translate(this.optionsPos["10s"], 0.0, 1.0);
+        if (this.gameInfo.playTime == 10) this.scene.scale(1.1, 1.1, 1);
+        this.optionsTextures["10s"].bind();
         this.options["10s"].display();
         this.scene.popMatrix();
 
+        this.scene.registerForPick(id++, '{"type":"option","option":"playTime","value":15}');
         this.scene.pushMatrix();
-        this.scene.translate(this.optionsPos["15s"][0], this.optionsPos["15s"][1], 1.0);
-        if (this.gameInfo.playTime == 15)
-            this.scene.scale(1.1, 1.1, 1);
-        this.scene.registerForPick(75, '{"type":"option","option":"15s"}');
+        this.scene.translate(this.optionsPos["15s"], 0.0, 1.0);
+        if (this.gameInfo.playTime == 15) this.scene.scale(1.2, 1.2, 1);
+        this.optionsTextures["15s"].bind();
         this.options["15s"].display();
+        this.scene.popMatrix();
+
+        this.scene.registerForPick(id++, '{"type":"option","option":"playTime","value":20}');
+        this.scene.pushMatrix();
+        this.scene.translate(this.optionsPos["20s"], 0.0, 1.0);
+        if (this.gameInfo.playTime == 20) this.scene.scale(1.2, 1.2, 1);
+        this.optionsTextures["20s"].bind();
+        this.options["20s"].display();
         this.scene.popMatrix();
 
         this.scene.popMatrix();
 
         // Theme
         this.scene.pushMatrix();
-        this.scene.translate(14.5, -14, 0);
+        this.scene.translate(0.0, this.themeHeight, 0.0);
 
+        this.scene.registerForPick(id++, '{"type":"option","option":"theme","value":"theme1"}');
         this.scene.pushMatrix();
-        this.scene.translate(this.optionsPos["Theme1"][0], this.optionsPos["Theme1"][1], 1.0);
-        if (this.gameInfo.theme == "theme1")
-            this.scene.scale(1.1, 1.1, 1);
-        this.scene.registerForPick(76, '{"type":"option","option":"Theme1"}');
-        this.options["Theme1"].display();
+        this.scene.translate(this.optionsPos["theme1"], 0.0, 1.0);
+        if (this.gameInfo.theme == "theme1") this.scene.scale(1.2, 1.2, 1);
+        this.optionsTextures["theme1"].bind();
+        this.options["theme1"].display();
         this.scene.popMatrix();
 
+        this.scene.registerForPick(id++, '{"type":"option","option":"theme","value":"theme2"}');
         this.scene.pushMatrix();
-        this.scene.translate(this.optionsPos["Theme2"][0], this.optionsPos["Theme2"][1], 1.0);
-        if (this.gameInfo.theme == "theme2")
-            this.scene.scale(1.1, 1.1, 1);
-        this.scene.registerForPick(77, '{"type":"option","option":"Theme2"}');
-        this.options["Theme2"].display();
-        this.scene.popMatrix();
+        this.scene.translate(this.optionsPos["theme2"], 0.0, 1.0);
+        if (this.gameInfo.theme == "theme2") this.scene.scale(1.2, 1.2, 1);
+        this.optionsTextures["theme2"].bind();
+        this.options["theme2"].display();
+        this.scene.popMatrix(); 
 
+        this.scene.popMatrix();
+        
+        // Start Game
+        this.scene.registerForPick(id++, '{"type":"option","option":"startGame"}');
+        this.scene.pushMatrix();
+        this.scene.translate(0.0, -11.0, 5.0);
+        this.optionsTextures["startGame"].bind();
+        this.options["startGame"].display();
         this.scene.popMatrix();
 
         this.scene.popMatrix();
