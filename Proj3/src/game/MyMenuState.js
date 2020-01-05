@@ -70,10 +70,6 @@ class MyMenuState extends MyGameState {
         }
     }
 
-    update(time) {
-
-    }
-
     createOptions() {
 
         // Game Mode Options

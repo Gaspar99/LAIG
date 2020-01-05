@@ -3,7 +3,7 @@ class MyGameOrchestrator {
         this.scene = scene;
 
         this.gameInfo = {
-            gameMode: "ComputerVsComputer",
+            gameMode: "PlayerVsPlayer",
             difficultyLevelP1: 1,
             difficultyLevelP2: 1,
             playTime: 10, 
@@ -18,7 +18,6 @@ class MyGameOrchestrator {
         this.theme = new MySceneGraph(this.gameInfo.theme + ".xml", this);
 
         this.gameState = new MyMenuState(scene, this);
-        //this.gameState = new MyGameOverState(scene, this);
     }
 
     processPick(id, obj) {
