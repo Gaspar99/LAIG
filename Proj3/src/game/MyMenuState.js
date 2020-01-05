@@ -64,6 +64,7 @@ class MyMenuState extends MyGameState {
                 }
                 case "theme": {
                     this.gameInfo.theme = pickInfo.value;
+                    this.gameOrchestrator.theme = new MySceneGraph(this.gameInfo.theme + ".xml", this.gameOrchestrator);
                     break;
                 }
             }
