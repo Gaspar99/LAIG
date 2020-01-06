@@ -18,7 +18,7 @@ class MySceneGraph {
      * @constructor
      */
     constructor(filename, gameOrchestrator) {
-        this.loadedOk = null;
+        this.loadedOk = false;
 
         this.gameOrchestrator = gameOrchestrator;
         this.scene = gameOrchestrator.scene;

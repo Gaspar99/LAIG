@@ -22,6 +22,8 @@ class MyTile {
         this.jsonString = JSON.stringify(info);
 
         this.material = new CGFappearance(this.scene);
+        this.material.setShininess(1.0);
+        this.material.setSpecular(0.1, 0.1, 0.1, 1.0);
         this.material.loadTexture("scenes/images/tile.png");
         this.square = new MyRectangle(scene, -size/2.0, size/2.0, -size/2.0, size/2.0);
     }

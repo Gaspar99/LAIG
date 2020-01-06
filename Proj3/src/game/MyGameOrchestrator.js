@@ -43,6 +43,7 @@ class MyGameOrchestrator {
 
     display() {
         if (this.theme.loadedOk) {
+            console.log("Displaying boards");
             this.gameboards.display();
             this.theme.displayScene();
         }

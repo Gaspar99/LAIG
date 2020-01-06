@@ -38,7 +38,7 @@ class MyGameboard {
     display() {
         this.scene.pushMatrix();
         this.scene.scale(this.width, 1, this.height);
-        //this.scene.graph.processNode(this.componentID, this.transfMatrix, this.materialID, this.textureID, 1.0, 1.0);
+        this.scene.graph.processNode(this.componentID, this.transfMatrix, this.materialID, this.textureID, 1.0, 1.0);
         this.scene.popMatrix();
 
         var tileSize = this.width / 4.0;

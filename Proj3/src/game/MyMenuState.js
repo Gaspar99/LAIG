@@ -65,8 +65,10 @@ class MyMenuState extends MyGameState {
                     break;
                 }
                 case "theme": {
-                    this.gameInfo.theme = pickInfo.value;
-                    this.gameOrchestrator.theme = new MySceneGraph(this.gameInfo.theme + ".xml", this.gameOrchestrator);
+                    if (pickInfo.value != this.gameInfo.theme) {
+                        this.gameInfo.theme = pickInfo.value;
+                        this.gameOrchestrator.theme = new MySceneGraph(this.gameInfo.theme + ".xml", this.gameOrchestrator);      
+                    }
                     break;
                 }
             }
